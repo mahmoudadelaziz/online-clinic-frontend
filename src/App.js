@@ -6,6 +6,8 @@ import Contact from './Contact';
 import About from './About';
 import Doctors from './Doctors';
 import NavHeader from "./NavHeader";
+import SignUp from "./SignUp";
+import SignIn from "./SignIn";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
       <Route exact path="/Contact" component={Contact}/>
       <Route exact path="/About" component={About}/>
       <Route exact path="/Doctors" component={Doctors}/>
+      <Route exact path="/SignUp" component={SignUp}/>
+      <Route exact path="/SignIn" component={SignIn}/>
     </div>
   );
 }

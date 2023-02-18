@@ -20,10 +20,10 @@ function NavHeader(){
                 <Link to="/Doctors">For Doctors</Link>
             </li>
             <li id="rightSide">
-                <Link to="/Doctors">Sign Up</Link>
+                <Link to="/SignUp">Sign Up</Link>
             </li>
             <li id="rightSide">
-                <Link to="/Doctors">Sign In</Link>
+                <Link to="/SignIn">Sign In</Link>
             </li>
         </ul>
     )
