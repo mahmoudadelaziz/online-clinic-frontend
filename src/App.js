@@ -8,6 +8,7 @@ import Doctors from './Doctors';
 import NavHeader from "./NavHeader";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
+import ForDoctors from "./ForDoctors"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route exact path="/Doctors" component={Doctors}/>
       <Route exact path="/SignUp" component={SignUp}/>
       <Route exact path="/SignIn" component={SignIn}/>
+      <Route exact path="/ForDoctors" component={ForDoctors}/>
     </div>
   );
 }
