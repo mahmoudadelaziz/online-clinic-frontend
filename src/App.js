@@ -5,10 +5,12 @@ import Home from './Home';
 import Contact from './Contact';
 import About from './About';
 import Doctors from './Doctors';
+import NavHeader from "./NavHeader";
 
 function App() {
   return (
     <div className="App">
+      <NavHeader />
       <Route exact path="/" component={Home}/>
       <Route exact path="/Contact" component={Contact}/>
       <Route exact path="/About" component={About}/>
