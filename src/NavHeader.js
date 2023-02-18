@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function NavHeader(){
     return(
         <ul id="NavBar">
-            <li>
+            <li id="HomeButton">
                 <Link to="/">Home</Link>
             </li>
             <li>
@@ -15,6 +15,15 @@ function NavHeader(){
             </li>
             <li>
                 <Link to="/Contact">Contact Us</Link>
+            </li>
+            <li id="rightSide">
+                <Link to="/Doctors">For Doctors</Link>
+            </li>
+            <li id="rightSide">
+                <Link to="/Doctors">Sign Up</Link>
+            </li>
+            <li id="rightSide">
+                <Link to="/Doctors">Sign In</Link>
             </li>
         </ul>
     )

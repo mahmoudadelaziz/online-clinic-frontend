@@ -4,7 +4,9 @@ function Home
 () {
     return (
       <div className="Home">
-        <h1>Home sweet home!</h1>
+        <h1>Better healthcare for you!</h1>
+        <p>Search for doctors to find
+the clinic that best suits you</p>
       </div>
     );
 }
