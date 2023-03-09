@@ -1,21 +1,17 @@
-import Pet from "./Pet";
+import DoctorCard from "./DoctorCard";
 
-const Results = ({ pets }) => {
+const Results = ({ doctors }) => {
   return (
     <div className="search">
-      {!pets.length ? (
-        <h1>No Pets Found</h1>
+      {!doctors.length ? (
+        <h1>No Doctors Found!</h1>
       ) : (
-        pets.map((pet) => {
+        doctors.map((pet) => {
           return (
-            <Pet
-              animal={pet.animal}
-              key={pet.id}
-              name={pet.name}
-              breed={pet.breed}
-              images={pet.images}
+            <DoctorCard
+              name={pet.animal}
+              specialization={pet.id}
               location={`${pet.city}, ${pet.state}`}
-              id={pet.id}
             />
           );
         })

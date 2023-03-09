@@ -1,22 +1,35 @@
 // Nececssary imports
 import { useState } from "react";
+// import findDoctor from "./Search";
 
 // Global variables
 const SPECIALIZATIONS = [
-  "Dermatology",
-  "Cardiology",
-  "Neurology",
-  "Oncology",
-  "Opthalmology",
+  "Marketing",
+  "Support",
+  "Engineering",
+  "Sales"
 ];
-const PROVINCES = ["Cairo", "Alexandria"];
+const PROVINCES = ["Manchester", "Washington"];
 
 // THE Function component
 const Doctors = () => {
   const [doctorName, setDoctorName] = useState("");
+  const [searchResults, setSearchResults] = useState([])
+
+  async function findDoctors(location) {
+    // This function returns an array of users with the name entered in the form
+    const req = await fetch(`https://dummyjson.com/users/filter?key=address.city&value=${location}`);
+    const myData = await req.json();
+    const arr = myData.users; // An array of user objects
+    let namesList = [];
+    arr.forEach((element) => {namesList.push(element.firstName+" "+element.lastName)})
+    setSearchResults(namesList)
+  }
 
   // Returning markup
   return (
+    // Managing state
+    
     <div>
       <h1> Our Doctors </h1>
       <p> Find the right doctor for you! </p>
@@ -28,6 +41,8 @@ const Doctors = () => {
             e.preventDefault();
             const formData = new FormData(e.target);
             setDoctorName(formData.get("doctorName") ?? "");
+            const location = formData.get("location");
+            findDoctors(location);
           }}
         >
           <label htmlFor="doctorName">Name</label>
@@ -60,9 +75,11 @@ const Doctors = () => {
           <button>Submit</button>
         </form>
       </div>
-      <h2>Search Results</h2>
+      <h2><u>Search Results</u></h2>
       <div id="searchResults">
-        {<p> Searching for {doctorName} </p>}
+        {searchResults.map((doctor) => (
+          <h3>{doctor}</h3>
+        ))}
       </div>
     </div>
   );
