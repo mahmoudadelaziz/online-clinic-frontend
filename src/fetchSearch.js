@@ -1,9 +1,11 @@
 async function fetchSearch({ queryKey }) {
-    const { name, location, specialization } = queryKey[1];
-    const res = await fetch(`https://dummyjson.com/users/filter?key=hair.color&value=Brown`);
+    const { doctorName } = queryKey[1];
+    const res = await fetch(
+      `https://dummyjson.com/users/search?q=${doctorName}`
+    );
   
     if (!res.ok)
-      throw new Error(`pet search not okay: ${name}, ${location}, ${specialization}`);
+      throw new Error(`Doctor search not okay: ${doctorName}`);
   
     return res.json();
   }
