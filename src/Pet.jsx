@@ -1,0 +1,26 @@
+import { Link } from "react-router-dom";
+
+// A function component taking props and returning some HTML to the DOM
+const Pet = (props) => {
+  const { name, animal, breed, images, location, id } = props;
+  
+  let hero = "http://pets-images.dev-apis.com/pets/none.jpg";
+  if (images.length) {
+    hero = images[0];
+  }
+  
+  // to be displayed
+  return (
+    <Link to={`/details/${id}`} className="pet">
+      <div className="image-container">
+        <img src={hero} alt={name} />
+      </div>
+      <div className="info">
+        <h1>{name}</h1>
+        <h2>{`${animal} — ${breed} — ${location}`}</h2>
+      </div>
+    </Link>
+  );
+};
+
+export default Pet;

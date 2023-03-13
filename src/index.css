@@ -63,13 +63,3 @@ li a:hover:not(.active) {
   padding: 20px;
   
 }
-
-input, label{
-  width: 90%;
-  padding: 12px 20px;
-  margin: 11px 0;
-  display: block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
