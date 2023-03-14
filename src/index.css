@@ -65,12 +65,13 @@ li a:hover:not(.active) {
 }
 
 #doctorCard{
+  color:#f2f2f2;
   padding: 1%;
-  margin-top: 1%;
-  margin-left: 25%;
-  margin-right: 25%;
+  margin-top: 3%;
+  margin-left: 15%;
+  margin-right: 15%;
   background-color: #04AA6D;
-  border-radius: 5%;
+  border-radius: 500pt;
 }
 
 #doctorAvatar{
@@ -83,6 +84,7 @@ li a:hover:not(.active) {
 }
 
 #searchForm{
+  color:#f2f2f2;
   text-align: left;
   background-color: #04AA6D;
   margin-left: 25%;
