@@ -63,3 +63,12 @@ li a:hover:not(.active) {
   padding: 20px;
   
 }
+
+#doctorCard{
+  padding: 1%;
+  margin-top: 1%;
+  margin-left: 25%;
+  margin-right: 25%;
+  background-color: #04AA6D;
+  border-radius: 5%;
+}

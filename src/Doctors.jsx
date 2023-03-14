@@ -9,7 +9,7 @@ const SPECIALIZATIONS = [
   "Engineering",
   "Sales"
 ];
-const PROVINCES = ["Manchester", "Washington"];
+const PROVINCES = ["Manchester", "Washington", "Nashville", "Louisville", "Essex", "Glendale"];
 
 // THE Function component
 const Doctors = () => {
@@ -76,9 +76,11 @@ const Doctors = () => {
       <h2><u>Search Results</u></h2>
       <div id="searchResults">
         {searchResults.map((doctor) => (
-          <div>
+          <div id="doctorCard">
+            <img src={doctor.image}></img>
           <h3>{doctor.firstName} {doctor.lastName}</h3>
-          <h4> {doctor.address.address} </h4>
+          <h4> {doctor.company.department} </h4>
+          <h5> {doctor.address.address}, {doctor.address.city} </h5>
           </div>
         ))}
       </div>
