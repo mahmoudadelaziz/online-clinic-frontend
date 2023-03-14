@@ -21,9 +21,7 @@ const Doctors = () => {
     const req = await fetch(`https://dummyjson.com/users/filter?key=address.city&value=${location}`);
     const myData = await req.json();
     const arr = myData.users; // An array of user objects
-    let namesList = [];
-    arr.forEach((element) => {namesList.push(element.firstName+" "+element.lastName)})
-    setSearchResults(namesList)
+    setSearchResults(arr)
   }
 
   // Returning markup
@@ -79,7 +77,8 @@ const Doctors = () => {
       <div id="searchResults">
         {searchResults.map((doctor) => (
           <div>
-          <h3>{doctor}</h3>
+          <h3>{doctor.firstName} {doctor.lastName}</h3>
+          <h4> {doctor.address.address} </h4>
           </div>
         ))}
       </div>
