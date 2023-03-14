@@ -35,6 +35,7 @@ const Doctors = () => {
       {/* Our Search Form */}
       <div className="search-params">
         <form
+        id = "searchForm"
           onSubmit={(e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
@@ -77,7 +78,7 @@ const Doctors = () => {
       <div id="searchResults">
         {searchResults.map((doctor) => (
           <div id="doctorCard">
-            <img src={doctor.image}></img>
+            <img src={doctor.image} id="doctorAvatar"></img>
           <h3>{doctor.firstName} {doctor.lastName}</h3>
           <h4> {doctor.company.department} </h4>
           <h5> {doctor.address.address}, {doctor.address.city} </h5>
