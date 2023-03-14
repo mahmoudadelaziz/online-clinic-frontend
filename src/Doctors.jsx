@@ -13,7 +13,7 @@ const PROVINCES = ["Manchester", "Washington"];
 
 // THE Function component
 const Doctors = () => {
-  const [doctorName, setDoctorName] = useState("");
+  // const [doctorName, setDoctorName] = useState("");
   const [searchResults, setSearchResults] = useState([])
 
   async function findDoctors(location) {
@@ -40,7 +40,7 @@ const Doctors = () => {
           onSubmit={(e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
-            setDoctorName(formData.get("doctorName") ?? "");
+            // setDoctorName(formData.get("doctorName") ?? "");
             const location = formData.get("location");
             findDoctors(location);
           }}
@@ -78,7 +78,9 @@ const Doctors = () => {
       <h2><u>Search Results</u></h2>
       <div id="searchResults">
         {searchResults.map((doctor) => (
+          <div>
           <h3>{doctor}</h3>
+          </div>
         ))}
       </div>
     </div>
