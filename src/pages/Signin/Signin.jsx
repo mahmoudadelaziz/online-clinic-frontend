@@ -1,23 +1,19 @@
 import React from "react";
-import { Button, Input } from "../../components";
+import { Button, Input, Checkbox } from "../../components";
 import "./Signin.css";
 
 function SignIn() {
   return (
     <section className="form__container">
-      <h1 className="signup__heading">Sign up</h1>
-      <p className="signup__subheading">Create an account</p>
-      <form className="signup__form">
-        <Input placeholder="Full Name" />
-        <Input placeholder="Email" />
+      <h1 className="auth__heading">Sign in</h1>
+      <p className="auth__subheading">Log into your account</p>
+      <form className="auth__form">
+        <Input placeholder="username" />
         <Input placeholder="Password" />
-        <div className="signup__selection">
-          <Button title="Patient" variant="secondary" />
-          <Button title="Doctor" variant="secondary" />
-        </div>
-        <Button title="Sign up" variant="primary" />
+        <Checkbox text="Remember me" />
+        <Button title="Sign in" variant="primary" />
         <a href="/login" className="signup__link" style={{ marginTop: "29px" }}>
-          Have an account? Login
+          Don't have an account? Join us
         </a>
       </form>
     </section>

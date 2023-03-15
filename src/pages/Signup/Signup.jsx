@@ -5,9 +5,9 @@ import "./Signup.css";
 function SignUp() {
   return (
     <section className="form__container">
-      <h1 className="signup__heading">Sign up</h1>
-      <p className="signup__subheading">Create an account</p>
-      <form className="signup__form">
+      <h1 className="auth__heading">Sign up</h1>
+      <p className="auth__subheading">Create an account</p>
+      <form className="auth__form">
         <Input placeholder="Full Name" />
         <Input placeholder="Email" />
         <Input placeholder="Password" />

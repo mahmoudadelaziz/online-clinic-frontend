@@ -1,0 +1,4 @@
+.text-small {
+  font-size: var(--text-small);
+  font-weight: 300;
+}
