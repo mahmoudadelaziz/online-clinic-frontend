@@ -1,0 +1,27 @@
+.signup__heading {
+    font-size: var(--h1);
+    margin-bottom: 22px;
+}
+.signup__subheading {
+    font-size: var(--subtitle-1);
+    margin-bottom: 22px;
+}
+.signup__heading,
+.signup__subheading {
+    color: var(--primary);
+    font-weight: 500;
+}
+.signup__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.signup__selection {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 90px;
+}
+.signup__link {
+    color: var(--secondary);
+}
