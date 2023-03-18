@@ -10,10 +10,15 @@
   /* Colors */
   --primary: #224957;
   --secondary: #20df7f;
+  /* Button */
   --btn-background-1: #0ebe7f;
-  /* Sizes */
   --btn-width-1: 480px;
   --btn-width-2: 230px;
+  /* Navigation Drawer */
+  --drawer-width: 20%;
+  --drawer-collapsed-width: 3%;
+  --drawer-padding: 6px;
+  --nav-link-spacing: 20px;
 }
 * {
   margin: 0;
@@ -25,6 +30,9 @@ body {
 }
 a {
   text-decoration: none;
+}
+.material-symbols-outlined {
+  margin-right: 10px;
 }
 .form__container {
   width: var(--form-width);

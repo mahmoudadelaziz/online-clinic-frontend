@@ -1,6 +1,5 @@
-import { SignIn } from "./pages";
-
+import { NavDrawer } from "./components";
 const App = () => {
-  return <SignIn />;
+  return <NavDrawer />;
 };
 export { App };
