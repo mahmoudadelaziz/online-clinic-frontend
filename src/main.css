@@ -15,9 +15,8 @@
   --btn-width-1: 480px;
   --btn-width-2: 230px;
   /* Navigation Drawer */
-  --drawer-width: 20%;
+  --drawer-width: 200px;
   --drawer-collapsed-width: 50px;
-  --drawer-padding: 1px;
   --nav-link-spacing: 20px;
 }
 * {
@@ -30,12 +29,12 @@ body {
 }
 a {
   text-decoration: none;
+  color: inherit;
 }
 .material-symbols-outlined {
   margin-right: 10px;
 }
 .form__container {
-  width: var(--form-width);
   height: var(--form-height);
   position: absolute;
   top: calc(50% - var(--form-height) / 2);

@@ -3,9 +3,9 @@ import "./NavList.css";
 
 const NavList = ({ isOpen }) => {
   const NavItems = [
-    { title: "Home", icon: "home" },
-    { title: "Login", icon: "login" },
-    { title: "Signup", icon: "person_add" },
+    { title: "Home", icon: "home", route: "/" },
+    { title: "Login", icon: "login", route: "/signin" },
+    { title: "Signup", icon: "person_add", route: "/signup" },
   ];
   return (
     <ul className="nav__list">
@@ -14,6 +14,7 @@ const NavList = ({ isOpen }) => {
           key={item.title}
           iconName={item.icon}
           linkName={item.title}
+          route={item.route}
           isOpen={isOpen}
         />
       ))}
