@@ -3,6 +3,7 @@
   align-items: center;
   margin-bottom: var(--nav-link-spacing);
   margin-left: 5px;
+  padding-left: 5px;
   cursor: pointer;
 }
 .link-text {

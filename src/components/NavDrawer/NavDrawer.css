@@ -2,19 +2,41 @@
   background-color: #e5e5e5;
   height: 100vh;
   width: var(--drawer-width);
-  padding: var(--drawer-padding);
   transition: width 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
-.menu {
+.menu-btn {
   cursor: pointer;
   position: absolute;
-  right: 0px;
-  top: 5px;
+  right: 18px;
+  top: 20px;
   margin-left: 20px;
+  display: block;
+  width: 20px;
 }
+
+.menu-btn::before,
+.menu-btn::after {
+  background-color: black;
+  content: "";
+  display: block;
+  height: 2px;
+  transition: all 200ms ease-in-out;
+}
+.menu-btn::before {
+  box-shadow: 0 10px 0 black;
+  margin-bottom: 18px;
+}
+.menu-closed::before {
+  box-shadow: 0 0 0 #fff;
+  transform: translateY(10px) rotate(45deg);
+}
+.menu-closed::after {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
 .nav__header {
-  margin: 30px 10px;
   position: relative;
+  padding: 20px 10px;
 }
 /* Animations */
 .expand-nav-drawer {

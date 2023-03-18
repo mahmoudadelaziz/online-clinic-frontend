@@ -11,13 +11,16 @@ const NavDrawer = () => {
     ? "expand-nav-drawer"
     : "collapse-nav-drawer";
   const brandAnimationClass = isOpen ? "" : "hide-brand";
-
+  const menuIconAnimationClass = isOpen ? "menu-closed" : "";
   return (
     <nav className={`nav ${drawerAnimationClass}`}>
       <div className="nav__header">
         <h2 className={`brand ${brandAnimationClass}`}>Clinic</h2>
-        <span className="material-symbols-outlined menu" onClick={handleClick}>
-          menu
+        <span
+          className={`menu-btn ${menuIconAnimationClass}`}
+          onClick={handleClick}
+        >
+          {" "}
         </span>
       </div>
       <NavList isOpen={isOpen} />
