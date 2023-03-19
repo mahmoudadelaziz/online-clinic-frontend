@@ -31,6 +31,11 @@ a {
   text-decoration: none;
   color: inherit;
 }
+.active {
+  background-color: var(--primary);
+  border-radius: 5px;
+  color: white;
+}
 .material-symbols-outlined {
   margin-right: 10px;
 }
