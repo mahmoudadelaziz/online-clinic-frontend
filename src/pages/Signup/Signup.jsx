@@ -1,21 +1,33 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { usernameSchema } from "./schema";
 import { Button, Input } from "../../components";
 import "./Signup.css";
 
+const formInitialState = {
+  name: "",
+  email: "",
+  username: "",
+  password: "",
+  phoneNumber: "",
+};
+const errorsInitialState = {
+  name: "",
+  email: "",
+  username: "",
+  password: "",
+  phoneNumber: "",
+};
 function SignUp() {
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    username: "",
-    password: "",
-    phoneNumber: "",
-  });
+  const [user, setUser] = useState(formInitialState);
+  const [errors, setErrors] = useState(errorsInitialState);
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const res = usernameSchema.validate(user.username);
+    console.log(res.error.message);
     try {
       const { data } = await axios.post(
         `${import.meta.env.VITE_BASE_URL}user/patient/signup`,
@@ -46,12 +58,14 @@ function SignUp() {
         <Input
           placeholder="Email"
           name="email"
+          type="email"
           value={user.email}
           onChange={(e) => handleInputChange(e)}
         />
         <Input
           placeholder="Password"
           name="password"
+          type="password"
           value={user.password}
           onChange={(e) => handleInputChange(e)}
         />
