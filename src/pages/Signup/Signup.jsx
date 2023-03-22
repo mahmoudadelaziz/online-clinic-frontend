@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { signupSchema } from "../../utility/formSchemas";
-import { Button, Input } from "../../components";
+import { Button } from "../../components";
+import { FormInputList } from "../../components";
 import "./Signup.css";
 
 const formInitialState = {
@@ -28,14 +29,17 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const validationResult = signupSchema.validate(user, {
+      const { error } = signupSchema.validate(user, {
         abortEarly: false,
       });
-      const errors = {};
-      validationResult.error.details.forEach((error) => {
-        errors[error.context.key] = error.message;
-      });
-      setErrors(errors);
+      if (error) {
+        const errors = {};
+        error.details.forEach((error) => {
+          errors[error.context.key] = error.message;
+        });
+        setErrors(errors);
+        return;
+      }
       await axios.post(
         `${import.meta.env.VITE_BASE_URL}user/patient/signup`,
         user
@@ -75,20 +79,11 @@ function SignUp() {
       <h1 className="auth__heading">Sign up</h1>
       <p className="auth__subheading">Create an account</p>
       <form className="auth__form" onSubmit={(e) => handleSubmit(e)}>
-        {formInputs.map((input) => (
-          <>
-            <Input
-              placeholder={input.placeholder}
-              name={input.name}
-              value={input.value}
-              key={input.name}
-              onChange={(e) => handleInputChange(e)}
-            />
-            {errors[input.name] && (
-              <div className="error">{errors[input.name]}</div>
-            )}
-          </>
-        ))}
+        <FormInputList
+          formInputs={formInputs}
+          errors={errors}
+          changeHandler={handleInputChange}
+        />
         <Button
           title="Sign up"
           variant="primary"
