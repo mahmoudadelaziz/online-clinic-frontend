@@ -2,7 +2,7 @@ import Joi from "joi";
 
 const MIN = 3;
 const MAX = 12;
-export const usernameSchema = Joi.string()
+const usernameSchema = Joi.string()
   .required()
   .min(MIN)
   .max(MAX)
@@ -22,7 +22,7 @@ export const usernameSchema = Joi.string()
     });
     return errors;
   });
-export const nameSchema = Joi.string()
+const nameSchema = Joi.string()
   .required()
   .min(MIN)
   .max(MAX)
@@ -42,7 +42,7 @@ export const nameSchema = Joi.string()
     });
     return errors;
   });
-export const phoneNumberSchema = Joi.string()
+const phoneNumberSchema = Joi.string()
   .regex(/^(\+\d{1,3}[- ]?)?\d{10}$/)
   .error((errors) => {
     errors.forEach((error) => {
@@ -56,7 +56,7 @@ export const phoneNumberSchema = Joi.string()
     });
     return errors;
   });
-export const passwordSchema = Joi.string()
+const passwordSchema = Joi.string()
   .required()
   .min(MIN)
   .max(MAX)
@@ -76,7 +76,7 @@ export const passwordSchema = Joi.string()
     });
     return errors;
   });
-export const emailSchema = Joi.string()
+const emailSchema = Joi.string()
   .required()
   .email({ tlds: { allow: false } })
   .error((errors) => {
@@ -94,3 +94,11 @@ export const emailSchema = Joi.string()
     });
     return errors;
   });
+
+export const signupSchema = Joi.object({
+  name: nameSchema,
+  email: emailSchema,
+  phoneNumber: phoneNumberSchema,
+  username: usernameSchema,
+  password: passwordSchema,
+});
