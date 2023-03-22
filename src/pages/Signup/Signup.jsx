@@ -1,12 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import {
-  usernameSchema,
-  emailSchema,
-  nameSchema,
-  passwordSchema,
-  phoneNumberSchema,
-} from "../../utility/formSchemas";
+import { signupSchema } from "../../utility/formSchemas";
 import { Button, Input } from "../../components";
 import "./Signup.css";
 
@@ -29,57 +23,77 @@ function SignUp() {
   const [errors, setErrors] = useState(errorsInitialState);
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
+      const validationResult = signupSchema.validate(user, {
+        abortEarly: false,
+      });
+      const errors = {};
+      validationResult.error.details.forEach((error) => {
+        errors[error.context.key] = error.message;
+      });
+      setErrors(errors);
+      await axios.post(
         `${import.meta.env.VITE_BASE_URL}user/patient/signup`,
         user
       );
-      console.log(data);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   };
+  const formInputs = [
+    {
+      placeholder: "Full Name",
+      value: user.name,
+      name: "name",
+      onChange: handleInputChange,
+    },
+    {
+      placeholder: "Username",
+      value: user.username,
+      name: "username",
+      onChange: handleInputChange,
+    },
+    {
+      placeholder: "Email",
+      value: user.email,
+      name: "email",
+      onChange: handleInputChange,
+    },
+    {
+      placeholder: "Password",
+      value: user.password,
+      name: "password",
+      onChange: handleInputChange,
+    },
+  ];
   return (
     <section className="form__container">
       <h1 className="auth__heading">Sign up</h1>
       <p className="auth__subheading">Create an account</p>
       <form className="auth__form" onSubmit={(e) => handleSubmit(e)}>
-        <Input
-          placeholder="Full Name"
-          name="name"
-          value={user.name}
-          onChange={(e) => handleInputChange(e)}
+        {formInputs.map((input) => (
+          <>
+            <Input
+              placeholder={input.placeholder}
+              name={input.name}
+              value={input.value}
+              key={input.name}
+              onChange={(e) => handleInputChange(e)}
+            />
+            {errors[input.name] && (
+              <div className="error">{errors[input.name]}</div>
+            )}
+          </>
+        ))}
+        <Button
+          title="Sign up"
+          variant="primary"
+          style={{ marginTop: "10px" }}
         />
-        <Input
-          placeholder="Username"
-          name="username"
-          value={user.username}
-          onChange={(e) => handleInputChange(e)}
-        />
-        <Input
-          placeholder="Email"
-          name="email"
-          type="email"
-          value={user.email}
-          onChange={(e) => handleInputChange(e)}
-        />
-        <Input
-          placeholder="Password"
-          name="password"
-          type="password"
-          value={user.password}
-          onChange={(e) => handleInputChange(e)}
-        />
-        <Input
-          placeholder="PhoneNumber"
-          name="phoneNumber"
-          value={user.phoneNumber}
-          onChange={(e) => handleInputChange(e)}
-        />
-        <Button title="Sign up" variant="primary" />
         <a href="/login" className="signup__link" style={{ marginTop: "29px" }}>
           Have an account? Login
         </a>
