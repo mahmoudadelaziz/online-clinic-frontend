@@ -1,21 +1,23 @@
 .btn {
-    display: inline-block;
-    border-style: none;
-    border-radius: 10px;
-    font-weight: 500;
-    font-size: var(--subtitle-1);
-    color: white;
-    height: 60px;
-    cursor: pointer;
+  display: inline-block;
+  border-style: none;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: var(--subtitle-1);
+  color: white;
+  height: 60px;
+  cursor: pointer;
 }
 .btn-primary {
-    width: var(--btn-width-1);
-    padding: 18px 180px;
-    background-color: var(--secondary);
+  width: var(--btn-width-1);
+  padding: 18px 180px;
+  background-color: var(--secondary);
 }
 .btn-secondary {
-    width: var(--btn-width-2);
-    background-color: var(--btn-background-1);
+  width: var(--btn-width-2);
+  background-color: var(--btn-background-1);
 }
-.btn-primary:hover {}
-.btn-secondary:hover{}
+.btn-primary:hover {
+}
+.btn-secondary:hover {
+}
