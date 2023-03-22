@@ -102,3 +102,8 @@ export const signupSchema = Joi.object({
   username: usernameSchema,
   password: passwordSchema,
 });
+
+export const signinSchema = Joi.object({
+  username: usernameSchema,
+  password: passwordSchema,
+});
