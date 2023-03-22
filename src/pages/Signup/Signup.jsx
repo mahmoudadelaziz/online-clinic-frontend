@@ -1,6 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { usernameSchema } from "./schema";
+import {
+  usernameSchema,
+  emailSchema,
+  nameSchema,
+  passwordSchema,
+  phoneNumberSchema,
+} from "../../utility/formSchemas";
 import { Button, Input } from "../../components";
 import "./Signup.css";
 
@@ -26,8 +32,6 @@ function SignUp() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = usernameSchema.validate(user.username);
-    console.log(res.error.message);
     try {
       const { data } = await axios.post(
         `${import.meta.env.VITE_BASE_URL}user/patient/signup`,
@@ -35,7 +39,7 @@ function SignUp() {
       );
       console.log(data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   return (
