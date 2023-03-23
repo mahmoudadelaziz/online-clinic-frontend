@@ -58,24 +58,3 @@
   opacity: 0;
   left: -400%;
 }
-
-@keyframes hide-brand {
-  from {
-    opacity: 1;
-    left: 0;
-  }
-  to {
-    opacity: 0;
-    left: -200%;
-  }
-}
-@keyframes show-brand {
-  from {
-    opacity: 0;
-    left: -200%;
-  }
-  to {
-    opacity: 1;
-    left: 0;
-  }
-}

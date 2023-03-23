@@ -15,7 +15,7 @@
   --btn-width-1: 480px;
   --btn-width-2: 230px;
   /* Navigation Drawer */
-  --drawer-width: 200px;
+  --drawer-width: 400px;
   --drawer-collapsed-width: 50px;
   --nav-link-spacing: 20px;
 }
@@ -23,6 +23,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: stretch;
 }
 body {
   font-family: "Rubik", sans-serif;
@@ -42,14 +48,16 @@ a {
 .material-symbols-outlined {
   margin-right: 10px;
 }
+.main-content {
+  height: 100%;
+  flex: 1;
+  position: relative;
+}
 .form__container {
   height: var(--form-height);
   position: absolute;
   top: calc(50% - var(--form-height) / 2);
   left: calc(50% - var(--form-width) / 2);
-  /* top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
   display: flex;
   flex-direction: column;
   align-items: center;

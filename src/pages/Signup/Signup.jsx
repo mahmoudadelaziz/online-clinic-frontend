@@ -87,7 +87,7 @@ function SignUp() {
         <Button
           title="Sign up"
           variant="primary"
-          style={{ marginTop: "10px" }}
+          style={{ marginTop: "10px", width: "100%", padding: "18px 180px" }}
         />
         <a href="/login" className="signup__link" style={{ marginTop: "29px" }}>
           Have an account? Login

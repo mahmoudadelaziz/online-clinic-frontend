@@ -6,6 +6,7 @@ const NavList = ({ isOpen }) => {
     { title: "Home", icon: "home", route: "/" },
     { title: "Login", icon: "login", route: "/signin" },
     { title: "Signup", icon: "person_add", route: "/signup" },
+    { title: "Doctors", icon: "stethoscope", route: "/doctors" },
   ];
   return (
     <ul className="nav__list">

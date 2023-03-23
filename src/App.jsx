@@ -1,17 +1,16 @@
 import { Layout } from "./components";
-import { Outlet, Route, Routes } from "react-router-dom";
-import { SignIn, SignUp } from "./pages";
+import { Route, Routes } from "react-router-dom";
+import { SignIn, SignUp, Doctors } from "./pages";
 
 const App = () => {
   return (
-    <div className="layout">
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
-        </Route>
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/doctors" element={<Doctors />} />
+      </Route>
+    </Routes>
   );
 };
 export { App };

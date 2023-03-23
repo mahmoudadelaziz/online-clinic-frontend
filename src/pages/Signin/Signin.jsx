@@ -66,7 +66,11 @@ function SignIn() {
           changeHandler={handleInputChange}
         />
         <Checkbox text="Remember me" />
-        <Button title="Sign in" variant="primary" />
+        <Button
+          title="Sign in"
+          variant="primary"
+          style={{ width: "100%", padding: "18px 180px" }}
+        />
         <a href="/login" className="signup__link" style={{ marginTop: "29px" }}>
           Don't have an account? Join us
         </a>

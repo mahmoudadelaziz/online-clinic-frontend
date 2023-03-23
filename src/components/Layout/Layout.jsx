@@ -4,7 +4,9 @@ const Layout = () => {
   return (
     <>
       <NavDrawer />
-      <Outlet />
+      <div className="main-content">
+        <Outlet />
+      </div>
     </>
   );
 };
