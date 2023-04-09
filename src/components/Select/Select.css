@@ -1,0 +1,29 @@
+.select__container {
+  position: relative;
+}
+.select__container select {
+  padding: 10px 30px 10px 10px;
+  border: none;
+  background-color: white;
+  font-family: "Rubik", sans-serif;
+  font-weight: 300;
+  cursor: pointer;
+  transition: background-color 0.3s linear;
+  width: inherit;
+  appearance: none;
+}
+.select__container select:hover {
+  background-color: whitesmoke;
+}
+.select__container > span {
+  display: block;
+  user-select: none;
+  position: absolute;
+  top: 5px;
+  right: 0;
+}
+.select__label {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}

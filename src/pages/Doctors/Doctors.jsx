@@ -1,4 +1,5 @@
-import { DoctorCard } from "../../components/DoctorCard/DoctorCard";
+// import { DoctorCard } from "../../components";
+import { Search } from "../../components";
 export const Doctors = () => {
-  return <DoctorCard />;
+  return <>{<Search />}</>;
 };

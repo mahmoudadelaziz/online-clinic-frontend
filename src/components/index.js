@@ -4,3 +4,6 @@ export * from "./Checkbox/Checkbox";
 export * from "./NavDrawer/NavDrawer";
 export * from "./Layout/Layout";
 export * from "./FormInputList/FormInputList";
+export * from "./Select/Select";
+export * from "./DoctorCard/DoctorCard";
+export * from "./Search/Search";

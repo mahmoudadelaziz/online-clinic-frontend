@@ -29,6 +29,7 @@
   height: 100vh;
   display: flex;
   justify-content: stretch;
+  background-color: #ccc;
 }
 body {
   font-family: "Rubik", sans-serif;
