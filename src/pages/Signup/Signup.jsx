@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { signupSchema } from "../../utility/formSchemas";
-import { Button } from "../../components";
 import { FormInputList } from "../../components";
 import "./Signup.css";
+import { Container, Link, Typography, Button } from "@mui/material";
 
 const formInitialState = {
   name: "",
@@ -75,25 +75,48 @@ function SignUp() {
     },
   ];
   return (
-    <section className="form__container">
-      <h1 className="auth__heading">Sign up</h1>
-      <p className="auth__subheading">Create an account</p>
-      <form className="auth__form" onSubmit={(e) => handleSubmit(e)}>
+    <Container maxWidth="sm" sx={{ mt: 10 }}>
+      <form onSubmit={handleSubmit}>
+        <Typography
+          variant="h2"
+          color="primary"
+          sx={{ textAlign: "center" }}
+          fontWeight="bold"
+        >
+          Sign up
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          color="primary.dark"
+          sx={{ textAlign: "center" }}
+          fontWeight="bold"
+        >
+          Create an account
+        </Typography>
         <FormInputList
           formInputs={formInputs}
           errors={errors}
           changeHandler={handleInputChange}
         />
         <Button
-          title="Sign up"
-          variant="primary"
-          style={{ marginTop: "10px", width: "100%", padding: "18px 180px" }}
-        />
-        <a href="/login" className="signup__link" style={{ marginTop: "29px" }}>
-          Have an account? Login
-        </a>
+          variant="contained"
+          color="primary"
+          type="submit"
+          sx={{ width: "100%", my: 2 }}
+        >
+          Sign up
+        </Button>
+        <Link href="/signin">
+          <Typography
+            variant="subtitle1"
+            color="primary"
+            sx={{ textAlign: "center" }}
+          >
+            Have an account? Login
+          </Typography>
+        </Link>
       </form>
-    </section>
+    </Container>
   );
 }
 
