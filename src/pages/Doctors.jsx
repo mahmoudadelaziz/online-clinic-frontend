@@ -1,4 +1,4 @@
-import { DoctorInfo } from "../../components";
+import { DoctorInfo } from "../components";
 export const Doctors = () => {
   return <DoctorInfo />;
 };

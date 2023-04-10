@@ -1,27 +1,27 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { signupSchema } from "../../utility/formSchemas";
-import { FormInputList } from "../../components";
-import "./Signup.css";
-import { Container, Link, Typography, Button } from "@mui/material";
+import { FormInputList } from "../components";
+import { signinSchema } from "../utility/formSchemas";
+import axios from "axios";
+import {
+  Button,
+  Container,
+  Typography,
+  Checkbox,
+  Link,
+  Box,
+} from "@mui/material";
 
 const formInitialState = {
-  name: "",
-  email: "",
   username: "",
   password: "",
-  phoneNumber: "",
 };
 const errorsInitialState = {
-  name: "",
-  email: "",
   username: "",
   password: "",
-  phoneNumber: "",
 };
-function SignUp() {
-  const [user, setUser] = useState(formInitialState);
+function SignIn() {
   const [errors, setErrors] = useState(errorsInitialState);
+  const [user, setUser] = useState(formInitialState);
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
@@ -29,7 +29,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { error } = signupSchema.validate(user, {
+      const { error } = signinSchema.validate(user, {
         abortEarly: false,
       });
       if (error) {
@@ -41,7 +41,7 @@ function SignUp() {
         return;
       }
       await axios.post(
-        `${import.meta.env.VITE_BASE_URL}user/patient/signup`,
+        `${import.meta.env.VITE_BASE_URL}user/patient/signin`,
         user
       );
     } catch (error) {
@@ -50,25 +50,11 @@ function SignUp() {
   };
   const formInputs = [
     {
-      placeholder: "Full Name",
-      value: user.name,
-      name: "name",
-      onChange: handleInputChange,
-      type: "text",
-    },
-    {
       placeholder: "Username",
       value: user.username,
       name: "username",
       onChange: handleInputChange,
       type: "text",
-    },
-    {
-      placeholder: "Email",
-      value: user.email,
-      name: "email",
-      onChange: handleInputChange,
-      type: "email",
     },
     {
       placeholder: "Password",
@@ -87,7 +73,7 @@ function SignUp() {
           sx={{ textAlign: "center" }}
           fontWeight="bold"
         >
-          Sign up
+          Sign in
         </Typography>
         <Typography
           variant="subtitle1"
@@ -95,33 +81,28 @@ function SignUp() {
           sx={{ textAlign: "center" }}
           fontWeight="bold"
         >
-          Create an account
+          Log into your account
         </Typography>
         <FormInputList
           formInputs={formInputs}
           errors={errors}
           changeHandler={handleInputChange}
         />
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          sx={{ width: "100%", my: 2 }}
-        >
-          Sign up
+        <Button variant="contained" color="primary" type="submit">
+          Sign in
         </Button>
-        <Link href="/signin">
-          <Typography
-            variant="subtitle1"
-            color="primary"
-            sx={{ textAlign: "center" }}
-          >
-            Have an account? Login
-          </Typography>
-        </Link>
+        <Box sx={{ display: "flex", justifyContent: "space-between", my: 2 }}>
+          <Box>
+            <Checkbox sx={{ p: 0, mr: 1 }} />
+            <Typography variant="caption">Remember me</Typography>
+          </Box>
+          <Link href="/login" underline="always">
+            Don't have an account? Join us
+          </Link>
+        </Box>
       </form>
     </Container>
   );
 }
 
-export { SignUp };
+export { SignIn };

@@ -1,3 +1,3 @@
-export * from "./Signin/Signin";
-export * from "./Signup/Signup";
-export * from "./Doctors/Doctors";
+export * from "./Signin";
+export * from "./Signup";
+export * from "./Doctors";

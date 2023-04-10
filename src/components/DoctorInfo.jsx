@@ -7,8 +7,8 @@ import {
   Rating,
   Button,
 } from "@mui/material";
-import profile from "../../assets/doctor.jpg";
-export const DoctorInfo = ({}) => {
+import profile from "../assets/doctor.jpg";
+export const DoctorInfo = () => {
   return (
     <Card>
       <CardContent>

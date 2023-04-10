@@ -1,9 +1,0 @@
-.signup__selection {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    margin-bottom: 90px;
-}
-.signup__link {
-    color: var(--secondary);
-}
