@@ -55,12 +55,14 @@ function SignIn() {
       value: user.username,
       name: "username",
       onChange: handleInputChange,
+      type: "text",
     },
     {
       placeholder: "Password",
       value: user.password,
       name: "password",
       onChange: handleInputChange,
+      type: "password",
     },
   ];
   return (

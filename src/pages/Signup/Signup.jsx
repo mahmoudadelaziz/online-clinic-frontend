@@ -54,24 +54,28 @@ function SignUp() {
       value: user.name,
       name: "name",
       onChange: handleInputChange,
+      type: "text",
     },
     {
       placeholder: "Username",
       value: user.username,
       name: "username",
       onChange: handleInputChange,
+      type: "text",
     },
     {
       placeholder: "Email",
       value: user.email,
       name: "email",
       onChange: handleInputChange,
+      type: "email",
     },
     {
       placeholder: "Password",
       value: user.password,
       name: "password",
       onChange: handleInputChange,
+      type: "password",
     },
   ];
   return (
