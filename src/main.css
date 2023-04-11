@@ -1,35 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap");
-:root {
-  --form-width: 530px;
-  --form-height: 660px;
-  /* Typography */
-  --h1: 64px;
-  --subtitle-1: 24px;
-  --input-placeholder: 20px;
-  --text-small: 14px;
-  /* Colors */
-  --primary: #224957;
-  --secondary: #20df7f;
-  /* Button */
-  --btn-background-1: #0ebe7f;
-  --btn-width-1: 480px;
-  --btn-width-2: 230px;
-  /* Navigation Drawer */
-  --drawer-width: 400px;
-  --drawer-collapsed-width: 50px;
-  --nav-link-spacing: 20px;
-}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-#root {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: stretch;
-  background-color: #ccc;
 }
 body {
   font-family: "Rubik", sans-serif;
@@ -38,47 +11,8 @@ a {
   text-decoration: none;
   color: inherit;
 }
-.error {
-  color: rgb(228, 13, 13);
-}
-.active {
-  background-color: var(--primary);
-  border-radius: 5px;
-  color: white;
-}
-.material-symbols-outlined {
-  margin-right: 10px;
-}
 .main-content {
   height: 100%;
   flex: 1;
   position: relative;
-}
-.form__container {
-  height: var(--form-height);
-  position: absolute;
-  top: calc(50% - var(--form-height) / 2);
-  left: calc(50% - var(--form-width) / 2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.auth__heading {
-  font-size: var(--h1);
-  margin-bottom: 22px;
-}
-.auth__subheading {
-  font-size: var(--subtitle-1);
-  margin-bottom: 22px;
-}
-.auth__heading,
-.auth__subheading {
-  color: var(--primary);
-  font-weight: 500;
-}
-.auth__form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
