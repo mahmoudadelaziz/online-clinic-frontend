@@ -7,8 +7,8 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-export const SelectInput = ({ options, label, defaultValue }) => {
-  const [option, setOption] = useState(null);
+export const SelectInput = ({ options, label }) => {
+  const [option, setOption] = useState("");
   const handleCitySelectChange = (event) => {
     setOption(event.target.value);
   };
