@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../utility/axios";
 import React, { useState } from "react";
 import { signupSchema } from "../utility/formSchemas";
 import { FormInputList } from "../components";
@@ -39,10 +39,7 @@ function SignUp() {
         setErrors(errors);
         return;
       }
-      await axios.post(
-        `${import.meta.env.VITE_BASE_URL}user/patient/signup`,
-        user
-      );
+      await axios.post(`/user/patient/signup`, user);
     } catch (error) {
       console.log(error);
     }

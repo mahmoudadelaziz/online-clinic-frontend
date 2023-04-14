@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FormInputList } from "../components";
 import { signinSchema } from "../utility/formSchemas";
-import axios from "axios";
+import axios from "../utility/axios";
 import {
   Button,
   Container,
@@ -40,10 +40,7 @@ function SignIn() {
         setErrors(errors);
         return;
       }
-      await axios.post(
-        `${import.meta.env.VITE_BASE_URL}user/patient/signin`,
-        user
-      );
+      await axios.post(`/user/patient/signin`, user);
     } catch (error) {
       console.log(error);
     }
