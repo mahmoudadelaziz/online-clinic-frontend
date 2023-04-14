@@ -9,8 +9,25 @@ import {
 import { DoctorInfo, SelectInput } from "../components";
 import { cities, specializations } from "../constants";
 import { Search } from "@mui/icons-material";
+import { useEffect, useState } from "react";
+import axios from "../utility/axios";
+
 export const Doctors = () => {
-  const doctors = ["a", "b", "c", "d", "e", "f", "g"];
+  const [doctors, setDoctors] = useState([]);
+  useEffect(() => {
+    const getDoctors = async () => {
+      try {
+        const {
+          data: { doctors },
+        } = await axios.get("/user/doctor/info");
+        setDoctors(doctors);
+        console.log(doctors);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getDoctors();
+  }, []);
   return (
     <>
       <Container>
@@ -38,8 +55,8 @@ export const Doctors = () => {
         </Stack>
         <Grid container spacing={4} sx={{ mt: 2 }}>
           {doctors.map((doctor) => (
-            <Grid item xs={12} md={6} lg={4}>
-              <DoctorInfo />
+            <Grid item xs={12} md={6} lg={4} key={doctor.id}>
+              <DoctorInfo doctor={doctor} />
             </Grid>
           ))}
         </Grid>
