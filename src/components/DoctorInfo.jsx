@@ -9,10 +9,6 @@ import {
 } from "@mui/material";
 import profile from "../assets/doctor.jpg";
 export const DoctorInfo = ({ doctor }) => {
-  const ratingSum = doctor.reviews.reduce((acc, review) => {
-    return acc + review.rating;
-  }, 0);
-  const rating = ratingSum / doctor.reviews.length;
   return (
     <Card>
       <CardContent>
@@ -25,9 +21,9 @@ export const DoctorInfo = ({ doctor }) => {
             {doctor.specialization}
           </Typography>
           <Stack direction="row" sx={{ mt: 1 }} alignItems="center">
-            <Rating value={rating} precision={0.5} sx={{ mr: 1 }} />
+            <Rating value={doctor.avgRating} precision={0.5} sx={{ mr: 1 }} />
             <Typography variant="body2" color="grey">
-              ({doctor.reviews.length}-Reviews)
+              ({doctor.numberOfReviews}-Reviews)
             </Typography>
           </Stack>
           <Typography variant="body1" color="primary" sx={{ mt: 2 }}>
