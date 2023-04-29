@@ -1,26 +1,31 @@
 import React from "react"
-import { Route} from 'react-router-dom';
-import './App.css';
-import Home from './Home';
-import Contact from './Contact';
-import About from './About';
-import Doctors from './Doctors';
-import NavHeader from "./NavHeader";
-import SignUp from "./SignUp";
-import SignIn from "./SignIn";
-import ForDoctors from "./ForDoctors"
+import { Routes, Route } from 'react-router-dom';
+import './assets/style/App.css';
+import "./assets/style/App.css";
+import Home from "./Home";
+import Contact from "./Contact";
+import About from "./About";
+import Doctors from "./Doctors";
+import NavHeader from "./Navbar/NavHeader";
+import SignUp from "./Auth/SignUp";
+import SignIn from "./Auth/SignIn";
+import ForDoctors from "./ForDoctors";
+import Sidebar from "./Sidebar";
 
 function App() {
   return (
     <div className="App">
-      <NavHeader />
-      <Route exact path="/" component={Home}/>
-      <Route exact path="/Contact" component={Contact}/>
-      <Route exact path="/About" component={About}/>
-      <Route exact path="/Doctors" component={Doctors}/>
-      <Route exact path="/SignUp" component={SignUp}/>
-      <Route exact path="/SignIn" component={SignIn}/>
-      <Route exact path="/ForDoctors" component={ForDoctors}/>
+    <NavHeader />
+      <Routes>
+        <Route name="home" path="/" element={ <Home />}/>
+        <Route name="contact" path="/Contact" element={ <Contact />}/>
+        <Route path="/About" element={ <About />}/>
+        <Route path="/Doctors" element={ <Doctors />}/>
+        <Route path="/SignUp" element={ <SignUp /> } />
+        <Route path="/SignIn" element={ <SignIn />}/>
+        <Route path="/ForDoctors" element={ <ForDoctors />}/>
+      </Routes>
+      <Sidebar />
     </div>
   );
 }

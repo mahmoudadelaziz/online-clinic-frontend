@@ -1,0 +1,176 @@
+$primary-color: #224957;
+$green-button: #20df7f;
+$input-x-padding: 20px;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /*background-color: #04AA6D;*/
+}
+
+/* Start NavBar Style */
+
+#NavBar {
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#NavBar li {
+  float: left;
+  list-style: none;
+}
+
+li a {
+  display: block;
+  color: #fff;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#NavBar a {
+  color: #000;
+  padding: 0 16px;
+}
+
+#NavBar a:hover:not(.active) {
+  background-color: #fbfbfb;
+
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+#NavBar .right-side {
+  display: flex;
+  align-items: center;
+}
+
+
+#HomeButton{
+  /*background-color: rgb(26, 133, 221);*/
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#NavBar #signup a {
+  color: #fff;
+  padding: 7px 32px;
+  background: #000;
+  border-radius: 5px;
+}
+
+#NavBar #signup a:hover:not(.active) {
+  background-color: #000;
+}
+
+/* End NavBar Style */
+
+.SignUp, .SignIn {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  margin-right: 25%;
+  margin-left: 25%;
+  padding: 5%;
+  /*padding: 20px;*/
+
+}
+
+input, label{
+  width: 100%;
+  //display: block;
+  text-align: center;
+}
+
+label {
+  padding: 12px 20px;
+}
+
+input {
+  border: 1px solid #ccc;
+  border-radius: 9px;
+  background-color: $primary-color;
+  padding: 22px $input-x-padding;
+  color: #fff;
+  //border: 1px solid #000;
+}
+
+/* Start Sign In Page Style */
+
+.SignIn {
+  color: $primary-color;
+
+  h5 {
+    margin: 30px 0;
+  }
+
+  .login {
+    background-color: $green-button;
+    border: 0;
+    border-radius: 8px;
+    padding: 25px 0;
+    //width: calc(100% - calc($input-x-padding * 2));
+    width: 100%;
+    box-shadow: 0 8px 10px rgb(0 0 0 / 0.2);
+  }
+
+  .remember-input {
+    display: flex;
+    align-items: center;
+
+    input {
+      float: left;
+      margin-left: -1.5em;
+      border-radius: 0.25em;
+      width: 2em;
+      height: 2em;
+      margin-top: 0.25em;
+      vertical-align: top;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      appearance: none;
+      border: 1px solid rgba(0, 0, 0, 0.25);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+
+      &:active {
+        filter: brightness(90%);
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 0.25rem #22495757;
+      }
+
+      &:checked {
+        background-color: #224957;
+      }
+    }
+  }
+
+  input:focus-visible {
+    border: 0;
+  }
+}
+
+/* End Sign In Page Style */

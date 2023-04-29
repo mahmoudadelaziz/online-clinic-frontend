@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+.Sidebar {
+  display: flex;
+  width: 20%;
+}
+.Items {
+  display: flex;
+  flex-direction: column;
+  background-color: seagreen;
+
+  padding: 10px;
+}
