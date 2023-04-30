@@ -1,0 +1,51 @@
+.footer-block {
+  background-color: #f2f2f2;
+  height: 500px;
+  padding-top: 80px;
+
+  @media screen and (min-width: 1400px) {
+    .footer-container {
+      padding-left: 155px;
+    }
+  }
+
+  .footer-container {
+
+    .link {
+      color: #000;
+      padding: 0 70px 0 35px;
+      text-decoration: none;
+      font-weight: bold;
+
+      @media screen and (min-width: 1400px) {
+        &:nth-child(1) {
+          padding-left: 70px;
+        }
+      }
+      &:nth-child(4) {
+        padding-left: 50px;
+        padding-right: 50px;
+        text-transform: uppercase;
+      }
+    }
+
+    .socials {
+      padding-top: 50px;
+      border-top: 1px solid;
+      margin-top: 50px;
+      padding-left: 145px;
+
+      span {
+        margin-right: 60px;
+      }
+
+      img {
+        width: 50px;
+      }
+    }
+
+    p {
+      padding-left: 80px;
+    }
+  }
+}
