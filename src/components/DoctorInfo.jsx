@@ -8,6 +8,8 @@ import {
   Button,
 } from "@mui/material";
 import profile from "../assets/doctor.jpg";
+import { Link } from "react-router-dom";
+
 export const DoctorInfo = ({ doctor }) => {
   return (
     <Card>
@@ -33,7 +35,7 @@ export const DoctorInfo = ({ doctor }) => {
             10:00 AM - 11:00 AM
           </Typography>
           <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-            Book Now
+            <Link to={`/doctor/${doctor.name}`}>Book Now</Link>
           </Button>
         </Stack>
       </CardContent>
