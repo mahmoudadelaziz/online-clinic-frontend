@@ -13,6 +13,7 @@ import {
   Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Review } from "./Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
 
 // Placeholder for available timeslots
 const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
@@ -29,10 +30,10 @@ export const DoctorProfile = ({ doctor }) => {
             <Typography variant="h3" color="primary">
               Doctor's Name
             </Typography>
-            <Typography variant="subtitle1" color="grey">
+            <Typography variant="body2" color="grey">
               Doctor's Specialty
             </Typography>
-            <Typography variant="subtitle2" color="grey">
+            <Typography variant="body1" color="grey">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
               ligula velit, iaculis semper sem quis, consectetur volutpat
               tellus. Aliquam et nulla efficitur, laoreet mauris id, tincidunt
@@ -49,10 +50,10 @@ export const DoctorProfile = ({ doctor }) => {
 
             <Stack my={12}>
               <Typography variant="h4">Available Time Slots</Typography>
-              <Grid container spacing={20} alignItems="center">
+              <Grid padding={2} container spacing={20} alignItems="center">
                 <Grid item xs>
                   <Typography variant="h6">Today</Typography>
-                  <Stack>
+                  <Stack spacing={0.5}>
                     {AvailableSlots.map((slot) => {
                       return <Button variant="outlined">{slot}</Button>;
                     })}
@@ -60,7 +61,7 @@ export const DoctorProfile = ({ doctor }) => {
                 </Grid>
                 <Grid item xs>
                   <Typography variant="h6">Tomorrow</Typography>
-                  <Stack>
+                  <Stack spacing={0.5}>
                     {AvailableSlots.map((slot) => {
                       return <Button variant="outlined">{slot}</Button>;
                     })}
@@ -68,13 +69,29 @@ export const DoctorProfile = ({ doctor }) => {
                 </Grid>
                 <Grid item xs>
                   <Typography variant="h6">After 2 days</Typography>
-                  <Stack>
+                  <Stack spacing={0.5}>
                     {AvailableSlots.map((slot) => {
                       return <Button variant="outlined">{slot}</Button>;
                     })}
                   </Stack>
                 </Grid>
               </Grid>
+            </Stack>
+
+            <Stack>
+              <Typography variant="h4">Patients' Reviews</Typography>
+            </Stack>
+
+            {/* REVIEWS */}
+            <Stack
+              padding={2}
+              spacing={3}
+              divider={<Divider orientation="horizontal" flexItem />}
+            >
+              {/* One Review */}
+              <Review />
+              <Review />
+              <Review />
             </Stack>
           </Grid>
         </Grid>
