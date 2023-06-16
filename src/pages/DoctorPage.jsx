@@ -19,7 +19,7 @@ import { Review } from "./Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIE
 // Placeholder for available timeslots
 const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
 
-export const DoctorProfile = () => {
+export const DoctorPage = () => {
   const { name } = useParams();
   return (
     <Card>
