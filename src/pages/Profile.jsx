@@ -1,3 +1,4 @@
+// Patient's profile
 import {
   Card,
   Divider,
@@ -9,26 +10,39 @@ import {
   Rating,
   Button,
 } from "@mui/material";
+import { borders } from '@mui/system';
 
 export const Profile = () => {
   return (
-  <Card>
+    <div align="center">
+  <Card variant="outlined" sx={{ my : 5, mx : 50, p : 0.1, borderRadius: 10 }}>
     <CardContent>
-      <Typography>
-        User's Name
+
+      <Stack spacing={1.5}>
+      <Typography variant="h3">
+        Your Profile
       </Typography>
-      <Typography>
-        User's Email
+      <Typography sx={{ border: 1 }}>
+        Full Name
       </Typography>
-      <Typography>
-        User's Phone Number
+      <Typography sx={{ border: 1 }}>
+        Email
       </Typography>
-      <Typography>
-        User's Name
+      <Typography sx={{ border: 1 }}>
+        Phone Number
       </Typography>
-      <Typography>
+
+      <Typography sx={{ border: 1 }}>
         Account Created in (DATE)
       </Typography>
+      <Typography sx={{ border: 1 }}>
+        Your Appointments
+      </Typography>
+      <Typography sx={{ border: 1 }}>
+        Your Reviews
+      </Typography>
+      </Stack>
     </CardContent>
-  </Card>)
+  </Card>
+  </div>)
 };
