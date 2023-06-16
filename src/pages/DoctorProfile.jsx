@@ -1,5 +1,6 @@
 import { DoctorInfo, SelectInput } from "../components";
 import { Doctors } from "./Doctors";
+import { useParams } from "react-router-dom";
 import profile from "../assets/doctor.jpg";
 import {
   Card,
@@ -18,7 +19,8 @@ import { Review } from "./Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIE
 // Placeholder for available timeslots
 const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
 
-export const DoctorProfile = ({ doctor }) => {
+export const DoctorProfile = () => {
+  const { name } = useParams();
   return (
     <Card>
       <CardContent>
