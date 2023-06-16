@@ -1,7 +1,9 @@
-import { Stack, Typography, Rating } from "@mui/material";
+import { Stack, Typography, Rating, Grid } from "@mui/material";
 
 export const Review = () => {
   return (
+    <Grid container>
+      <Grid item xs={10}>
     <Stack container direction={"row"} spacing={5}>
       <Stack direction="column">
         <Stack item>Patient's Name</Stack>
@@ -17,5 +19,10 @@ export const Review = () => {
         </Stack>
       </Stack>
     </Stack>
+    </Grid>
+    <Grid item xs={2}>
+      <Typography variant="subtitle1" color="gray">In (Date)</Typography>
+    </Grid>
+    </Grid>
   );
 };
