@@ -35,6 +35,9 @@ export const DoctorPage = () => {
             <Typography variant="body2" color="grey">
               Doctor's Specialty
             </Typography>
+            <Typography variant="body2" color="grey">
+              Location
+            </Typography>
             <Typography variant="body1" color="grey">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
               ligula velit, iaculis semper sem quis, consectetur volutpat
