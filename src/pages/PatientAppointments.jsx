@@ -3,7 +3,6 @@ import { Stack, Typography, Button, Grid } from "@mui/material";
 export const PatientAppointments = () => {
   return (
     <Grid container>
-
       <Grid item xs={6} padding={3} textAlign="center">
         <Typography variant="subtitle1" color="gray">
           In (AppDate) At (AppTime)
@@ -16,20 +15,35 @@ export const PatientAppointments = () => {
         </Typography>
       </Grid>
 
-      <Grid item xs={2} padding={3} textAlign="center">  
-      {/* Filler item */}
-      </Grid>
-      
-      <Grid item xs={4} padding={3} textAlign="center">
-        <Stack>
-              <Typography variant="body1" color="grey">
-                (Status)
-              </Typography>
-              <Button variant="outlined">Reschedule</Button>
-              <Button variant="outlined">Cancel</Button>
-          </Stack>
+      <Grid item xs={2} padding={3} textAlign="center">
+        {/* Filler item */}
       </Grid>
 
+      <Grid item xs={4} padding={3} textAlign="center">
+        <Stack>
+          <Typography variant="body1" color="grey">
+            (Status)
+          </Typography>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              // WRITE APPOINTMENT RESCHEDUELING FUNCTION HERE
+              console.log("Appointment Rescheduled");
+            }}
+          >
+            Reschedule
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              // WRITE APPOINTMENT CANCELLATION FUNCTION HERE
+              console.log("Appointment Cancelled");
+            }}
+          >
+            Cancel
+          </Button>
+        </Stack>
+      </Grid>
     </Grid>
   );
 };
