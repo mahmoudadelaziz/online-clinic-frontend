@@ -18,7 +18,7 @@ import { Review } from "../components/Review"; // STILL NEED TO PASS VARIABLES T
 // Placeholder for available timeslots
 const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
 
-export const DoctorPage = () => {
+export const Doctor = () => {
   const { name } = useParams();
   return (
     <Container sx={{ mt: 2 }}>
