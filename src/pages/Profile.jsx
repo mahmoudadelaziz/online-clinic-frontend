@@ -27,7 +27,7 @@ export const Profile = () => {
             </Typography>
 
             {/* HISTORY STUFF */}
-            <Typography variant="h5" sx={{ border: 1 }}>
+            <Typography variant="h5">
               Your Appointments
             </Typography>
             <Stack spacing={0.5}>
@@ -44,7 +44,7 @@ export const Profile = () => {
               })}
             </Stack>
 
-            <Typography variant="h5" sx={{ border: 1 }}>
+            <Typography variant="h5">
               Your Reviews
             </Typography>
             <Stack spacing={0.5}>
