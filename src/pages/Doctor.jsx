@@ -12,7 +12,6 @@ import {
   Button,
   Container,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import { Review } from "../components/Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
 
 // Placeholder for available timeslots
@@ -20,6 +19,7 @@ const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
 
 export const Doctor = () => {
   const { name } = useParams();
+  console.log(name)
   return (
     <Container sx={{ mt: 2 }}>
       <Card>
