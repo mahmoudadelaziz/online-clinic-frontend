@@ -38,8 +38,16 @@ export const Profile = () => {
   }, []);
 
   const handleEditData = () => {
+    if (editState) {
+      fetchDoctorData(id);
+    }
     setEditState(!editState);
     // console.log(!editState ? "Read and Write" : "Read only");
+  };
+
+  const handleSaveData = () => {
+    // Call api to update data if there's a change, rerender new data<<
+    setEditState(false);
   };
 
   const handleNameChange = (event) => {
@@ -71,8 +79,8 @@ export const Profile = () => {
     setDoctorData({ ...doctorData, price });
   };
   const handleLocationChange = (event) => {
-    const location = event.target.value;
-    setDoctorData({ ...doctorData, location });
+    const locationId = event.target.value;
+    setDoctorData({ ...doctorData, locationId });
   };
 
   return (
@@ -128,7 +136,7 @@ export const Profile = () => {
               // id="outlined-read-only-input"
               label="About"
               defaultValue=" "
-              value={doctorData.about}
+              value={doctorData.about || ""}
               onChange={handleAboutChange}
               multiline
               InputProps={{
@@ -139,7 +147,7 @@ export const Profile = () => {
               // id="outlined-read-only-input"
               label="Specialization"
               defaultValue=" "
-              value={doctorData.specialization}
+              value={doctorData.specialization || ""}
               onChange={handleSpecializationChange}
               InputProps={{
                 readOnly: !editState,
@@ -149,7 +157,7 @@ export const Profile = () => {
               // id="outlined-read-only-input"
               label="Price"
               defaultValue=" "
-              value={doctorData.price}
+              value={doctorData.price || 0}
               onChange={handlePriceChange}
               InputProps={{
                 readOnly: !editState,
@@ -159,7 +167,7 @@ export const Profile = () => {
               // id="outlined-read-only-input"
               label="Location"
               defaultValue=" "
-              value={doctorData.locationId}
+              value={doctorData.locationId || ""}
               onChange={handleLocationChange}
               InputProps={{
                 readOnly: !editState,
@@ -170,8 +178,13 @@ export const Profile = () => {
               variant="contained"
               onClick={handleEditData}
             >
-              {editState ? "Save Changes" : "Edit Profile"}
+              {editState ? "Cancel" : "Edit Profile"}
             </Button>
+            {editState && (
+              <Button variant="contained" onClick={handleSaveData}>
+                Save Changes
+              </Button>
+            )}
             <Stack my={12}>
               <Typography variant="h4">Available Time Slots</Typography>
               <Grid padding={2} container spacing={20} alignItems="center">
