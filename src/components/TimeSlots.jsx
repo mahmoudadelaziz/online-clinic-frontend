@@ -1,8 +1,9 @@
-import * as React from "react";
-import { useState } from "react";
-import { Grid, Button } from "@mui/material";
+import React, { useState } from "react";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
-const DaySlots = () => {
+const DaySlots = ({ slotDuration = 20, reservedSlots = [] }) => {
   const [selectedSlot, setSelectedSlot] = useState(null);
 
   const handleSlotClick = (slotIndex) => {
@@ -13,41 +14,76 @@ const DaySlots = () => {
     }
   };
 
-  const slots = [];
-  for (let i = 0; i < 16; i++) {
-    const hour = Math.floor(i / 2) + 9; // 9am to 5pm
-    const minute = (i % 2) * 30; // 0 or 30 minutes
-    const time = `${hour
-      .toString()
-      .padStart(2, "0")}:${minute.toString().padEnd(2, "0")}`;
-    slots.push({ time, index: i });
+  const isReserved = (slotIndex) => reservedSlots.includes(slotIndex);
+
+  const rows = [];
+  for (let i = 9; i < 17; i++) {
+    // 9am to 5pm
+    const row = [];
+    for (let j = 0; j < 60 / slotDuration; j++) {
+      const minute = j * slotDuration;
+      const time = `${i.toString().padStart(2, "0")}:${minute
+        .toString()
+        .padEnd(2, "0")}`;
+      const index = i * 60 + minute;
+      const disabled = isReserved(index);
+      row.push({ time, index, disabled });
+    }
+    rows.push(row);
   }
 
   return (
-    <Grid container spacing={2}>
-      {slots.map((slot) => (
-        <Grid item xs={3} key={slot.index}>
-          <Button
-            variant="outlined"
-            sx={{
-              height: "60px",
-              border: "1px solid rgba(0, 0, 0, 0.12)",
-              borderRadius: "4px",
-              backgroundColor: selectedSlot === slot.index ? "green" : "white",
-              color: selectedSlot === slot.index ? "white" : "inherit",
-              cursor: "pointer",
-              transition: "background-color 0.2s ease-in-out",
-              "&:hover": {
-                backgroundColor: "rgba(0, 0, 0, 0.04)"
-              }
-            }}
-            onClick={() => handleSlotClick(slot.index)}
-          >
-            {slot.time}
-          </Button>
-        </Grid>
-      ))}
-    </Grid>
+    <Box sx={{ height: "400px", overflowY: "auto" }}>
+      <Grid container spacing={2}>
+        {rows.map((row, i) => (
+          <Grid item xs={12} key={i}>
+            <Grid container spacing={2}>
+              {row.map((slot) => (
+                <Grid item key={slot.index}>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      width: `${slotDuration}px`,
+                      height: `${slotDuration}px`,
+                      border: "1px solid rgba(0, 0, 0, 0.12)",
+                      borderRadius: "4px",
+                      backgroundColor:
+                        selectedSlot === slot.index
+                          ? "green"
+                          : slot.disabled
+                          ? "rgba(0, 0, 0, 0.12)"
+                          : "white",
+                      color:
+                        selectedSlot === slot.index
+                          ? "white"
+                          : slot.disabled
+                          ? "rgba(0, 0, 0, 0.26)"
+                          : "inherit",
+                      cursor: slot.disabled ? "default" : "pointer",
+                      transition: "background-color 0.2s ease-in-out",
+                      "&:hover": {
+                        backgroundColor:
+                          selectedSlot === slot.index
+                            ? "green"
+                            : slot.disabled
+                            ? "rgba(0, 0, 0, 0.12)"
+                            : "rgba(0, 0, 0, 0.04)",
+                      },
+                    }}
+                    onClick={() =>
+                      !slot.disabled && handleSlotClick(slot.index)
+                    }
+                    disabled={slot.disabled}
+                  >
+                    {slot.time}
+                  </Button>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 };
 
