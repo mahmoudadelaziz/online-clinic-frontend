@@ -33,10 +33,6 @@ function SignUp() {
         abortEarly: false,
       });
       if (error) {
-        // Debugging
-        // console.log("HERE NOW ERROR!!!!")
-        // console.log(error)
-
         const errors = {};
         error.details.forEach((error) => {
           errors[error.context.key] = error.message;
