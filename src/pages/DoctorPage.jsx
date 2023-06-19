@@ -1,19 +1,18 @@
-import { DoctorInfo, SelectInput } from "../components";
-import { Doctors } from "./Doctors";
-import { useParams } from "react-router-dom";
-import profile from "../assets/doctor.jpg";
 import {
-  Card,
-  Divider,
-  CardContent,
   Avatar,
+  Button,
+  Card,
+  CardContent,
+  Divider,
   Grid,
+  Rating,
   Stack,
   Typography,
-  Rating,
-  Button,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import profile from "../assets/doctor.jpg";
+import { DoctorInfo, SelectInput } from "../components";
+import { Doctors } from "./Doctors";
 import { Review } from "./Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
 
 // Placeholder for available timeslots
