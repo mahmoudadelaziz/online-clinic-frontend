@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Review } from "../components/Review";
 import profile from "../assets/doctor.jpg";
 import {
   Card,
@@ -12,14 +12,17 @@ import {
   Button,
   Container,
 } from "@mui/material";
-import { Review } from "../components/Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
+import { useParams } from "react-router-dom";
+
 
 // Placeholder for available timeslots
 const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
 
 export const Doctor = () => {
   const { name } = useParams();
-  console.log(name)
+  let formattedName = name.replace("-", " ")
+  console.log("FORMATTED NAME:", formattedName) // debugging
+
   return (
     <Container sx={{ mt: 2 }}>
       <Card>
