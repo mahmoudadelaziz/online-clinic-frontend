@@ -14,7 +14,7 @@ import profile from "../assets/doctor.jpg";
 import { DoctorInfo, SelectInput } from "../components";
 import { Doctors } from "./Doctors";
 import { Review } from "./Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
-import WorkDayScheduler from "../components/TimeSlots";
+import DaySlots from "../components/TimeSlots";
 
 // Placeholder for available timeslots
 const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
@@ -62,7 +62,7 @@ export const DoctorPage = () => {
                     {/* {AvailableSlots.map((slot) => {
                       return <Button variant="outlined">{slot}</Button>;
                     })} */}
-                    <WorkDayScheduler />
+                    <DaySlots />
                   </Stack>
                 </Grid>
                 <Grid item xs>

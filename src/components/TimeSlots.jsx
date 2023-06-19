@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import { Grid, Button } from "@mui/material";
 
-const WorkDayScheduler = () => {
+const DaySlots = () => {
   const [selectedSlot, setSelectedSlot] = useState(null);
 
   const handleSlotClick = (slotIndex) => {
@@ -51,4 +51,4 @@ const WorkDayScheduler = () => {
   );
 };
 
-export default WorkDayScheduler;
+export default DaySlots;
