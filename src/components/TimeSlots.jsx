@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
-const DaySlots = ({ slotDuration = 30 }) => {
+const WorkDayScheduler = ({ slotDuration = 15 }) => {
   const [selectedSlot, setSelectedSlot] = useState(null);
 
   const handleSlotClick = (slotIndex) => {
@@ -31,44 +31,24 @@ const DaySlots = ({ slotDuration = 30 }) => {
       <Grid container spacing={2}>
         {rows.map((row, i) => (
           <Grid item xs={12} key={i}>
-            <Grid container spacing={2}>
-              <Grid item xs={3}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', height: `${row.length * 40}px`, overflow: 'hidden' }}>
+              {row.map((slot) => (
                 <Button
+                  key={slot.index}
                   variant="outlined"
                   sx={{
                     width: '100%',
-                    height: '100%',
+                    height: '40px',
                     borderRadius: '4px',
-                    backgroundColor: selectedSlot && selectedSlot >= row[0].index && selectedSlot < row[row.length - 1].index ? 'green' : undefined,
-                    color: selectedSlot && selectedSlot >= row[0].index && selectedSlot < row[row.length - 1].index ? 'white' : undefined,
+                    backgroundColor: selectedSlot === slot.index ? 'green' : undefined,
+                    color: selectedSlot === slot.index ? 'white' : undefined,
                   }}
-                  onClick={() => handleSlotClick(row[0].index)}
-                  disabled
+                  onClick={() => handleSlotClick(slot.index)}
                 >
-                  {row[0].time}
+                  {slot.time}
                 </Button>
-              </Grid>
-              <Grid item xs={9}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', height: `${row.length * 40}px`, overflow: 'hidden' }}>
-                  {row.map((slot) => (
-                    <Button
-                      key={slot.index}
-                      variant="outlined"
-                      sx={{
-                        width: '100%',
-                        height: '40px',
-                        borderRadius: '4px',
-                        backgroundColor: selectedSlot === slot.index ? 'green' : undefined,
-                        color: selectedSlot === slot.index ? 'white' : undefined,
-                      }}
-                      onClick={() => handleSlotClick(slot.index)}
-                    >
-                      {slot.time}
-                    </Button>
-                  ))}
-                </Box>
-              </Grid>
-            </Grid>
+              ))}
+            </Box>
           </Grid>
         ))}
       </Grid>
@@ -76,4 +56,4 @@ const DaySlots = ({ slotDuration = 30 }) => {
   );
 };
 
-export default DaySlots;
+export default WorkDayScheduler;
