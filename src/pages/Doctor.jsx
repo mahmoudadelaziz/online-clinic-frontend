@@ -12,17 +12,43 @@ import {
   Button,
   Container,
 } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { Review } from "../components/Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
 
-
+dayjs().format().hour();
 // Placeholder for available timeslots
-const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
+const times = [
+  "9:00 AM",
+  "9:30 AM",
+  "10:00 AM",
+  "10:30 AM",
+  "11:00 AM",
+  "11:30 AM",
+  "12:00 PM",
+  "12:30 PM",
+  "1:00 PM",
+  "1:30 PM",
+  "2:00 PM",
+  "2:30 PM",
+  "3:00 PM",
+  "3:30 PM",
+  "4:00 PM",
+  "4:30 PM",
+  "5:00 PM",
+  "5:30 PM",
+  "6:00 PM",
+  "6:30 PM",
+  "7:00 PM",
+  "7:30 PM",
+  "8:00 PM",
+  "8:30 PM",
+  "9:00 PM",
+  "9:30 PM",
+  "10:00 PM",
+];
 
 export const Doctor = () => {
   const { name } = useParams();
-  let formattedName = name.replace("-", " ")
-  console.log("FORMATTED NAME:", formattedName) // debugging
-
+  console.log(name)
   return (
     <Container sx={{ mt: 2 }}>
       <Card>
@@ -30,26 +56,27 @@ export const Doctor = () => {
           <Stack direction="row" justifyContent="space-between">
             <Avatar src={profile} sx={{ width: 150, height: 150 }} />
             <Stack flexBasis="2" sx={{ p: 2 }}>
-              <Typography variant="h4" color="primary">
-                Doctor's Name
+              <Typography
+                variant="h4"
+                color="primary"
+                sx={{ textTransform: "capitalize" }}
+              >
+                {doctor.name}
               </Typography>
               <Typography variant="body2" color="grey">
-                Doctor's Specialty
+                {doctor.specialization} specializes in{" "}
+                {doctor.subSpecialization}
               </Typography>
               <Typography variant="body2" color="grey" my={1}>
                 Location
               </Typography>
               <Typography variant="body1" color="grey">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                ligula velit, iaculis semper sem quis, consectetur volutpat
-                tellus. Aliquam et nulla efficitur, laoreet mauris id, tincidunt
-                lectus. Cras sed eleifend orci. Nam ut est egestas, accumsan
-                lorem ut, dignissim nisi. Fusce egestas scelerisque vulputate.
+                {doctor.about}
               </Typography>
               <Stack my={2}>
                 <Rating value={4.5} precision={0.5} />
                 <Typography variant="subtitle2" color="grey">
-                  Overall rating from 23 visitors
+                  Overall rating from {reviews.length} reviews.
                 </Typography>
               </Stack>
             </Stack>
@@ -73,8 +100,8 @@ export const Doctor = () => {
               <Typography variant="h6" textAlign="center">
                 Today
               </Typography>
-              <Stack spacing={0.5}>
-                {AvailableSlots.map((slot) => {
+              <Stack spacing={0.5} sx={{ overflow: "scroll", height: 200 }}>
+                {times.map((slot) => {
                   return <Button variant="outlined">{slot}</Button>;
                 })}
               </Stack>
@@ -83,8 +110,8 @@ export const Doctor = () => {
               <Typography variant="h6" textAlign="center">
                 Tomorrow
               </Typography>
-              <Stack spacing={0.5}>
-                {AvailableSlots.map((slot) => {
+              <Stack spacing={0.5} sx={{ overflow: "scroll", height: 200 }}>
+                {times.map((slot) => {
                   return <Button variant="outlined">{slot}</Button>;
                 })}
               </Stack>
@@ -93,8 +120,8 @@ export const Doctor = () => {
               <Typography variant="h6" textAlign="center">
                 After 2 days
               </Typography>
-              <Stack spacing={0.5}>
-                {AvailableSlots.map((slot) => {
+              <Stack spacing={0.5} sx={{ overflow: "scroll", height: 200 }}>
+                {times.map((slot) => {
                   return <Button variant="outlined">{slot}</Button>;
                 })}
               </Stack>
@@ -117,9 +144,14 @@ export const Doctor = () => {
           divider={<Divider orientation="horizontal" flexItem />}
         >
           {/* One Review */}
-          <Review />
-          <Review />
-          <Review />
+          {reviews.map((review) => (
+            <Review
+              patientName={review.reviewWriter.name}
+              rating={review.rating}
+              key={review.id}
+              text={review.review}
+            />
+          ))}
         </Stack>
       </Card>
     </Container>
