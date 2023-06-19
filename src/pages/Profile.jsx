@@ -1,4 +1,5 @@
 // Patient's profile
+import { EditTwoTone } from "@mui/icons-material";
 import {
   Avatar,
   Button,
@@ -26,10 +27,10 @@ export const Profile = () => {
   const [doctorData, setDoctorData] = useState({});
 
   const fetchDoctorData = async (id) => {
+    console.log("Fetching and setting data");
     const info = await axios.get(`http://localhost:5000/user/doctor/id/${id}`); // use env var for backend port
     const doctorInfo = info.data.doctor;
     setDoctorData(doctorInfo);
-    console.log(doctorData);
   };
 
   useEffect(() => {
@@ -38,7 +39,40 @@ export const Profile = () => {
 
   const handleEditData = () => {
     setEditState(!editState);
-    console.log("Edit profile page");
+    // console.log(!editState ? "Read and Write" : "Read only");
+  };
+
+  const handleNameChange = (event) => {
+    const name = event.target.value;
+    setDoctorData({ ...doctorData, name });
+  };
+  const handleUsernameChange = (event) => {
+    const username = event.target.value;
+    setDoctorData({ ...doctorData, username });
+  };
+  const handleEmailChange = (event) => {
+    const email = event.target.value;
+    setDoctorData({ ...doctorData, email });
+  };
+  const handlePhoneNumberChange = (event) => {
+    const phoneNumber = event.target.value;
+    setDoctorData({ ...doctorData, phoneNumber });
+  };
+  const handleAboutChange = (event) => {
+    const about = event.target.value;
+    setDoctorData({ ...doctorData, about });
+  };
+  const handleSpecializationChange = (event) => {
+    const specialization = event.target.value;
+    setDoctorData({ ...doctorData, specialization });
+  };
+  const handlePriceChange = (event) => {
+    const price = event.target.value;
+    setDoctorData({ ...doctorData, price });
+  };
+  const handleLocationChange = (event) => {
+    const location = event.target.value;
+    setDoctorData({ ...doctorData, location });
   };
 
   return (
@@ -53,7 +87,9 @@ export const Profile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Full Name"
-              defaultValue={doctorData.name}
+              defaultValue=" "
+              value={doctorData.name}
+              onChange={handleNameChange}
               InputProps={{
                 readOnly: !editState,
               }}
@@ -61,7 +97,9 @@ export const Profile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Username"
-              defaultValue={doctorData.username}
+              defaultValue=" "
+              value={doctorData.username}
+              onChange={handleUsernameChange}
               InputProps={{
                 readOnly: !editState,
               }}
@@ -71,6 +109,7 @@ export const Profile = () => {
               label="Email"
               defaultValue=" "
               value={doctorData.email}
+              onChange={handleEmailChange}
               InputProps={{
                 readOnly: !editState,
               }}
@@ -80,6 +119,7 @@ export const Profile = () => {
               label="Phone Number"
               defaultValue=" "
               value={doctorData.phoneNumber}
+              onChange={handlePhoneNumberChange}
               InputProps={{
                 readOnly: !editState,
               }}
@@ -89,6 +129,7 @@ export const Profile = () => {
               label="About"
               defaultValue=" "
               value={doctorData.about}
+              onChange={handleAboutChange}
               multiline
               InputProps={{
                 readOnly: !editState,
@@ -99,6 +140,7 @@ export const Profile = () => {
               label="Specialization"
               defaultValue=" "
               value={doctorData.specialization}
+              onChange={handleSpecializationChange}
               InputProps={{
                 readOnly: !editState,
               }}
@@ -108,6 +150,7 @@ export const Profile = () => {
               label="Price"
               defaultValue=" "
               value={doctorData.price}
+              onChange={handlePriceChange}
               InputProps={{
                 readOnly: !editState,
               }}
@@ -117,6 +160,7 @@ export const Profile = () => {
               label="Location"
               defaultValue=" "
               value={doctorData.locationId}
+              onChange={handleLocationChange}
               InputProps={{
                 readOnly: !editState,
               }}
