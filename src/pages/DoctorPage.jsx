@@ -14,7 +14,8 @@ import profile from "../assets/doctor.jpg";
 import { DoctorInfo, SelectInput } from "../components";
 import { Doctors } from "./Doctors";
 import { Review } from "./Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
-import WorkDayScheduler from "../components/TimeSlots";
+// import WorkDayScheduler from "../components/TimeSlots";
+import AppointmentBooking from "../components/AppointmentBooking";
 
 // Placeholder for available timeslots
 const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
@@ -55,33 +56,7 @@ export const DoctorPage = () => {
 
             <Stack my={12}>
               <Typography variant="h4">Available Time Slots</Typography>
-              <Grid padding={2} container spacing={20} alignItems="center">
-                <Grid item xs>
-                  <Typography variant="h6">Today</Typography>
-                  <Stack spacing={0.5}>
-                    {/* {AvailableSlots.map((slot) => {
-                      return <Button variant="outlined">{slot}</Button>;
-                    })} */}
-                    <WorkDayScheduler />
-                  </Stack>
-                </Grid>
-                <Grid item xs>
-                  <Typography variant="h6">Tomorrow</Typography>
-                  <Stack spacing={0.5}>
-                    {AvailableSlots.map((slot) => {
-                      return <Button variant="outlined">{slot}</Button>;
-                    })}
-                  </Stack>
-                </Grid>
-                <Grid item xs>
-                  <Typography variant="h6">After 2 days</Typography>
-                  <Stack spacing={0.5}>
-                    {AvailableSlots.map((slot) => {
-                      return <Button variant="outlined">{slot}</Button>;
-                    })}
-                  </Stack>
-                </Grid>
-              </Grid>
+              <AppointmentBooking />
             </Stack>
 
             <Stack>
