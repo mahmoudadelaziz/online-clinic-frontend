@@ -12,7 +12,6 @@ import {
   Button,
   Container,
 } from "@mui/material";
-import { Review } from "../components/Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
 
 dayjs().format().hour();
 // Placeholder for available timeslots
