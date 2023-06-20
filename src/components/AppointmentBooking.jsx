@@ -23,16 +23,16 @@ const AppointmentBooking = () => {
       </Grid>
       <Grid item xs={2} sx={{ margin: "0 auto" }}>
         <WorkDayScheduler
-          slotDuration={30}
+          slotDuration={20}
           date={new Date(date.getTime() - 1 * 24 * 60 * 60 * 1000)}
         />
       </Grid>
       <Grid item xs={2} sx={{ margin: "0 auto" }}>
-        <WorkDayScheduler slotDuration={30} date={date} />
+        <WorkDayScheduler slotDuration={20} date={date} />
       </Grid>
       <Grid item xs={2} sx={{ margin: "0 auto" }}>
         <WorkDayScheduler
-          slotDuration={30}
+          slotDuration={20}
           date={new Date(date.getTime() + 1 * 24 * 60 * 60 * 1000)}
         />
       </Grid>
