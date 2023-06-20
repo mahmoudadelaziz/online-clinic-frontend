@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import WorkDayScheduler from "./DayScheduler";
+import DaySlots from "./DayScheduler";
 
 const AppointmentBooking = () => {
   const [date, setDate] = useState(new Date());
@@ -26,18 +26,18 @@ const AppointmentBooking = () => {
       </Grid>
       <Grid item xs={2} sx={{ margin: "0 auto" }}>
         {/* Today's slots */}
-        <WorkDayScheduler slotDuration={20} date={date} />
+        <DaySlots slotDuration={20} date={date} />
       </Grid>
       <Grid item xs={2} sx={{ margin: "0 auto" }}>
         {/* Tomorrow's slots */}
-        <WorkDayScheduler
+        <DaySlots
           slotDuration={20}
           date={new Date(date.getTime() + 1 * 24 * 60 * 60 * 1000)}
         />
       </Grid>
       <Grid item xs={2} sx={{ margin: "0 auto" }}>
         {/* The day after tomorrow's slots */}
-        <WorkDayScheduler
+        <DaySlots
           slotDuration={20}
           date={new Date(date.getTime() + 2 * 24 * 60 * 60 * 1000)}
         />

@@ -3,7 +3,14 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
-const WorkDayScheduler = ({ slotDuration = 15, date }) => {
+// Note: We are assuming a work day from 9 AM to 5 PM
+const DaySlots = ({ slotDuration = 30, date }) => {
+  /*  
+  The component takes the arguments (props):
+  slotDuration: The slot duration of the doctor (default = 30 minutes)
+  date: A day's date
+  */
+
   const [selectedSlot, setSelectedSlot] = useState(null);
 
   // We'll put the function here
@@ -13,7 +20,6 @@ const WorkDayScheduler = ({ slotDuration = 15, date }) => {
     } else {
       setSelectedSlot(slotIndex); // Select slot
     }
-    // console.log(`Selected slot: ${slotIndex.time}`) // Debugging
   };
 
   const rows = [];
@@ -85,8 +91,10 @@ const WorkDayScheduler = ({ slotDuration = 15, date }) => {
                       selectedSlot === slot.index ? "green" : undefined,
                     color: selectedSlot === slot.index ? "white" : undefined,
                   }}
-                  onClick={() => {handleSlotClick(slot.index),
-                    console.log(`Selected: ${date} at ${slot.time}`)}}
+                  onClick={() => {
+                    handleSlotClick(slot.index),
+                      console.log(`Selected: ${date} at ${slot.time}`);
+                  }}
                 >
                   {slot.time}
                 </Button>
@@ -102,4 +110,4 @@ const WorkDayScheduler = ({ slotDuration = 15, date }) => {
   );
 };
 
-export default WorkDayScheduler;
+export default DaySlots;
