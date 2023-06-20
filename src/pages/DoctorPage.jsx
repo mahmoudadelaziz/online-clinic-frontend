@@ -33,13 +33,13 @@ export const DoctorPage = () => {
             <Typography variant="h3" color="primary">
               Doctor's Name
             </Typography>
-            <Typography variant="body2" color="grey">
+            <Typography variant="body2" fontSize={20}>
               Doctor's Specialty
             </Typography>
-            <Typography variant="body2" color="grey">
+            <Typography variant="body2" fontSize={20}>
               Location
             </Typography>
-            <Typography variant="body1" color="grey">
+            <Typography variant="body1" fontSize={18}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
               ligula velit, iaculis semper sem quis, consectetur volutpat
               tellus. Aliquam et nulla efficitur, laoreet mauris id, tincidunt
@@ -54,8 +54,8 @@ export const DoctorPage = () => {
               <Link to={`api/reviews`}>Show all reviews</Link>
             </Stack>
 
-            <Stack my={12}>
-              <Typography variant="h4">Available Time Slots</Typography>
+            <Stack sx={{my: 5}}>
+              <Typography variant="h4" sx={{my:2}}>Book an appointment</Typography>
               <AppointmentBooking />
             </Stack>
 
@@ -69,7 +69,6 @@ export const DoctorPage = () => {
               spacing={3}
               divider={<Divider orientation="horizontal" flexItem />}
             >
-              {/* One Review */}
               <Review />
               <Review />
               <Review />
