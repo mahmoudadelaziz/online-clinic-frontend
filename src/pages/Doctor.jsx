@@ -15,39 +15,10 @@ import {
 import { Review } from "../components/Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
 import { useEffect, useState } from "react";
 import axios from "../utility/axios";
-import dayjs from "dayjs";
+import * as dayjs from "dayjs";
+import { generateDates } from "../utility/dates";
 
-dayjs().format().hour();
-// Placeholder for available timeslots
-const times = [
-  "9:00 AM",
-  "9:30 AM",
-  "10:00 AM",
-  "10:30 AM",
-  "11:00 AM",
-  "11:30 AM",
-  "12:00 PM",
-  "12:30 PM",
-  "1:00 PM",
-  "1:30 PM",
-  "2:00 PM",
-  "2:30 PM",
-  "3:00 PM",
-  "3:30 PM",
-  "4:00 PM",
-  "4:30 PM",
-  "5:00 PM",
-  "5:30 PM",
-  "6:00 PM",
-  "6:30 PM",
-  "7:00 PM",
-  "7:30 PM",
-  "8:00 PM",
-  "8:30 PM",
-  "9:00 PM",
-  "9:30 PM",
-  "10:00 PM",
-];
+console.log();
 
 export const Doctor = () => {
   const { id } = useParams();
@@ -126,36 +97,24 @@ export const Doctor = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <Grid item xs>
-              <Typography variant="h6" textAlign="center">
-                Today
-              </Typography>
-              <Stack spacing={0.5} sx={{ overflow: "scroll", height: 200 }}>
-                {times.map((slot) => {
-                  return <Button variant="outlined">{slot}</Button>;
-                })}
-              </Stack>
-            </Grid>
-            <Grid item xs>
-              <Typography variant="h6" textAlign="center">
-                Tomorrow
-              </Typography>
-              <Stack spacing={0.5} sx={{ overflow: "scroll", height: 200 }}>
-                {times.map((slot) => {
-                  return <Button variant="outlined">{slot}</Button>;
-                })}
-              </Stack>
-            </Grid>
-            <Grid item xs>
-              <Typography variant="h6" textAlign="center">
-                After 2 days
-              </Typography>
-              <Stack spacing={0.5} sx={{ overflow: "scroll", height: 200 }}>
-                {times.map((slot) => {
-                  return <Button variant="outlined">{slot}</Button>;
-                })}
-              </Stack>
-            </Grid>
+            {generateDates(10, 20, 30, 3).map((date) => {
+              return (
+                <Grid item xs>
+                  <Typography variant="h6" textAlign="center">
+                    {date.day}
+                  </Typography>
+                  <Stack spacing={0.5} sx={{ overflow: "scroll", height: 200 }}>
+                    {date.times.map((time) => {
+                      return (
+                        <Button variant="outlined">
+                          {dayjs(time).format("h:mm A")}
+                        </Button>
+                      );
+                    })}
+                  </Stack>
+                </Grid>
+              );
+            })}
           </Grid>
         </CardContent>
       </Card>

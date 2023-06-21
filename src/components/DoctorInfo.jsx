@@ -35,9 +35,7 @@ export const DoctorInfo = ({ doctor }) => {
             10:00 AM - 11:00 AM
           </Typography>
           <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-            <Link to={`/doctors/${doctor.name.replace(" ", "-")}`}>
-              Book Now
-            </Link>
+            <Link to={`/doctors/${doctor.id}`}>Book Now</Link>
           </Button>
         </Stack>
       </CardContent>
