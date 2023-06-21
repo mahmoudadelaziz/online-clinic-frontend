@@ -13,43 +13,30 @@ import {
   Container,
 } from "@mui/material";
 import { Review } from "../components/Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
-import { useEffect, useState } from "react";
-import axios from "../utility/axios";
+import { useState } from "react";
 import * as dayjs from "dayjs";
 import { generateDates } from "../utility/dates";
-
-console.log();
+import { useDoctorData } from "../hooks/useDoctorData";
 
 export const Doctor = () => {
   const { id } = useParams();
-  const [doctor, setDoctor] = useState({});
-  const [reviews, setReviews] = useState([]);
-  const [schedule, setSchedule] = useState({});
-
-  useEffect(() => {
-    const fetchDoctor = async () => {
-      try {
-        const {
-          data: { doctor },
-        } = await axios.get(`/user/doctor/${id}`);
-        setDoctor(doctor);
-      } catch (error) {
-        console.log(error);
+  const [schedule, setSchedule] = useState(generateDates(10, 20, 30, 3));
+  const [doctor, reviews] = useDoctorData(id);
+  const handleTimeSelection = (e) => {
+    const isoString = e.target.dataset.isostring;
+    const day = dayjs(isoString).format("dddd");
+    let newSchedule = [...schedule];
+    for (const slot of newSchedule) {
+      if (slot.day === day) {
+        slot.times = slot.times.map((time) => {
+          if (time.time === isoString) return { ...time, selected: true };
+          else return { ...time };
+        });
+        return setSchedule(newSchedule);
       }
-    };
-    const fetchReviews = async () => {
-      try {
-        const {
-          data: { reviews },
-        } = await axios.get(`/review/${id}`);
-        setReviews(reviews);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchDoctor();
-    fetchReviews();
-  }, []);
+    }
+  };
+  console.log(schedule);
   return (
     <Container sx={{ mt: 2 }}>
       <Card>
@@ -96,18 +83,23 @@ export const Doctor = () => {
             spacing={20}
             alignItems="center"
             justifyContent="center"
+            onClick={(e) => handleTimeSelection(e)}
           >
-            {generateDates(10, 20, 30, 3).map((date) => {
+            {schedule.map((date) => {
               return (
                 <Grid item xs>
                   <Typography variant="h6" textAlign="center">
                     {date.day}
                   </Typography>
                   <Stack spacing={0.5} sx={{ overflow: "scroll", height: 200 }}>
-                    {date.times.map((time) => {
+                    {date.times.map((time, idx) => {
                       return (
-                        <Button variant="outlined">
-                          {dayjs(time).format("h:mm A")}
+                        <Button
+                          variant={time.selected ? "contained" : "outlined"}
+                          data-isostring={time.time}
+                          key={idx}
+                        >
+                          {dayjs(time.time).format("h:mm A")}
                         </Button>
                       );
                     })}

@@ -9,7 +9,10 @@ export const generateDates = (start, end, step, numberOfDays) => {
   }
   return days.map((day) => ({
     day: day.format("dddd"),
-    times: generateTimeSlots(day, start, end, step, ""),
+    times: generateTimeSlots(day, start, end, step, "").map((time) => ({
+      time,
+      selected: false,
+    })),
   }));
 };
 export const generateTimeSlots = (day, start, end, step, format = "h:mm A") => {
