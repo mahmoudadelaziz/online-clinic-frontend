@@ -11,11 +11,11 @@ const formInitialState = {
   password: "",
   phoneNumber: "",
   specialization: "",
-  subSpecialization,
-  price1,
-  price2,
-  locationId,
-  about,
+  subSpecialization: "",
+  price1: 0,
+  price2: 0,
+  locationId: 0,
+  about: "",
 };
 
 const errorsInitialState = {
@@ -25,11 +25,11 @@ const errorsInitialState = {
   password: "",
   phoneNumber: "",
   specialization: "",
-  subSpecialization,
-  price1,
-  price2,
-  locationId,
-  about,
+  subSpecialization: "",
+  price1: 0,
+  price2: 0,
+  locationId: 0,
+  about: "",
 };
 
 function DoctorSignUp() {
@@ -91,18 +91,39 @@ function DoctorSignUp() {
       type: "phoneNumber",
     },
     {
-      placeholder: "Specialization",
-      value: doctor.specialization,
-      name: "password",
-      onChange: handleInputChange,
-      type: "password",
-    },
-    {
       placeholder: "Password",
       value: doctor.password,
       name: "password",
       onChange: handleInputChange,
       type: "password",
+    },
+    {
+      placeholder: "Specialization",
+      value: doctor.specialization,
+      name: "specialization",
+      onChange: handleInputChange,
+      type: "text",
+    },
+    {
+      placeholder: "Sub-specialization",
+      value: doctor.subSpecialization,
+      name: "subSpecialization",
+      onChange: handleInputChange,
+      type: "text",
+    },
+    {
+      placeholder: "About",
+      value: doctor.about,
+      name: "about",
+      onChange: handleInputChange,
+      type: "text",
+    },
+    {
+      placeholder: "Location ID",
+      value: doctor.locationId,
+      name: "locationId",
+      onChange: handleInputChange,
+      type: "text",
     },
   ];
   return (
