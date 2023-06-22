@@ -10,26 +10,40 @@ const formInitialState = {
   username: "",
   password: "",
   phoneNumber: "",
+  specialization: "",
+  subSpecialization,
+  price1,
+  price2,
+  locationId,
+  about,
 };
+
 const errorsInitialState = {
   name: "",
   email: "",
   username: "",
   password: "",
   phoneNumber: "",
+  specialization: "",
+  subSpecialization,
+  price1,
+  price2,
+  locationId,
+  about,
 };
+
 function DoctorSignUp() {
-  const [user, setUser] = useState(formInitialState);
+  const [doctor, setDoctor] = useState(formInitialState);
   const [errors, setErrors] = useState(errorsInitialState);
   const handleInputChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setDoctor({ ...doctor, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const { error } = signupSchema.validate(user, {
+      const { error } = signupSchema.validate(doctor, {
         abortEarly: false,
       });
       if (error) {
@@ -40,9 +54,9 @@ function DoctorSignUp() {
         setErrors(errors);
         return;
       }
-      await axios.post(`/user/patient/signup`, user);
+      await axios.post(`/user/doctor/signup`, doctor);
       // Redirect to doctors (Temporary MUST BE CHANGED LATER ON!)
-      window.location.href = "http://localhost:5173/doctors"
+      // window.location.href = "http://localhost:5173/doctor/profile";
     } catch (error) {
       console.log(error);
     }
@@ -50,35 +64,42 @@ function DoctorSignUp() {
   const formInputs = [
     {
       placeholder: "Full Name",
-      value: user.name,
+      value: doctor.name,
       name: "name",
       onChange: handleInputChange,
       type: "text",
     },
     {
-      placeholder: "Username",
-      value: user.username,
-      name: "username",
-      onChange: handleInputChange,
-      type: "text",
-    },
-    {
       placeholder: "Email",
-      value: user.email,
+      value: doctor.email,
       name: "email",
       onChange: handleInputChange,
       type: "email",
     },
     {
+      placeholder: "Username",
+      value: doctor.username,
+      name: "username",
+      onChange: handleInputChange,
+      type: "text",
+    },
+    {
       placeholder: "Phone Number",
-      value: user.phoneNumber,
+      value: doctor.phoneNumber,
       name: "phoneNumber",
       onChange: handleInputChange,
       type: "phoneNumber",
     },
     {
+      placeholder: "Specialization",
+      value: doctor.specialization,
+      name: "password",
+      onChange: handleInputChange,
+      type: "password",
+    },
+    {
       placeholder: "Password",
-      value: user.password,
+      value: doctor.password,
       name: "password",
       onChange: handleInputChange,
       type: "password",
@@ -113,7 +134,6 @@ function DoctorSignUp() {
           color="primary"
           type="submit"
           sx={{ width: "100%", my: 2 }}
-
         >
           Sign up
         </Button>
