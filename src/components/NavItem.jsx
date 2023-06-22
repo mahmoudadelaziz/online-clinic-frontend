@@ -6,6 +6,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { Login, Home, PeopleAlt, PersonAddAlt1 } from "@mui/icons-material";
+import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 
 const NavItem = ({ route, icon, text, setDrawerOpen }) => {
   const iconsMap = {
@@ -13,6 +14,7 @@ const NavItem = ({ route, icon, text, setDrawerOpen }) => {
     signup: <PersonAddAlt1 />,
     home: <Home />,
     doctors: <PeopleAlt />,
+    doctorsignup: <MedicalInformationIcon />
   };
   return (
     <Link to={`${route}`} onClick={() => setDrawerOpen(false)}>
