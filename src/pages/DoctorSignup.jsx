@@ -1,8 +1,9 @@
 import axios from "../utility/axios";
 import React, { useState } from "react";
-import { signupSchema } from "../utility/formSchemas";
+import { doctorSignupSchema } from "../utility/DoctoFormSchemas";
 import { FormInputList } from "../components";
 import { Container, Link, Typography, Button } from "@mui/material";
+import { TextareaAutosize } from '@mui/base';
 
 const formInitialState = {
   name: "",
@@ -12,9 +13,9 @@ const formInitialState = {
   phoneNumber: "",
   specialization: "",
   subSpecialization: "",
-  price1: 0,
-  price2: 0,
-  locationId: 0,
+  price1: null,
+  price2: null,
+  locationId: null,
   about: "",
 };
 
@@ -26,9 +27,9 @@ const errorsInitialState = {
   phoneNumber: "",
   specialization: "",
   subSpecialization: "",
-  price1: 0,
-  price2: 0,
-  locationId: 0,
+  price1: null,
+  price2: null,
+  locationId: null,
   about: "",
 };
 
@@ -43,7 +44,7 @@ function DoctorSignUp() {
     e.preventDefault();
 
     try {
-      const { error } = signupSchema.validate(doctor, {
+      const { error } = doctorSignupSchema.validate(doctor, {
         abortEarly: false,
       });
       if (error) {
@@ -88,7 +89,7 @@ function DoctorSignUp() {
       value: doctor.phoneNumber,
       name: "phoneNumber",
       onChange: handleInputChange,
-      type: "phoneNumber",
+      type: "tel",
     },
     {
       placeholder: "Password",
@@ -112,6 +113,20 @@ function DoctorSignUp() {
       type: "text",
     },
     {
+      placeholder: "Price 1",
+      value: doctor.price1,
+      name: "price1",
+      onChange: handleInputChange,
+      type: "number",
+    },
+    {
+      placeholder: "Price 2",
+      value: doctor.price2,
+      name: "price2",
+      onChange: handleInputChange,
+      type: "number",
+    },
+    {
       placeholder: "About",
       value: doctor.about,
       name: "about",
@@ -123,7 +138,7 @@ function DoctorSignUp() {
       value: doctor.locationId,
       name: "locationId",
       onChange: handleInputChange,
-      type: "text",
+      type: "number",
     },
   ];
   return (
@@ -158,7 +173,7 @@ function DoctorSignUp() {
         >
           Sign up
         </Button>
-        <Link href="/signin">
+        <Link href="/doctor/signin">
           <Typography
             variant="subtitle1"
             color="primary"

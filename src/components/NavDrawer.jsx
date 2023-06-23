@@ -6,7 +6,7 @@ const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
     { title: "Home", icon: "home", route: "/" },
     { title: "Login", icon: "login", route: "/signin" },
     { title: "Signup", icon: "signup", route: "/signup" },
-    { title: "Doctors", icon: "doctors", route: "/doctor" },
+    { title: "Doctors", icon: "doctors", route: "/doctors" },
     { title: "Register your Practice", icon: "doctors", route: "/doctor/signup" },
   ];
   return (
