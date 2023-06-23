@@ -40,9 +40,11 @@ function SignIn() {
         setErrors(errors);
         return;
       }
-      await axios.post(`/user/patient/signin`, user);
+      await axios.post(`/user/patient/login`, user);
+      console.log("(🔎 Debugging) Successfully Logged in with: ", user)
     } catch (error) {
       console.log(error);
+      console.log("(🔎 Debugging) MESSAGE SENT: ", user)
     }
   };
   const formInputs = [

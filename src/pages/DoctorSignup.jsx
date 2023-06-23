@@ -26,9 +26,9 @@ const errorsInitialState = {
   phoneNumber: "",
   specialization: "",
   subSpecialization: "",
-  price1: null,
-  price2: null,
-  locationId: null,
+  price1: "",
+  price2: "",
+  locationId: "",
   about: "",
 };
 
@@ -36,7 +36,7 @@ function DoctorSignUp() {
   const [doctor, setDoctor] = useState(formInitialState);
   const [errors, setErrors] = useState(errorsInitialState);
   const handleInputChange = (e) => {
-    setDoctor({ ...doctor, [e.target.name]: e.target.value });
+    setDoctor((e.target.name in ["price1","price2","locationId"]) ? { ...doctor, [e.target.name]: parseInt(e.target.value) } : { ...doctor, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
   };
   const handleSubmit = async (e) => {
