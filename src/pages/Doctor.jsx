@@ -18,8 +18,6 @@ import axios from "../utility/axios";
 import * as dayjs from "dayjs";
 import { generateDates } from "../utility/dates";
 
-console.log();
-
 export const Doctor = () => {
   const { id } = useParams();
   const [doctor, setDoctor] = useState({});

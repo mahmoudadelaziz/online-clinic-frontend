@@ -8,6 +8,7 @@ const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
     { title: "Signup", icon: "signup", route: "/signup" },
     { title: "Doctors", icon: "doctors", route: "/doctors" },
     { title: "Register your Practice", icon: "doctors", route: "/doctor/signup" },
+    { title: "Login to your Practice", icon: "doctors", route: "/doctor/login" },
   ];
   return (
     <Drawer
