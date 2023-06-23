@@ -68,6 +68,27 @@ const aboutSchema = Joi.string()
     });
     return errors;
   });
+const price1Schema = Joi.number()
+  .error((errors) => {
+    errors.forEach((error) => {
+      error.message = "Invalid input";
+    });
+    return errors;
+  });
+const price2Schema = Joi.number()
+  .error((errors) => {
+    errors.forEach((error) => {
+      error.message = "Invalid input";
+    });
+    return errors;
+  });
+const locationIDSchema = Joi.string()
+  .error((errors) => {
+    errors.forEach((error) => {
+      error.message = "Invalid input";
+    });
+    return errors;
+  });
 const phoneNumberSchema = Joi.string()
   .regex(/^(\+\d{1,3}[- ]?)?\d{10}$/)
   .error((errors) => {
@@ -128,6 +149,9 @@ export const doctorSignupSchema = Joi.object({
   specialization: specializationSchema,
   subSpecialization: subSpecializationSchema,
   about: aboutSchema,
+  locationId: locationIDSchema,
+  price1: price1Schema,
+  price2: price2Schema,
   username: usernameSchema,
   password: passwordSchema,
 });

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { doctorSignupSchema } from "../utility/DoctoFormSchemas";
 import { FormInputList } from "../components";
 import { Container, Link, Typography, Button } from "@mui/material";
-import { TextareaAutosize } from '@mui/base';
 
 const formInitialState = {
   name: "",
@@ -55,13 +54,17 @@ function DoctorSignUp() {
         setErrors(errors);
         return;
       }
-      await axios.post(`/user/doctor/signup`, doctor);
-      // Redirect to doctors (Temporary MUST BE CHANGED LATER ON!)
+      await axios.post(`user/doctor/signup`, doctor);
+      console.log("(🔎 Debugging) MESSAGE SENT: ", doctor)
+      // Redirect to doctor's profile (Temporary MUST BE CHANGED LATER ON!)
       // window.location.href = "http://localhost:5173/doctor/profile";
     } catch (error) {
       console.log(error);
+      console.log("(🔎 DEBUGGING) CURRENT OBJECT: ", doctor)
     }
   };
+
+
   const formInputs = [
     {
       placeholder: "Full Name",
