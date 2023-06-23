@@ -40,11 +40,11 @@ function DoctorSignIn() {
         setErrors(errors);
         return;
       }
-      await axios.post(`/user/patient/login`, user);
-      console.log("(🔎 Debugging) Successfully Logged in with: ", user)
+      await axios.post(`/user/doctor/login`, user);
+      console.log("(🔎 Debugging) Successfully Logged in as Droctor: ", user)
     } catch (error) {
       console.log(error);
-      console.log("(🔎 Debugging) MESSAGE SENT: ", user)
+      console.log("(🔎 Debugging) Attempted to login with the info: ", user)
     }
   };
   const formInputs = [
@@ -80,7 +80,7 @@ function DoctorSignIn() {
           sx={{ textAlign: "center" }}
           fontWeight="bold"
         >
-          Log into your account
+          Log in to manage your appointments
         </Typography>
         <FormInputList
           formInputs={formInputs}
