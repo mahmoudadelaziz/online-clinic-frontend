@@ -4,18 +4,6 @@ import { doctorSignupSchema } from "../utility/DoctoFormSchemas";
 import { FormInputList } from "../components";
 import { Container, Link, Typography, Button } from "@mui/material";
 
-const testDoctor = {
-  "name": "Holden Caul",
-  "email": "holden40@mail.com",
-  "username": "cholden",
-  "password": "MyStory",
-  "phoneNumber": "01065205522",
-  "specialization": "Psychiatry",
-  "subSpecialization": "",
-  "price1": 300,
-  "locationId": 5
-} // For debugging
-
 const formInitialState = {
   name: "",
   email: "",
@@ -24,9 +12,9 @@ const formInitialState = {
   phoneNumber: "",
   specialization: "",
   subSpecialization: "",
-  price1: null,
-  price2: null,
-  locationId: null,
+  price1: "",
+  price2: "",
+  locationId: "",
   about: "",
 };
 
@@ -48,11 +36,21 @@ function DoctorSignUp() {
   const [doctor, setDoctor] = useState(formInitialState);
   const [errors, setErrors] = useState(errorsInitialState);
   const handleInputChange = (e) => {
-    setDoctor((e.target.name in ["price1","price2","locationId"]) ? { ...doctor, [e.target.name]: parseInt(e.target.value) } : { ...doctor, [e.target.name]: e.target.value });
+    setDoctor({ ...doctor, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const price1FieldValue = parseInt(doctor["price1"], 10);
+    const price2FieldValue = parseInt(doctor["price2"], 10);
+    const locationIdFieldValue = parseInt(doctor["locationId"], 10);
+
+    const dataToSend = {
+      ...doctor,
+      ["price1"]: price1FieldValue,
+      ["price2"]: price2FieldValue,
+      ["locationId"]: locationIdFieldValue,
+    };
 
     try {
       const { error } = doctorSignupSchema.validate(doctor, {
@@ -67,16 +65,15 @@ function DoctorSignUp() {
         return;
       }
 
-      await axios.post(`user/doctor/signup`, doctor);
-      console.log("(🔎 Debugging) CURRENT Body: ", doctor)
+      await axios.post(`user/doctor/signup`, dataToSend);
+      console.log("(🔎 Debugging) Body sent to server: ", dataToSend);
       // Redirect to doctor's profile (Temporary MUST BE CHANGED LATER ON!)
       // window.location.href = "http://localhost:5173/doctor/profile";
     } catch (error) {
       console.log(error);
-      console.log("(🔎 DEBUGGING) ATTEMPTED Body: ", doctor)
+      console.log("(🔎 DEBUGGING) ATTEMPTED message Body: ", dataToSend);
     }
   };
-
 
   const formInputs = [
     {
