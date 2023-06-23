@@ -95,7 +95,7 @@ function SignIn() {
             <Checkbox sx={{ p: 0, mr: 1 }} />
             <Typography variant="caption">Remember me</Typography>
           </Box>
-          <Link href="/login" underline="always">
+          <Link href="/signup" underline="always">
             Don't have an account? Join us
           </Link>
         </Box>
