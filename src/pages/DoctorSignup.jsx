@@ -186,7 +186,7 @@ function DoctorSignUp() {
         >
           Sign up
         </Button>
-        <Link href="/doctor/signin">
+        <Link href="/doctor/login">
           <Typography
             variant="subtitle1"
             color="primary"

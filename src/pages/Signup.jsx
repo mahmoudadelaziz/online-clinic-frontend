@@ -117,7 +117,7 @@ function SignUp() {
         >
           Sign up
         </Button>
-        <Link href="/signin">
+        <Link href="/login">
           <Typography
             variant="subtitle1"
             color="primary"

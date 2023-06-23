@@ -95,8 +95,8 @@ function DoctorSignIn() {
             <Checkbox sx={{ p: 0, mr: 1 }} />
             <Typography variant="caption">Remember me</Typography>
           </Box>
-          <Link href="/user/doctor/login" underline="always">
-            Don't have an account? Join us and let us help you manage your clinic!
+          <Link href="/doctor/signup" underline="always">
+            Don't have an account? Join us!
           </Link>
         </Box>
       </form>
