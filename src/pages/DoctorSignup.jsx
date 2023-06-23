@@ -158,7 +158,7 @@ function DoctorSignUp() {
           sx={{ textAlign: "center" }}
           fontWeight="bold"
         >
-          Create an account
+          Register your Clinic on our Platform
         </Typography>
         <FormInputList
           formInputs={formInputs}
@@ -179,7 +179,7 @@ function DoctorSignUp() {
             color="primary"
             sx={{ textAlign: "center" }}
           >
-            Have an account? Login
+            Have an account? Sign in
           </Typography>
         </Link>
       </form>
