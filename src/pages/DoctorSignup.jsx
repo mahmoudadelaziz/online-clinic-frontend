@@ -4,6 +4,18 @@ import { doctorSignupSchema } from "../utility/DoctoFormSchemas";
 import { FormInputList } from "../components";
 import { Container, Link, Typography, Button } from "@mui/material";
 
+const testDoctor = {
+  "name": "Holden Caul",
+  "email": "holden40@mail.com",
+  "username": "cholden",
+  "password": "MyStory",
+  "phoneNumber": "01065205522",
+  "specialization": "Psychiatry",
+  "subSpecialization": "",
+  "price1": 300,
+  "locationId": 5
+} // For debugging
+
 const formInitialState = {
   name: "",
   email: "",
@@ -54,13 +66,14 @@ function DoctorSignUp() {
         setErrors(errors);
         return;
       }
+
       await axios.post(`user/doctor/signup`, doctor);
-      console.log("(🔎 Debugging) MESSAGE SENT: ", doctor)
+      console.log("(🔎 Debugging) CURRENT Body: ", doctor)
       // Redirect to doctor's profile (Temporary MUST BE CHANGED LATER ON!)
       // window.location.href = "http://localhost:5173/doctor/profile";
     } catch (error) {
       console.log(error);
-      console.log("(🔎 DEBUGGING) CURRENT OBJECT: ", doctor)
+      console.log("(🔎 DEBUGGING) ATTEMPTED Body: ", doctor)
     }
   };
 
