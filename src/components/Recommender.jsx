@@ -16,9 +16,11 @@ const Recommender = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.post('http://localhost:8000', {
-      "query": symptoms
-    }).then(res => setRecommendation(res.data.recommendation))
+    axios
+      .post("http://localhost:8000", {
+        query: symptoms,
+      })
+      .then((res) => setRecommendation(res.data.recommendation));
   };
 
   const handleInputChange = (event) => {
