@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import axios from "axios";
 
 const Recommender = () => {
   const [symptoms, setSymptoms] = useState("");
@@ -14,11 +15,10 @@ const Recommender = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (symptoms.trim() === "") {
-      setRecommendation("Please enter your symptoms");
-    } else {
-      setRecommendation("We recommend you see a doctor.");
-    }
+
+    axios.post('http://localhost:8000', {
+      "query": symptoms
+    }).then(res => setRecommendation(res.data.recommendation))
   };
 
   const handleInputChange = (event) => {
@@ -65,7 +65,7 @@ const Recommender = () => {
           </Box>
         </form>
         {recommendation && (
-          <Typography variant="h5" mt={3}>
+          <Typography variant="body2" mt={3} textAlign="center" fontSize="18px">
             {recommendation}
           </Typography>
         )}
