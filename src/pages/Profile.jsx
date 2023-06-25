@@ -13,7 +13,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import profile from "../assets/doctor.jpg";
 import { PatientAppointments } from "./PatientAppointments";
-import { PatientReviews } from "./PatientReviews";
+import { Review } from "../components/Review";
 
 const MyAppointments = ["Appointment 1", "Appointment 2", "Appointment 3"];
 const MyReviews = ["Review 1", "Review 2", "Review 3"];
@@ -178,7 +178,7 @@ export const Profile = () => {
               {MyReviews.map((Rev) => {
                 return (
                   <Card variant="outlined">
-                    <PatientReviews />
+                    <Review />
                   </Card>
                 );
               })}

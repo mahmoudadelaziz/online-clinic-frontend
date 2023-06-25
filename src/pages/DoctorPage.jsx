@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Button,
   Card,
   CardContent,
   Divider,
@@ -9,19 +8,12 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import profile from "../assets/doctor.jpg";
-import { DoctorInfo, SelectInput } from "../components";
-import { Doctors } from "./Doctors";
-import { Review } from "./Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
-// import WorkDayScheduler from "../components/TimeSlots";
+import { Review } from "../components/Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
 import AppointmentBooking from "../components/AppointmentBooking";
 
-// Placeholder for available timeslots
-const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
-
 export const DoctorPage = () => {
-  const { name } = useParams();
   return (
     <Card>
       <CardContent>
@@ -54,8 +46,10 @@ export const DoctorPage = () => {
               <Link to={`api/reviews`}>Show all reviews</Link>
             </Stack>
 
-            <Stack sx={{my: 5}}>
-              <Typography variant="h4" sx={{my:2}}>Book an appointment</Typography>
+            <Stack sx={{ my: 5 }}>
+              <Typography variant="h4" sx={{ my: 2 }}>
+                Book an appointment
+              </Typography>
               <AppointmentBooking />
             </Stack>
 
