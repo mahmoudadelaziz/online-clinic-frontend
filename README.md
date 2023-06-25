@@ -1,7 +1,3 @@
-# Live Demo
-
-You could view a live demo of the website at this point [from this link](https://astonishing-douhua-2622b0.netlify.app/).
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
