@@ -19,7 +19,7 @@ const MyAppointments = ["Appointment 1", "Appointment 2", "Appointment 3"];
 const MyReviews = ["Review 1", "Review 2", "Review 3"];
 
 const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
-const id = 2;
+const id = 6;
 
 export const DoctorProfile = () => {
   const [editState, setEditState] = useState(false);
