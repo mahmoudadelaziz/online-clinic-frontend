@@ -1,3 +1,4 @@
+// This is the Doctor's Page shown when a visitor clicks on the doctor's card
 import {
   Avatar,
   Card,

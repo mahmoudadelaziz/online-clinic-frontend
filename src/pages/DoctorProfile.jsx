@@ -12,7 +12,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import profile from "../assets/doctor.jpg";
-import { PatientAppointments } from "./PatientAppointments";
+import { PatientAppointments } from "../components/PatientAppointments";
 import { Review } from "../components/Review";
 
 const MyAppointments = ["Appointment 1", "Appointment 2", "Appointment 3"];
@@ -21,7 +21,7 @@ const MyReviews = ["Review 1", "Review 2", "Review 3"];
 const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
 const id = 2;
 
-export const Profile = () => {
+export const DoctorProfile = () => {
   const [editState, setEditState] = useState(false);
   const [doctorData, setDoctorData] = useState({});
 
