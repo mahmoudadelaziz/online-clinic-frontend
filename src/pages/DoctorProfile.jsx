@@ -1,4 +1,6 @@
-// Patient's profile
+// Doctor's Profile
+// This page should only be available for a signed in doctor
+// And it should show only the information of that signed in doctor
 import {
   Avatar,
   Button,
