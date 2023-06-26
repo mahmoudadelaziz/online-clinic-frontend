@@ -12,7 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import profile from "../assets/doctor.jpg";
 import { Review } from "../components/Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
-import AppointmentBooking from "../components/AppointmentBooking";
+import {AppointmentBooking} from "../components/AppointmentBooking";
 
 export const DoctorPage = () => {
   return (

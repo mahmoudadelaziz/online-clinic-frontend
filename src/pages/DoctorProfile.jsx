@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import profile from "../assets/doctor.jpg";
 import { PatientAppointments } from "../components/PatientAppointments";
 import { Review } from "../components/Review";
+import { AppointmentBooking } from "../components/AppointmentBooking";
 
 const MyAppointments = ["Appointment 1", "Appointment 2", "Appointment 3"];
 const MyReviews = ["Review 1", "Review 2", "Review 3"];
@@ -131,31 +132,15 @@ export const DoctorProfile = () => {
               {editState ? "Save Changes" : "Edit Profile"}
             </Button>
             <Stack my={12}>
-              <Typography variant="h4">Available Time Slots</Typography>
+              <Typography variant="h4">When will you be available?</Typography>
+              <Typography variant="body1" sx={{fontSize: "20px"}}>
+                Select the time slots at which you will be available.
+              </Typography>
               <Grid padding={2} container spacing={20} alignItems="center">
                 <Grid item xs>
                   <Typography variant="h6">Today</Typography>
                   <Stack spacing={0.5}>
-                    {AvailableSlots.map((slot) => {
-                      return <Button variant="outlined">{slot}</Button>;
-                    })}
-                  </Stack>
-                </Grid>
-
-                <Grid item xs>
-                  <Typography variant="h6">Tomorrow</Typography>
-                  <Stack spacing={0.5}>
-                    {AvailableSlots.map((slot) => {
-                      return <Button variant="outlined">{slot}</Button>;
-                    })}
-                  </Stack>
-                </Grid>
-                <Grid item xs>
-                  <Typography variant="h6">After 2 days</Typography>
-                  <Stack spacing={0.5}>
-                    {AvailableSlots.map((slot) => {
-                      return <Button variant="outlined">{slot}</Button>;
-                    })}
+                    <AppointmentBooking />
                   </Stack>
                 </Grid>
               </Grid>

@@ -52,4 +52,4 @@ const AppointmentBooking = () => {
   );
 };
 
-export default AppointmentBooking;
+export {AppointmentBooking};
