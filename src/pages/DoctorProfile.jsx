@@ -21,8 +21,7 @@ import { AppointmentBooking } from "../components/AppointmentBooking";
 const MyAppointments = ["Appointment 1", "Appointment 2", "Appointment 3"];
 const MyReviews = ["Review 1", "Review 2", "Review 3"];
 
-const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
-const id = 6;
+const id = 6; // Placeholder value (To be made dynamic and user-dependent)
 
 export const DoctorProfile = () => {
   const [editState, setEditState] = useState(false);
@@ -31,8 +30,8 @@ export const DoctorProfile = () => {
   const fetchDoctorData = async (id) => {
     const info = await axios.get(`http://localhost:5000/user/doctor/id/${id}`); // use env var for backend port
     const doctorInfo = info.data.doctor;
+    console.log(doctorInfo); // Debugging
     setDoctorData(doctorInfo);
-    console.log(doctorData);
   };
 
   useEffect(() => {
@@ -41,7 +40,7 @@ export const DoctorProfile = () => {
 
   const handleEditData = () => {
     setEditState(!editState);
-    console.log("Edit profile page");
+    console.log("Edit profile page"); // Debugging
   };
 
   return (
@@ -56,6 +55,8 @@ export const DoctorProfile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Full Name"
+              InputLabelProps={{ shrink: true }} 
+              value={doctorData.name}
               defaultValue={doctorData.name}
               InputProps={{
                 readOnly: !editState,
@@ -64,6 +65,8 @@ export const DoctorProfile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Username"
+              InputLabelProps={{ shrink: true }} 
+              value={doctorData.name}
               defaultValue={doctorData.username}
               InputProps={{
                 readOnly: !editState,
@@ -81,7 +84,7 @@ export const DoctorProfile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Phone Number"
-              defaultValue=" "
+              InputLabelProps={{ shrink: true }} 
               value={doctorData.phoneNumber}
               InputProps={{
                 readOnly: !editState,
@@ -90,7 +93,8 @@ export const DoctorProfile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="About"
-              defaultValue=" "
+              InputLabelProps={{ shrink: true }} 
+              defaultValue="Tell our visitors more about youreslf."
               value={doctorData.about}
               multiline
               InputProps={{
@@ -100,6 +104,7 @@ export const DoctorProfile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Specialization"
+              InputLabelProps={{ shrink: true }} 
               defaultValue=" "
               value={doctorData.specialization}
               InputProps={{
@@ -109,6 +114,7 @@ export const DoctorProfile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Price"
+              InputLabelProps={{ shrink: true }} 
               defaultValue=" "
               value={doctorData.price}
               InputProps={{
@@ -117,7 +123,8 @@ export const DoctorProfile = () => {
             />
             <TextField
               // id="outlined-read-only-input"
-              label="Location"
+              label="Location ID"
+              InputLabelProps={{ shrink: true }} 
               defaultValue=" "
               value={doctorData.locationId}
               InputProps={{
@@ -133,7 +140,7 @@ export const DoctorProfile = () => {
             </Button>
             <Stack my={12}>
               <Typography variant="h4">When will you be available?</Typography>
-              <Typography variant="body1" sx={{fontSize: "20px"}}>
+              <Typography variant="body1" sx={{ fontSize: "20px" }}>
                 Select the time slots at which you will be available.
               </Typography>
               <Grid padding={2} container spacing={20} alignItems="center">
@@ -162,7 +169,9 @@ export const DoctorProfile = () => {
             </Stack>
             <Typography variant="h5">Your Reviews</Typography>
             <Stack spacing={0.5}>
-              {MyReviews.map((Rev) => {
+              {/* Just render 3 reviews, this part is to be linked with API and made dynamic
+              to actually fetch reviews from the database. */}
+              {[1,2,3].map((_) => {
                 return (
                   <Card variant="outlined">
                     <Review />
