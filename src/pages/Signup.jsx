@@ -61,7 +61,7 @@ function SignUp() {
         const errors = {};
         error.details.forEach((error) => {
           errors[error.context.key] = error.message;
-          console.log("Validation Error HERE: ", error.message) // Debugging
+          console.log("Validation Error HERE: ", error.message); // Debugging
         });
         setErrors(errors);
         return;
@@ -69,7 +69,7 @@ function SignUp() {
       await axios.post(`/user/patient/signup`, user);
       // Redirect to doctors (Temporary MUST BE CHANGED LATER ON!)
       // window.location.href = "http://localhost:5173/doctors";
-      console.log("Success! The user object sent to server: ", user) //debugging
+      console.log("Success! The user object sent to server: ", user); //debugging
     } catch (error) {
       console.log(error);
     }
@@ -165,7 +165,11 @@ function SignUp() {
             <Typography variant="subtitle1" color="primary" fontWeight="bold">
               Date of Birth
             </Typography>
-            <TextField name="dateOfBirth" onChange={handleDateOfBirthChange} type="date"/>
+            <TextField
+              name="dateOfBirth"
+              onChange={handleDateOfBirthChange}
+              type="date"
+            />
           </FormControl>
         </Stack>
         <Button
