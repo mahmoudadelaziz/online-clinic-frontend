@@ -9,8 +9,6 @@ import {
   Stack,
   Typography,
   Rating,
-  Button,
-  Container,
 } from "@mui/material";
 import { Review } from "../components/Review";
 import { useEffect, useState } from "react";
@@ -22,7 +20,6 @@ export const DoctorPage = () => {
   const [doctor, setDoctor] = useState({});
   const [location, setLocation] = useState({});
   const [reviews, setReviews] = useState([]);
-  const [schedule, setSchedule] = useState({});
 
   useEffect(() => {
     const fetchDoctor = async () => {
