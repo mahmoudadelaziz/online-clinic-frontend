@@ -25,7 +25,6 @@ export const cities = {
 };
 export const specializations = {
   hematology: "Hematology",
-  infectiousdisease: "Infectious Disease",
   cardiology: "Cardiology",
   psychiatry: "Psychiatry",
   dermatology: "Dermatology",
@@ -34,9 +33,12 @@ export const specializations = {
   orthopedics: "Orthopedics",
   radiology: "Radiology",
   nephrology: "Nephrology",
-  surgery: "Surgery",
   urology: "Urology",
   endocrinology: "Endocrinology",
   neurology: "Neurology",
-  pediatrics: "Pediatrics",
+  otorhinolaryngology: "Otorhinolaryngology",
+  ophthalmology: "Ophthalmology",
+  pulmonology: "Pulmonology",
+  "internal medicine": "Internal Medicine",
+  gynecology: "Gynecology",
 };

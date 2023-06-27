@@ -2,7 +2,16 @@ import axios from "../utility/axios";
 import React, { useState } from "react";
 import { doctorSignupSchema } from "../utility/DoctoFormSchemas";
 import { FormInputList } from "../components";
-import { Container, Link, Typography, Button } from "@mui/material";
+import {
+  Container,
+  Link,
+  Typography,
+  Button,
+  Radio,
+  RadioGroup,
+  FormControl,
+  FormControlLabel,
+} from "@mui/material";
 
 const formInitialState = {
   name: "",
@@ -10,8 +19,8 @@ const formInitialState = {
   username: "",
   password: "",
   gender: "",
-  workingHoursStart:"",
-  workingHoursEnd:"",
+  workingHoursStart: "",
+  workingHoursEnd: "",
   phoneNumber: "",
   specialization: "",
   visitFee: "",
@@ -25,8 +34,8 @@ const errorsInitialState = {
   username: "",
   password: "",
   gender: "",
-  workingHoursStart:"",
-  workingHoursEnd:"",
+  workingHoursStart: "",
+  workingHoursEnd: "",
   phoneNumber: "",
   specialization: "",
   visitFee: "",
@@ -37,9 +46,13 @@ const errorsInitialState = {
 function DoctorSignUp() {
   const [doctor, setDoctor] = useState(formInitialState);
   const [errors, setErrors] = useState(errorsInitialState);
+  
   const handleInputChange = (e) => {
     setDoctor({ ...doctor, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
+  };
+  const handleGenderChange = (e) => {
+    setDoctor({ ...doctor, gender: e.target.value });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +61,7 @@ function DoctorSignUp() {
 
     const dataToSend = {
       ...doctor,
-      ["price1"]: visitFeeFieldValue,
+      ["visitFee"]: visitFeeFieldValue,
       ["locationId"]: locationIdFieldValue,
     };
 
@@ -62,11 +75,13 @@ function DoctorSignUp() {
           errors[error.context.key] = error.message;
         });
         setErrors(errors);
+        console.log("(🔎 DEBUGGING) HERE! ATTEMPTED message Body: ", dataToSend);
+        console.log("(🔎 DEBUGGING) HERE! ERROR: ", errors);
         return;
       }
 
       await axios.post(`user/doctor/signup`, dataToSend);
-      console.log("(🔎 Debugging) Body sent to server: ", dataToSend);
+      console.log("(🔎 Debugging) Success! Body sent to server: ", dataToSend);
       // Redirect to doctor's profile (Temporary MUST BE CHANGED LATER ON!)
       // window.location.href = "http://localhost:5173/doctor/profile";
     } catch (error) {
@@ -115,7 +130,6 @@ function DoctorSignUp() {
       placeholder: "Specialization",
       value: doctor.specialization,
       name: "specialization",
-      onChange: handleInputChange,
       type: "text",
     },
     {
@@ -178,6 +192,29 @@ function DoctorSignUp() {
           errors={errors}
           changeHandler={handleInputChange}
         />
+        <FormControl component="fieldset" sx={{ my: 2 }}>
+          <Typography variant="subtitle1" color="primary" fontWeight="bold">
+            Gender
+          </Typography>
+          <RadioGroup
+            row
+            aria-label="gender"
+            name="gender"
+            value={doctor.gender}
+            onChange={handleGenderChange}
+          >
+            <FormControlLabel
+              value="male"
+              control={<Radio color="primary" />}
+              label="Male"
+            />
+            <FormControlLabel
+              value="female"
+              control={<Radio color="primary" />}
+              label="Female"
+            />
+          </RadioGroup>
+        </FormControl>
         <Button
           variant="contained"
           color="primary"

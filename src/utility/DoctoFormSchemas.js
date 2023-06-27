@@ -1,4 +1,5 @@
 import Joi from "joi";
+import { specializations } from "../constants";
 
 const MIN = 3;
 const MAX = 12;
@@ -54,41 +55,54 @@ const specializationSchema = Joi.string()
     });
     return errors;
   });
-const subSpecializationSchema = Joi.string()
+const subSpecializationSchema = Joi.string().error((errors) => {
+  errors.forEach((error) => {
+    error.message = "Invalid input";
+  });
+  return errors;
+});
+const aboutSchema = Joi.string().error((errors) => {
+  errors.forEach((error) => {
+    error.message = "Invalid input";
+  });
+  return errors;
+});
+const visitFeeSchema = Joi.number().error((errors) => {
+  errors.forEach((error) => {
+    error.message = "Invalid input";
+  });
+  return errors;
+});
+const workingHoursStartSchema = Joi.required().error((errors) => {
+  errors.forEach((error) => {
+    error.message = "Invalid input";
+  });
+  return errors;
+});
+const genderSchema = Joi.string()
+  .required()
   .error((errors) => {
     errors.forEach((error) => {
-      error.message = "Invalid input";
+      switch (error.code) {
+        case "string.empty":
+          error.message = "gender is required";
+          break;
+      }
     });
     return errors;
   });
-const aboutSchema = Joi.string()
-  .error((errors) => {
-    errors.forEach((error) => {
-      error.message = "Invalid input";
-    });
-    return errors;
+const workingHoursEndSchema = Joi.required().error((errors) => {
+  errors.forEach((error) => {
+    error.message = "Invalid input";
   });
-const price1Schema = Joi.number()
-  .error((errors) => {
-    errors.forEach((error) => {
-      error.message = "Invalid input";
-    });
-    return errors;
+  return errors;
+});
+const locationIDSchema = Joi.string().error((errors) => {
+  errors.forEach((error) => {
+    error.message = "Invalid input";
   });
-const price2Schema = Joi.number()
-  .error((errors) => {
-    errors.forEach((error) => {
-      error.message = "Invalid input";
-    });
-    return errors;
-  });
-const locationIDSchema = Joi.string()
-  .error((errors) => {
-    errors.forEach((error) => {
-      error.message = "Invalid input";
-    });
-    return errors;
-  });
+  return errors;
+});
 const phoneNumberSchema = Joi.string()
   .regex(/^(\+\d{1,3}[- ]?)?\d{10}$/)
   .error((errors) => {
@@ -145,13 +159,15 @@ const emailSchema = Joi.string()
 export const doctorSignupSchema = Joi.object({
   name: nameSchema,
   email: emailSchema,
+  gender: genderSchema,
+  workingHoursStart: workingHoursStartSchema,
+  workingHoursEnd: workingHoursEndSchema,
   phoneNumber: phoneNumberSchema,
   specialization: specializationSchema,
   subSpecialization: subSpecializationSchema,
   about: aboutSchema,
   locationId: locationIDSchema,
-  price1: price1Schema,
-  price2: price2Schema,
+  visitFee: visitFeeSchema,
   username: usernameSchema,
   password: passwordSchema,
 });
