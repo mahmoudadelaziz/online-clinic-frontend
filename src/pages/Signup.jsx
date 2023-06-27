@@ -2,8 +2,18 @@ import axios from "../utility/axios";
 import React, { useState } from "react";
 import { signupSchema } from "../utility/formSchemas";
 import { FormInputList } from "../components";
-import { Container, Link, Typography, Button } from "@mui/material";
-import { useRadioGroup } from '@mui/material/RadioGroup';
+import {
+  Container,
+  Link,
+  Stack,
+  Typography,
+  Button,
+  Radio,
+  RadioGroup,
+  FormControl,
+  FormControlLabel,
+  TextField,
+} from "@mui/material";
 
 const formInitialState = {
   name: "",
@@ -32,6 +42,14 @@ function SignUp() {
     setErrors({ ...errors, [e.target.name]: "" });
   };
 
+  const handleGenderChange = (e) => {
+    setUser({ ...user, gender: e.target.value });
+  };
+
+  const handleDateOfBirthChange = (date) => {
+    setUser({ ...user, dateOfBirth: date.target.value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,13 +61,15 @@ function SignUp() {
         const errors = {};
         error.details.forEach((error) => {
           errors[error.context.key] = error.message;
+          console.log("Validation Error HERE: ", error.message) // Debugging
         });
         setErrors(errors);
         return;
       }
       await axios.post(`/user/patient/signup`, user);
       // Redirect to doctors (Temporary MUST BE CHANGED LATER ON!)
-      window.location.href = "http://localhost:5173/doctors"
+      // window.location.href = "http://localhost:5173/doctors";
+      console.log("Success! The user object sent to server: ", user) //debugging
     } catch (error) {
       console.log(error);
     }
@@ -92,8 +112,7 @@ function SignUp() {
       type: "password",
     },
   ];
-  
-  
+
   return (
     <Container maxWidth="sm" sx={{ mt: 10 }}>
       <form onSubmit={handleSubmit}>
@@ -118,12 +137,42 @@ function SignUp() {
           errors={errors}
           changeHandler={handleInputChange}
         />
+        <Stack>
+          <FormControl component="fieldset" sx={{ my: 2 }}>
+            <Typography variant="subtitle1" color="primary" fontWeight="bold">
+              Gender
+            </Typography>
+            <RadioGroup
+              row
+              aria-label="gender"
+              name="gender"
+              value={user.gender}
+              onChange={handleGenderChange}
+            >
+              <FormControlLabel
+                value="male"
+                control={<Radio color="primary" />}
+                label="Male"
+              />
+              <FormControlLabel
+                value="female"
+                control={<Radio color="primary" />}
+                label="Female"
+              />
+            </RadioGroup>
+          </FormControl>
+          <FormControl sx={{ my: 2 }}>
+            <Typography variant="subtitle1" color="primary" fontWeight="bold">
+              Date of Birth
+            </Typography>
+            <TextField name="dateOfBirth" onChange={handleDateOfBirthChange} type="date"/>
+          </FormControl>
+        </Stack>
         <Button
           variant="contained"
           color="primary"
           type="submit"
           sx={{ width: "100%", my: 2 }}
-
         >
           Sign up
         </Button>

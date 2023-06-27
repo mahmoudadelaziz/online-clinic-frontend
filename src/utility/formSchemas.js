@@ -42,6 +42,29 @@ const nameSchema = Joi.string()
     });
     return errors;
   });
+const genderSchema = Joi.string()
+  .required()
+  .error((errors) => {
+    errors.forEach((error) => {
+      switch (error.code) {
+        case "string.empty":
+          error.message = "gender is required";
+          break;
+      }
+    });
+    return errors;
+  });
+const dateOfBirthSchema = Joi.required()
+  .error((errors) => {
+    errors.forEach((error) => {
+      switch (error.code) {
+        case "string.empty":
+          error.message = "dateOfBirth is required";
+          break;
+      }
+    });
+    return errors;
+  });
 const phoneNumberSchema = Joi.string()
   .regex(/^(\+\d{1,3}[- ]?)?\d{10}$/)
   .error((errors) => {
@@ -97,6 +120,8 @@ const emailSchema = Joi.string()
 
 export const signupSchema = Joi.object({
   name: nameSchema,
+  gender: genderSchema,
+  dateOfBirth: dateOfBirthSchema,
   email: emailSchema,
   phoneNumber: phoneNumberSchema,
   username: usernameSchema,
