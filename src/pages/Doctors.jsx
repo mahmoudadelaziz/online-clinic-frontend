@@ -48,6 +48,7 @@ export const Doctors = () => {
         console.log(`/user/doctor/info${queryStr}`);
         setNumberOfPages(numberOfPages);
         setDoctors(data);
+        // console.log("(🔍 Debugging) Data fetched for the doctor: ", data) // debugging
         setLoading(false);
         setIsSearch(false);
       } catch (error) {
