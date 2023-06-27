@@ -5,7 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import DaySlots from "./DayScheduler";
 
-const AppointmentBooking = () => {
+const AppointmentBooking = ({workingHoursStart, workingHoursEnd}) => {
   const [date, setDate] = useState(new Date());
   // Initial value of date: the current datetime
 
