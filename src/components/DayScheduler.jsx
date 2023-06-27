@@ -93,7 +93,7 @@ const DaySlots = ({ slotDuration = 20, date, workingHoursStart=9, workingHoursEn
                   }}
                   onClick={() => {
                     handleSlotClick(slot.index),
-                      console.log(`Selected slot: ${date.getDate()}/${date.getMonth()+1} at ${slot.time}`);
+                      console.log(`Selected slot: ${date.getDate()}/${date.getMonth()+1} at ${slot.time}`); // DEBUGGING AND LINKING
                   }}
                 >
                   {slot.time}

@@ -41,7 +41,7 @@ export const DoctorPage = () => {
         const {
           data: { reviews },
         } = await axios.get(`/review/${id}`);
-        console.log("(🔍 Debugging) The reviews fetched: ", reviews);
+        // console.log("(🔍 Debugging) The reviews fetched: ", reviews); // Debugging
         setReviews(reviews);
       } catch (error) {
         console.log(error);
@@ -62,7 +62,7 @@ export const DoctorPage = () => {
     fetchLocation();
   }, []);
 
-  console.log("(🔍 Debugging) The doctor object fetched: ", doctor);
+  // console.log("(🔍 Debugging) The doctor object fetched: ", doctor); // Debugging
   return (
     <Card>
       <CardContent>
@@ -103,18 +103,6 @@ export const DoctorPage = () => {
               <Typography variant="h4" sx={{ my: 2 }}>
                 Book an appointment
               </Typography>
-              {console.log(
-                "(🔍 Debugging) START:",
-                parseInt(doctor.workingHoursStart),
-                "TYPE:",
-                typeof parseInt(doctor.workingHoursStart)
-              )}
-              {console.log(
-                "(🔍 Debugging) END:",
-                parseInt(doctor.workingHoursEnd),
-                "TYPE:",
-                typeof parseInt(doctor.workingHoursEnd)
-              )}
               <AppointmentBooking
                 workingHoursStart={parseInt(doctor.workingHoursStart)}
                 workingHoursEnd={parseInt(doctor.workingHoursEnd)}
