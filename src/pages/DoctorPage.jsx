@@ -88,9 +88,14 @@ export const DoctorPage = () => {
               ut, dignissim nisi. Fusce egestas scelerisque vulputate.
             </Typography>
             <Stack my={2}>
-              <Rating value={4.5} precision={0.5} />
+              <Rating
+                value={reviews.reduce((acc, val) => {
+                  return acc + val.rating / reviews.length;
+                }, 0)}
+                precision={0.1}
+              />
               <Typography vatiant="subtitle2">
-                Overall rating from 23 visitors
+                Overall rating from {reviews.length} visitors
               </Typography>
             </Stack>
 
@@ -111,13 +116,11 @@ export const DoctorPage = () => {
               spacing={3}
               divider={<Divider orientation="horizontal" flexItem />}
             >
-
               {reviews.map((REVIEW) => (
                 <Stack item key={REVIEW.id}>
-                <Review REVIEW={REVIEW} />
+                  <Review REVIEW={REVIEW} />
                 </Stack>
               ))}
-
             </Stack>
           </Grid>
         </Grid>
