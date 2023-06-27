@@ -12,7 +12,7 @@ import {
   Button,
   Container,
 } from "@mui/material";
-import { Review } from "../components/Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
+import { Review } from "../components/Review";
 import { useEffect, useState } from "react";
 import axios from "../utility/axios";
 import { AppointmentBooking } from "../components/AppointmentBooking";
@@ -41,6 +41,7 @@ export const DoctorPage = () => {
         const {
           data: { reviews },
         } = await axios.get(`/review/${id}`);
+        console.log("(🔍 Debugging) The reviews fetched: ", reviews);
         setReviews(reviews);
       } catch (error) {
         console.log(error);
@@ -110,9 +111,13 @@ export const DoctorPage = () => {
               spacing={3}
               divider={<Divider orientation="horizontal" flexItem />}
             >
-              <Review />
-              <Review />
-              <Review />
+
+              {reviews.map((REVIEW) => (
+                <Stack item key={REVIEW.id}>
+                <Review REVIEW={REVIEW} />
+                </Stack>
+              ))}
+
             </Stack>
           </Grid>
         </Grid>
