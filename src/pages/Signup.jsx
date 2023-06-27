@@ -3,10 +3,13 @@ import React, { useState } from "react";
 import { signupSchema } from "../utility/formSchemas";
 import { FormInputList } from "../components";
 import { Container, Link, Typography, Button } from "@mui/material";
+import { useRadioGroup } from '@mui/material/RadioGroup';
 
 const formInitialState = {
   name: "",
   email: "",
+  gender: "",
+  dateOfBirth: "",
   username: "",
   password: "",
   phoneNumber: "",
@@ -15,16 +18,20 @@ const errorsInitialState = {
   name: "",
   email: "",
   username: "",
+  gender: "",
+  dateOfBirth: "",
   password: "",
   phoneNumber: "",
 };
 function SignUp() {
   const [user, setUser] = useState(formInitialState);
   const [errors, setErrors] = useState(errorsInitialState);
+
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -47,6 +54,7 @@ function SignUp() {
       console.log(error);
     }
   };
+
   const formInputs = [
     {
       placeholder: "Full Name",
@@ -84,6 +92,8 @@ function SignUp() {
       type: "password",
     },
   ];
+  
+  
   return (
     <Container maxWidth="sm" sx={{ mt: 10 }}>
       <form onSubmit={handleSubmit}>
