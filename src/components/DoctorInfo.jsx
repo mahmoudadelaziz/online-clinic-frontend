@@ -11,6 +11,7 @@ import profile from "../assets/doctor.jpg";
 import { Link } from "react-router-dom";
 
 export const DoctorInfo = ({ doctor }) => {
+  console.log("(🔍 Debugging) Your Doctor: ", doctor) // DEBUGGING
   return (
     <Card>
       <CardContent>
@@ -25,7 +26,7 @@ export const DoctorInfo = ({ doctor }) => {
           <Stack direction="row" sx={{ mt: 1 }} alignItems="center">
             <Rating value={doctor.avgRating} precision={0.5} sx={{ mr: 1 }} />
             <Typography variant="body2" color="grey">
-              ({doctor.numberOfReviews}-Reviews)
+              ({doctor.reviews.length} Reviews)
             </Typography>
           </Stack>
           <Typography variant="body1" color="primary" sx={{ mt: 2 }}>
