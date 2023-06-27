@@ -9,11 +9,12 @@ const formInitialState = {
   email: "",
   username: "",
   password: "",
+  gender: "",
+  workingHoursStart:"",
+  workingHoursEnd:"",
   phoneNumber: "",
   specialization: "",
-  subSpecialization: "",
-  price1: "",
-  price2: "",
+  visitFee: "",
   locationId: "",
   about: "",
 };
@@ -23,11 +24,12 @@ const errorsInitialState = {
   email: "",
   username: "",
   password: "",
+  gender: "",
+  workingHoursStart:"",
+  workingHoursEnd:"",
   phoneNumber: "",
   specialization: "",
-  subSpecialization: "",
-  price1: "",
-  price2: "",
+  visitFee: "",
   locationId: "",
   about: "",
 };
@@ -41,14 +43,12 @@ function DoctorSignUp() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const price1FieldValue = parseInt(doctor["price1"], 10);
-    const price2FieldValue = parseInt(doctor["price2"], 10);
+    const visitFeeFieldValue = parseInt(doctor["visitFee"], 10);
     const locationIdFieldValue = parseInt(doctor["locationId"], 10);
 
     const dataToSend = {
       ...doctor,
-      ["price1"]: price1FieldValue,
-      ["price2"]: price2FieldValue,
+      ["price1"]: visitFeeFieldValue,
       ["locationId"]: locationIdFieldValue,
     };
 
@@ -119,25 +119,25 @@ function DoctorSignUp() {
       type: "text",
     },
     {
-      placeholder: "Sub-specialization",
-      value: doctor.subSpecialization,
-      name: "subSpecialization",
-      onChange: handleInputChange,
-      type: "text",
-    },
-    {
-      placeholder: "Price 1",
-      value: doctor.price1,
-      name: "price1",
+      placeholder: "Visit fee",
+      value: doctor.visitFee,
+      name: "visitFee",
       onChange: handleInputChange,
       type: "number",
     },
     {
-      placeholder: "Price 2",
-      value: doctor.price2,
-      name: "price2",
+      placeholder: "Working Hours Start",
+      value: doctor.workingHoursStart,
+      name: "workingHoursStart",
       onChange: handleInputChange,
-      type: "number",
+      type: "time",
+    },
+    {
+      placeholder: "Working Hours End",
+      value: doctor.workingHoursEnd,
+      name: "workingHoursEnd",
+      onChange: handleInputChange,
+      type: "time",
     },
     {
       placeholder: "About",
