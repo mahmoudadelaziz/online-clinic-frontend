@@ -1,20 +1,55 @@
-// This is the Doctor's Page shown when a visitor clicks on the doctor's card
+import { useParams } from "react-router-dom";
+import profile from "../assets/doctor.jpg";
 import {
-  Avatar,
   Card,
-  CardContent,
   Divider,
+  CardContent,
+  Avatar,
   Grid,
-  Rating,
   Stack,
   Typography,
+  Rating,
+  Button,
+  Container,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import profile from "../assets/doctor.jpg";
 import { Review } from "../components/Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
-import {AppointmentBooking} from "../components/AppointmentBooking";
+import { useEffect, useState } from "react";
+import axios from "../utility/axios";
+import { AppointmentBooking } from "../components/AppointmentBooking";
 
 export const DoctorPage = () => {
+  const { id } = useParams();
+  const [doctor, setDoctor] = useState({});
+  const [reviews, setReviews] = useState([]);
+  const [schedule, setSchedule] = useState({});
+
+  useEffect(() => {
+    const fetchDoctor = async () => {
+      try {
+        const {
+          data: { doctor },
+        } = await axios.get(`/user/doctor/id/${id}`);
+        setDoctor(doctor);
+      } catch (error) {
+        console.log("FETCHING ERROR");
+        console.log(error);
+      }
+    };
+    const fetchReviews = async () => {
+      try {
+        const {
+          data: { reviews },
+        } = await axios.get(`/review/${id}`);
+        setReviews(reviews);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDoctor();
+    fetchReviews();
+  }, []);
+
+  console.log("(🔍 Debugging) The doctor object fetched: ", doctor)
   return (
     <Card>
       <CardContent>
@@ -24,13 +59,13 @@ export const DoctorPage = () => {
           </Grid>
           <Grid item xs={10}>
             <Typography variant="h3" color="primary">
-              Doctor's Name
+              {doctor.name}
             </Typography>
             <Typography variant="body2" fontSize={20}>
-              Doctor's Specialty
+              Specialist in {doctor.specialization}
             </Typography>
             <Typography variant="body2" fontSize={20}>
-              Location
+              Location ID: {doctor.locationId}
             </Typography>
             <Typography variant="body1" fontSize={18}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
@@ -44,7 +79,6 @@ export const DoctorPage = () => {
               <Typography vatiant="subtitle2">
                 Overall rating from 23 visitors
               </Typography>
-              <Link to={`api/reviews`}>Show all reviews</Link>
             </Stack>
 
             <Stack sx={{ my: 5 }}>
