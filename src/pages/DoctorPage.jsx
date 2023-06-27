@@ -20,6 +20,7 @@ import { AppointmentBooking } from "../components/AppointmentBooking";
 export const DoctorPage = () => {
   const { id } = useParams();
   const [doctor, setDoctor] = useState({});
+  const [location, setLocation] = useState({});
   const [reviews, setReviews] = useState([]);
   const [schedule, setSchedule] = useState({});
 
@@ -45,11 +46,22 @@ export const DoctorPage = () => {
         console.log(error);
       }
     };
+    const fetchLocation = async () => {
+      try {
+        const {
+          data: { location },
+        } = await axios.get(`/location/${id}`);
+        setLocation(location);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchDoctor();
     fetchReviews();
+    fetchLocation();
   }, []);
 
-  console.log("(🔍 Debugging) The doctor object fetched: ", doctor)
+  console.log("(🔍 Debugging) The doctor object fetched: ", doctor);
   return (
     <Card>
       <CardContent>
@@ -65,9 +77,9 @@ export const DoctorPage = () => {
               Specialist in {doctor.specialization}
             </Typography>
             <Typography variant="body2" fontSize={20}>
-              Location ID: {doctor.locationId}
+              {location.id} {location.street}, {location.governorate}
             </Typography>
-            <Typography variant="body1" fontSize={18}>
+            <Typography variant="body1" fontSize={18} color="grey">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
               ligula velit, iaculis semper sem quis, consectetur volutpat
               tellus. Aliquam et nulla efficitur, laoreet mauris id, tincidunt
