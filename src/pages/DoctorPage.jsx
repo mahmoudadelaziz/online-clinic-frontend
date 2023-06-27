@@ -103,7 +103,22 @@ export const DoctorPage = () => {
               <Typography variant="h4" sx={{ my: 2 }}>
                 Book an appointment
               </Typography>
-              <AppointmentBooking />
+              {console.log(
+                "(🔍 Debugging) START:",
+                parseInt(doctor.workingHoursStart),
+                "TYPE:",
+                typeof parseInt(doctor.workingHoursStart)
+              )}
+              {console.log(
+                "(🔍 Debugging) END:",
+                parseInt(doctor.workingHoursEnd),
+                "TYPE:",
+                typeof parseInt(doctor.workingHoursEnd)
+              )}
+              <AppointmentBooking
+                workingHoursStart={parseInt(doctor.workingHoursStart)}
+                workingHoursEnd={parseInt(doctor.workingHoursEnd)}
+              />
             </Stack>
 
             <Stack>
