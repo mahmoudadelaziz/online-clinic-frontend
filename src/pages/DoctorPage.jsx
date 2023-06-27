@@ -75,7 +75,7 @@ export const DoctorPage = () => {
               Specialist in {doctor.specialization}
             </Typography>
             <Typography variant="body2" fontSize={20}>
-              {location.id} {location.street}, {location.governorate}
+              {location.street}, {location.governorate}
             </Typography>
             <Typography variant="body1" fontSize={18} color="grey">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec

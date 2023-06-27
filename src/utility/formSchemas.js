@@ -25,7 +25,7 @@ const usernameSchema = Joi.string()
 const nameSchema = Joi.string()
   .required()
   .min(MIN)
-  .max(MAX)
+  .max(50)
   .error((errors) => {
     errors.forEach((error) => {
       switch (error.code) {
@@ -36,7 +36,30 @@ const nameSchema = Joi.string()
           error.message = `name cannot be less than ${MIN} characters.`;
           break;
         case "string.max":
-          error.message = `name cannot be more than ${MAX} characters.`;
+          error.message = `name cannot be more than ${50} characters.`;
+          break;
+      }
+    });
+    return errors;
+  });
+const genderSchema = Joi.string()
+  .required()
+  .error((errors) => {
+    errors.forEach((error) => {
+      switch (error.code) {
+        case "string.empty":
+          error.message = "gender is required";
+          break;
+      }
+    });
+    return errors;
+  });
+const dateOfBirthSchema = Joi.required()
+  .error((errors) => {
+    errors.forEach((error) => {
+      switch (error.code) {
+        case "string.empty":
+          error.message = "dateOfBirth is required";
           break;
       }
     });
@@ -97,6 +120,8 @@ const emailSchema = Joi.string()
 
 export const signupSchema = Joi.object({
   name: nameSchema,
+  gender: genderSchema,
+  dateOfBirth: dateOfBirthSchema,
   email: emailSchema,
   phoneNumber: phoneNumberSchema,
   username: usernameSchema,
