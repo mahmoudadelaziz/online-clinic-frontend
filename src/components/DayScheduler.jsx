@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 // Note: We are assuming a work day from 9 AM to 5 PM
-const DaySlots = ({ slotDuration = 30, date }) => {
+const DaySlots = ({ slotDuration = 20, date }) => {
   /*  
   The component takes the arguments (props):
   slotDuration: The slot duration of the doctor (default = 30 minutes)
