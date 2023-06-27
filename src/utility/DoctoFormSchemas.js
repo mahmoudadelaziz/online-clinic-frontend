@@ -26,7 +26,7 @@ const usernameSchema = Joi.string()
 const nameSchema = Joi.string()
   .required()
   .min(MIN)
-  .max(MAX)
+  .max(50)
   .error((errors) => {
     errors.forEach((error) => {
       switch (error.code) {
@@ -37,7 +37,7 @@ const nameSchema = Joi.string()
           error.message = `Name cannot be less than ${MIN} characters.`;
           break;
         case "string.max":
-          error.message = `Name cannot be more than ${MAX} characters.`;
+          error.message = `Name cannot be more than ${50} characters.`;
           break;
       }
     });
