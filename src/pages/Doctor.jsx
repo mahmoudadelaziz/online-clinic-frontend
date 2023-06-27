@@ -13,12 +13,18 @@ import {
   Container,
 } from "@mui/material";
 import { Review } from "../components/Review"; // STILL NEED TO PASS VARIABLES TO EACH REVIEW
+import { useEffect, useState } from "react";
+import axios from "../utility/axios";
 
-// Placeholder for available timeslots
-const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
+
 
 export const Doctor = () => {
+  const { id } = useParams();
+  const [doctor, setDoctor] = useState({});
+  const [reviews, setReviews] = useState([]);
+  const [schedule, setSchedule] = useState({});
   const { name } = useParams();
+  
   console.log(name)
   return (
     <Container sx={{ mt: 2 }}>
