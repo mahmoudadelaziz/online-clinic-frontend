@@ -29,7 +29,10 @@ export const DoctorPage = () => {
         } = await axios.get(`/user/doctor/id/${id}`);
         setDoctor(doctor);
         console.log("(🔍 Debugging) The doctor fetched: ", doctor); // Debugging
-        console.log("(🔍 Debugging) The doctor's locationId: ", doctor.locationId); // Debugging
+        console.log(
+          "(🔍 Debugging) The doctor's locationId: ",
+          doctor.locationId
+        ); // Debugging
       } catch (error) {
         console.log("(🔍 Debugging) FETCHING ERROR");
         console.log(error);
@@ -46,18 +49,10 @@ export const DoctorPage = () => {
         console.log(error);
       }
     };
-    // const fetchLocation = async () => {
-    //   try {
-    //     const {
-    //       data: { location },
-    //     } = await axios.get(`/location/${doctor.locationId}`);
-    //     setLocation(location);
-    //   } catch (error) {
-    //     console.log(error.name + ":" + error.message);
-    //   }
-    // };
-    fetchDoctor()
-    fetchReviews()
+    if (doctor) {
+      fetchDoctor();
+    }
+    fetchReviews();
   }, []);
 
   useEffect(() => {
@@ -68,11 +63,17 @@ export const DoctorPage = () => {
         } = await axios.get(`/location/${doctor.locationId}`);
         setLocation(location);
       } catch (error) {
-        console.log("(🔍🔍🔍 Debugging) Doctor's locationId: ",doctor.locationId)
+        console.log(
+          "(🔍🔍🔍 Debugging) Doctor's locationId: ",
+          doctor.locationId
+        );
         console.log(error.message);
       }
-    }; fetchLocation()
-  }, [doctor.locationId])
+    };
+    if (doctor.locationId) {
+      fetchLocation();
+    }
+  }, [doctor.locationId]);
 
   return (
     <Card>
@@ -89,7 +90,7 @@ export const DoctorPage = () => {
               Specialist in {doctor.specialization}
             </Typography>
             <Typography variant="body2" fontSize={20}>
-              {location.street}, {location.governorate}
+              {location.id} {location.street}, {location.governorate}
             </Typography>
             <Typography variant="body1" fontSize={18} color="grey">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
