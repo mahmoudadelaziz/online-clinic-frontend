@@ -92,13 +92,21 @@ export const DoctorPage = () => {
             <Typography variant="body2" fontSize={20}>
               {location.id} {location.street}, {location.governorate}
             </Typography>
-            <Typography variant="body1" fontSize={18} color="grey">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              ligula velit, iaculis semper sem quis, consectetur volutpat
-              tellus. Aliquam et nulla efficitur, laoreet mauris id, tincidunt
-              lectus. Cras sed eleifend orci. Nam ut est egestas, accumsan lorem
-              ut, dignissim nisi. Fusce egestas scelerisque vulputate.
-            </Typography>
+            {!doctor.about ? (
+              <Typography variant="body1" fontSize={18} color="grey">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                ligula velit, iaculis semper sem quis, consectetur volutpat
+                tellus. Aliquam et nulla efficitur, laoreet mauris id, tincidunt
+                lectus. Cras sed eleifend orci. Nam ut est egestas, accumsan
+                lorem ut, dignissim nisi. Fusce egestas scelerisque vulputate.
+              </Typography>
+            ) : (
+              <Typography variant="body1" fontSize={18} color="grey">
+                {" "}
+                {doctor.about}
+              </Typography>
+            )}
+
             <Stack my={2}>
               <Rating
                 value={reviews.reduce((acc, val) => {
