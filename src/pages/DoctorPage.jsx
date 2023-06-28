@@ -28,8 +28,10 @@ export const DoctorPage = () => {
           data: { doctor },
         } = await axios.get(`/user/doctor/id/${id}`);
         setDoctor(doctor);
+        console.log("(🔍 Debugging) The doctor fetched: ", doctor); // Debugging
+        console.log("(🔍 Debugging) The doctor's locationId: ", doctor.locationId); // Debugging
       } catch (error) {
-        console.log("FETCHING ERROR");
+        console.log("(🔍 Debugging) FETCHING ERROR");
         console.log(error);
       }
     };
@@ -44,22 +46,34 @@ export const DoctorPage = () => {
         console.log(error);
       }
     };
+    // const fetchLocation = async () => {
+    //   try {
+    //     const {
+    //       data: { location },
+    //     } = await axios.get(`/location/${doctor.locationId}`);
+    //     setLocation(location);
+    //   } catch (error) {
+    //     console.log(error.name + ":" + error.message);
+    //   }
+    // };
+    fetchDoctor()
+    fetchReviews()
+  }, []);
+
+  useEffect(() => {
     const fetchLocation = async () => {
       try {
         const {
           data: { location },
-        } = await axios.get(`/location/${id}`);
+        } = await axios.get(`/location/${doctor.locationId}`);
         setLocation(location);
       } catch (error) {
-        console.log(error);
+        console.log("(🔍🔍🔍 Debugging) Doctor's locationId: ",doctor.locationId)
+        console.log(error.message);
       }
-    };
-    fetchDoctor();
-    fetchReviews();
-    fetchLocation();
-  }, []);
+    }; fetchLocation()
+  }, [doctor.locationId])
 
-  // console.log("(🔍 Debugging) The doctor object fetched: ", doctor); // Debugging
   return (
     <Card>
       <CardContent>
