@@ -166,19 +166,21 @@ export const DoctorProfile = () => {
                   </Grid>
                 );
               })}
-            </Stack>
+
+            {/* </Stack> */}
             <Typography variant="h5">Your Reviews</Typography>
-            <Stack spacing={0.5}>
+            {/* <Stack spacing={0.5}>
               {/* Just render 3 reviews, this part is to be linked with API and made dynamic
               to actually fetch reviews from the database. */}
-              {[1,2,3].map((_) => {
+              {/* {[1,2,3].map((_) => {
                 return (
                   <Card variant="outlined">
                     <Review />
                   </Card>
                 );
-              })}
-            </Stack>
+              })} */}
+            </Stack> */
+
           </Stack>
         </CardContent>
       </Card>
