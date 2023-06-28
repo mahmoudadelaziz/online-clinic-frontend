@@ -5,7 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import DaySlots from "./DayScheduler";
 
-const AppointmentBooking = () => {
+const AppointmentBooking = ({ workingHoursStart, workingHoursEnd }) => {
   const [date, setDate] = useState(new Date());
   // Initial value of date: the current datetime
 
@@ -26,11 +26,18 @@ const AppointmentBooking = () => {
       </Grid>
       <Grid item xs={2} sx={{ margin: "0 auto" }}>
         {/* Today's slots */}
-        <DaySlots slotDuration={20} date={date} />
+        <DaySlots
+          workingHoursStart={workingHoursStart}
+          workingHoursEnd={workingHoursEnd}
+          slotDuration={20}
+          date={date}
+        />
       </Grid>
       <Grid item xs={2} sx={{ margin: "0 auto" }}>
         {/* Tomorrow's slots */}
         <DaySlots
+          workingHoursStart={workingHoursStart}
+          workingHoursEnd={workingHoursEnd}
           slotDuration={20}
           date={new Date(date.getTime() + 1 * 24 * 60 * 60 * 1000)}
         />
@@ -38,6 +45,8 @@ const AppointmentBooking = () => {
       <Grid item xs={2} sx={{ margin: "0 auto" }}>
         {/* The day after tomorrow's slots */}
         <DaySlots
+          workingHoursStart={workingHoursStart}
+          workingHoursEnd={workingHoursEnd}
           slotDuration={20}
           date={new Date(date.getTime() + 2 * 24 * 60 * 60 * 1000)}
         />
@@ -52,4 +61,4 @@ const AppointmentBooking = () => {
   );
 };
 
-export default AppointmentBooking;
+export { AppointmentBooking };

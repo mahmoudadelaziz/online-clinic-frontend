@@ -1,4 +1,6 @@
-// Patient's profile
+// Doctor's Profile
+// This page should only be available for a signed in doctor
+// And it should show only the information of that signed in doctor
 import {
   Avatar,
   Button,
@@ -12,24 +14,24 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import profile from "../assets/doctor.jpg";
-import { PatientAppointments } from "./PatientAppointments";
-import { PatientReviews } from "./PatientReviews";
+import { PatientAppointments } from "../components/PatientAppointments";
+import { Review } from "../components/Review";
+import { AppointmentBooking } from "../components/AppointmentBooking";
 
 const MyAppointments = ["Appointment 1", "Appointment 2", "Appointment 3"];
 const MyReviews = ["Review 1", "Review 2", "Review 3"];
 
-const AvailableSlots = ["slot1", "slot2", "slot3", "slot4", "slot5"];
-const id = 2;
+const id = 6; // Placeholder value (To be made dynamic and user-dependent)
 
-export const Profile = () => {
+export const DoctorProfile = () => {
   const [editState, setEditState] = useState(false);
   const [doctorData, setDoctorData] = useState({});
 
   const fetchDoctorData = async (id) => {
     const info = await axios.get(`http://localhost:5000/user/doctor/id/${id}`); // use env var for backend port
     const doctorInfo = info.data.doctor;
+    console.log(doctorInfo); // Debugging
     setDoctorData(doctorInfo);
-    console.log(doctorData);
   };
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export const Profile = () => {
 
   const handleEditData = () => {
     setEditState(!editState);
-    console.log("Edit profile page");
+    console.log("Edit profile page"); // Debugging
   };
 
   return (
@@ -53,6 +55,8 @@ export const Profile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Full Name"
+              InputLabelProps={{ shrink: true }} 
+              value={doctorData.name}
               defaultValue={doctorData.name}
               InputProps={{
                 readOnly: !editState,
@@ -61,6 +65,8 @@ export const Profile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Username"
+              InputLabelProps={{ shrink: true }} 
+              value={doctorData.name}
               defaultValue={doctorData.username}
               InputProps={{
                 readOnly: !editState,
@@ -78,7 +84,7 @@ export const Profile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Phone Number"
-              defaultValue=" "
+              InputLabelProps={{ shrink: true }} 
               value={doctorData.phoneNumber}
               InputProps={{
                 readOnly: !editState,
@@ -87,7 +93,8 @@ export const Profile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="About"
-              defaultValue=" "
+              InputLabelProps={{ shrink: true }} 
+              defaultValue="Tell our visitors more about youreslf."
               value={doctorData.about}
               multiline
               InputProps={{
@@ -97,6 +104,7 @@ export const Profile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Specialization"
+              InputLabelProps={{ shrink: true }} 
               defaultValue=" "
               value={doctorData.specialization}
               InputProps={{
@@ -106,6 +114,7 @@ export const Profile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Price"
+              InputLabelProps={{ shrink: true }} 
               defaultValue=" "
               value={doctorData.price}
               InputProps={{
@@ -114,7 +123,8 @@ export const Profile = () => {
             />
             <TextField
               // id="outlined-read-only-input"
-              label="Location"
+              label="Location ID"
+              InputLabelProps={{ shrink: true }} 
               defaultValue=" "
               value={doctorData.locationId}
               InputProps={{
@@ -129,31 +139,15 @@ export const Profile = () => {
               {editState ? "Save Changes" : "Edit Profile"}
             </Button>
             <Stack my={12}>
-              <Typography variant="h4">Available Time Slots</Typography>
+              <Typography variant="h4">When will you be available?</Typography>
+              <Typography variant="body1" sx={{ fontSize: "20px" }}>
+                Select the time slots at which you will be available.
+              </Typography>
               <Grid padding={2} container spacing={20} alignItems="center">
                 <Grid item xs>
                   <Typography variant="h6">Today</Typography>
                   <Stack spacing={0.5}>
-                    {AvailableSlots.map((slot) => {
-                      return <Button variant="outlined">{slot}</Button>;
-                    })}
-                  </Stack>
-                </Grid>
-
-                <Grid item xs>
-                  <Typography variant="h6">Tomorrow</Typography>
-                  <Stack spacing={0.5}>
-                    {AvailableSlots.map((slot) => {
-                      return <Button variant="outlined">{slot}</Button>;
-                    })}
-                  </Stack>
-                </Grid>
-                <Grid item xs>
-                  <Typography variant="h6">After 2 days</Typography>
-                  <Stack spacing={0.5}>
-                    {AvailableSlots.map((slot) => {
-                      return <Button variant="outlined">{slot}</Button>;
-                    })}
+                    <AppointmentBooking />
                   </Stack>
                 </Grid>
               </Grid>
@@ -175,10 +169,12 @@ export const Profile = () => {
             </Stack>
             <Typography variant="h5">Your Reviews</Typography>
             <Stack spacing={0.5}>
-              {MyReviews.map((Rev) => {
+              {/* Just render 3 reviews, this part is to be linked with API and made dynamic
+              to actually fetch reviews from the database. */}
+              {[1,2,3].map((_) => {
                 return (
                   <Card variant="outlined">
-                    <PatientReviews />
+                    <Review />
                   </Card>
                 );
               })}

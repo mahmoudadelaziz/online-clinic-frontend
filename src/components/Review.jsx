@@ -1,21 +1,30 @@
-import { Stack, Typography, Rating } from "@mui/material";
+// CHECKPOINT
+import { Stack, Typography, Rating, Grid } from "@mui/material";
 
-export const Review = ({ patientName, text, rating }) => {
+export const Review = ({ REVIEW }) => {
   return (
-    <Stack container direction={"row"} spacing={5}>
-      <Stack direction="column">
-        <Stack item>Patient's Name</Stack>
-        <Stack item>
-          <Rating value={4} precision={0.5} />
+    <Grid container>
+      <Grid item xs={10}>
+        <Stack container direction={"row"} spacing={5}>
+          <Stack direction="column" sx={{ textAlign: "left" }}>
+            <Stack item>{REVIEW.reviewWriter.name}</Stack>
+            {/*  */}
+            <Stack item>
+            <Typography variant="subtitle1" color="gray">
+              In {REVIEW.createdAt}
+            </Typography>
+              {/*  */}
+              <Rating value={REVIEW.rating} precision={0.1} />
+            </Stack>
+            <Stack item>
+              <Typography variant="body1" color="grey">
+                {REVIEW.review}
+              </Typography>
+            </Stack>
+          </Stack>
         </Stack>
-        <Stack item>
-          <Typography variant="body1" color="grey">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            ligula velit, iaculis semper sem quis, consectetur volutpat tellus.
-            Aliquam et nulla efficitur, laoreet mauris id, tincidunt lectus.
-          </Typography>
-        </Stack>
-      </Stack>
-    </Stack>
+      </Grid>
+      <Grid item xs={2}></Grid>
+    </Grid>
   );
 };

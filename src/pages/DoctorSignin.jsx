@@ -19,7 +19,7 @@ const errorsInitialState = {
   username: "",
   password: "",
 };
-function SignIn() {
+function DoctorSignIn() {
   const [errors, setErrors] = useState(errorsInitialState);
   const [user, setUser] = useState(formInitialState);
   const handleInputChange = (e) => {
@@ -40,11 +40,11 @@ function SignIn() {
         setErrors(errors);
         return;
       }
-      await axios.post(`/user/patient/login`, user);
-      console.log("(🔎 Debugging) Successfully Logged in with: ", user)
+      await axios.post(`/user/doctor/login`, user);
+      console.log("(🔎 Debugging) Successfully Logged in as Droctor: ", user)
     } catch (error) {
       console.log(error);
-      console.log("(🔎 Debugging) MESSAGE SENT: ", user)
+      console.log("(🔎 Debugging) Attempted to login with the info: ", user)
     }
   };
   const formInputs = [
@@ -80,7 +80,7 @@ function SignIn() {
           sx={{ textAlign: "center" }}
           fontWeight="bold"
         >
-          Log into your account
+          Log in to manage your appointments
         </Typography>
         <FormInputList
           formInputs={formInputs}
@@ -95,8 +95,8 @@ function SignIn() {
             <Checkbox sx={{ p: 0, mr: 1 }} />
             <Typography variant="caption">Remember me</Typography>
           </Box>
-          <Link href="/signup" underline="always">
-            Don't have an account? Join us
+          <Link href="/doctor/signup" underline="always">
+            Don't have an account? Join us!
           </Link>
         </Box>
       </form>
@@ -104,4 +104,4 @@ function SignIn() {
   );
 }
 
-export { SignIn };
+export { DoctorSignIn };

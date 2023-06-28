@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 // Note: We are assuming a work day from 9 AM to 5 PM
-const DaySlots = ({ slotDuration = 30, date }) => {
+const DaySlots = ({ slotDuration = 20, date, workingHoursStart=9, workingHoursEnd=14 }) => {
   /*  
   The component takes the arguments (props):
   slotDuration: The slot duration of the doctor (default = 30 minutes)
@@ -27,13 +27,13 @@ const DaySlots = ({ slotDuration = 30, date }) => {
     date.getFullYear(),
     date.getMonth(),
     date.getDate(),
-    9
+    workingHoursStart
   ); // Start of the work day (Assumed 9 am)
   const dayEnd = new Date(
     date.getFullYear(),
     date.getMonth(),
     date.getDate(),
-    17
+    workingHoursEnd
   ); // End of the work day (Assumed 5 pm)
 
   // NOTE: all these variables in the for loop's () are in milliseconds
@@ -93,7 +93,7 @@ const DaySlots = ({ slotDuration = 30, date }) => {
                   }}
                   onClick={() => {
                     handleSlotClick(slot.index),
-                      console.log(`Selected: ${date} at ${slot.time}`);
+                      console.log(`Selected slot: ${date.getDate()}/${date.getMonth()+1} at ${slot.time}`); // DEBUGGING AND LINKING
                   }}
                 >
                   {slot.time}
