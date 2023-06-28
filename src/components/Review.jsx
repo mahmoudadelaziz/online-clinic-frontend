@@ -2,6 +2,10 @@
 import { Stack, Typography, Rating, Grid } from "@mui/material";
 
 export const Review = ({ REVIEW }) => {
+  console.log("(🔍🔍🔍 Debugging) Type of the Review date: ", typeof(REVIEW.createdAt))
+  let reviewDateISOString = REVIEW.createdAt
+  let reviewDate = new Date(reviewDateISOString)
+  let formattedReviewDate = reviewDate.toUTCString()
   return (
     <Grid container>
       <Grid item xs={10}>
@@ -11,7 +15,7 @@ export const Review = ({ REVIEW }) => {
             {/*  */}
             <Stack item>
             <Typography variant="subtitle1" color="gray">
-              In {REVIEW.createdAt}
+              {formattedReviewDate}
             </Typography>
               {/*  */}
               <Rating value={REVIEW.rating} precision={0.1} />
