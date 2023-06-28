@@ -1,16 +1,45 @@
 import { Drawer, List } from "@mui/material";
 import { NavItem } from "./NavItem";
+import { useContext } from "react";
+import { AuthContext } from "../AuthContext";
 
 const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
-  const NavItems = [
-    { title: "Home", icon: "home", route: "/" },
-    { title: "Login", icon: "login", route: "/signin" },
-    { title: "Signup", icon: "signup", route: "/signup" },
-    { title: "Doctors", icon: "doctors", route: "/doctors" },
-    { title: "Register your Practice", icon: "doctors", route: "/doctor/signup" },
-    { title: "Login to your Practice", icon: "doctors", route: "/doctor/login" },
-    { title: "Doctor's Profile", icon: "profile", route: "/profile" },
-  ];
+  // Step 2: Use the context
+  const { isAuth } = useContext(AuthContext); // destructure isAuth from the context object
+  const NavItems = isAuth
+    ? ([
+        { title: "Home", icon: "home", route: "/" },
+        { title: "Login", icon: "login", route: "/signin" },
+        { title: "Signup", icon: "signup", route: "/signup" },
+        { title: "Doctors", icon: "doctors", route: "/doctors" },
+        {
+          title: "Register your Practice",
+          icon: "doctors",
+          route: "/doctor/signup",
+        },
+        {
+          title: "Login to your Practice",
+          icon: "doctors",
+          route: "/doctor/login",
+        },
+        { title: "Doctor's Profile", icon: "profile", route: "/profile" },
+      ])
+    : ([
+        { title: "Home", icon: "home", route: "/" },
+        { title: "Login", icon: "login", route: "/signin" },
+        { title: "Signup", icon: "signup", route: "/signup" },
+        { title: "Doctors", icon: "doctors", route: "/doctors" },
+        {
+          title: "Register your Practice",
+          icon: "doctors",
+          route: "/doctor/signup",
+        },
+        {
+          title: "Login to your Practice",
+          icon: "doctors",
+          route: "/doctor/login",
+        },
+      ]);
   return (
     <Drawer
       anchor="left"
@@ -32,5 +61,4 @@ const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
     </Drawer>
   );
 };
-
 export { NavDrawer };
