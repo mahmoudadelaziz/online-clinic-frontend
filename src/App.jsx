@@ -1,9 +1,11 @@
-import { Layout } from "./components";
+import { Layout, Recommender } from "./components";
 import { Route, Routes } from "react-router-dom";
 import { SignIn, SignUp, Doctors, DoctorPage, DoctorSignUp, DoctorSignIn, DoctorProfile } from "./pages";
 
 const App = () => {
+  console.log(location.pathname)
   return (
+    <div>
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="/signup" element={<SignUp />} />
@@ -15,6 +17,7 @@ const App = () => {
         <Route path="/doctor/login" element={<DoctorSignIn />} />
       </Route>
     </Routes>
+    </div>
   );
 };
 export { App };
