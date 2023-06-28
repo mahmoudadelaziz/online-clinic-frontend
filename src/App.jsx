@@ -1,4 +1,4 @@
-import { Layout, Recommender } from "./components";
+import { Layout } from "./components";
 import { Route, Routes } from "react-router-dom";
 import { SignIn, SignUp, Doctors, DoctorPage, DoctorSignUp, DoctorSignIn, DoctorProfile } from "./pages";
 
