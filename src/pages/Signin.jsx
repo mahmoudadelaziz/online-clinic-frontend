@@ -10,8 +10,6 @@ import {
   Link,
   Box,
 } from "@mui/material";
-import { AuthContext } from "../AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
 
 const formInitialState = {
   username: "",
@@ -24,8 +22,6 @@ const errorsInitialState = {
 function SignIn() {
   const [errors, setErrors] = useState(errorsInitialState);
   const [user, setUser] = useState(formInitialState);
-  const { setIsAuth } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });

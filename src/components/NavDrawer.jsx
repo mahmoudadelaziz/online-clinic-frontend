@@ -1,7 +1,5 @@
 import { Drawer, List } from "@mui/material";
 import { NavItem } from "./NavItem";
-import { useContext } from "react";
-import { AuthContext } from "../AuthContext";
 
 const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
   const NavItems =
