@@ -10,6 +10,8 @@ import {
   Link,
   Box,
 } from "@mui/material";
+import { useAuth } from "../AuthContext";
+import { Navigate } from "react-router-dom";
 
 const formInitialState = {
   username: "",
@@ -22,6 +24,8 @@ const errorsInitialState = {
 function SignIn() {
   const [errors, setErrors] = useState(errorsInitialState);
   const [user, setUser] = useState(formInitialState);
+
+  const { authUser, SetAuthUser, isLoggedIn, SetIsLoggedIn } = useAuth(); 
 
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -43,7 +47,11 @@ function SignIn() {
         return;
       }
       const response = await axios.post(`/user/patient/login`, user);
-      navigate("/");
+      SetIsLoggedIn(true)
+      SetAuthUser(user)
+      localStorage.setItem("IsLoggedIn", true);
+      localStorage.setItem("User", user?.username);
+      // Navigate("/");
       console.log("(🔎 Debugging) Successfully Logged in with: ", user);
 
     } catch (error) {

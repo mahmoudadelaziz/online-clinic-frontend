@@ -8,7 +8,7 @@ const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
     ? [
         { title: "Home", icon: "home", route: "/" },
         { title: "Doctors", icon: "doctors", route: "/doctors" },
-        { title: "Doctor's Profile", icon: "profile", route: "/profile" },
+        { title: "Profile", icon: "profile", route: "/profile" },
       ]
     : [
         { title: "Home", icon: "home", route: "/" },
