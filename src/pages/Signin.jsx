@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { FormInputList } from "../components";
 import { signinSchema } from "../utility/formSchemas";
 import axios from "../utility/axios";
@@ -43,10 +43,8 @@ function SignIn() {
         return;
       }
       const response = await axios.post(`/user/patient/login`, user);
-      setIsAuth({ user: response.data.user, authToken: response.data.token }); // Update isAuth value using the context and the response from the server
       navigate("/");
       console.log("(🔎 Debugging) Successfully Logged in with: ", user);
-      // console.log("(🔎 Debugging) Current value of isAuth: ", isAuth);
 
     } catch (error) {
       console.log(error);
