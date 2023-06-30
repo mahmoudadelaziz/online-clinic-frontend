@@ -128,26 +128,6 @@ export const Profile = () => {
               }}
             />{" "}
             <Typography>Account Created in {doctorData.createdAt}</Typography>
-            <Button // Changes read only text fields to editable
-              variant="contained"
-              onClick={handleEditData}
-            >
-              {editState ? "Save Changes" : "Edit Profile"}
-            </Button>
-            <Stack my={12}>
-              <Typography variant="h4">When will you be available?</Typography>
-              <Typography variant="body1" sx={{ fontSize: "20px" }}>
-                Select the time slots at which you will be available.
-              </Typography>
-              <Grid padding={2} container spacing={20} alignItems="center">
-                <Grid item xs>
-                  <Typography variant="h6">Today</Typography>
-                  <Stack spacing={0.5}>
-                    <AppointmentBooking />
-                  </Stack>
-                </Grid>
-              </Grid>
-            </Stack>
             {/* HISTORY STUFF */}
             <Typography variant="h5">Your Appointments</Typography>
             <Stack spacing={0.5}>
@@ -164,19 +144,8 @@ export const Profile = () => {
               })}
 
             {/* </Stack> */}
-            <Typography variant="h5">Your Reviews</Typography>
-            {/* <Stack spacing={0.5}>
-              {/* Just render 3 reviews, this part is to be linked with API and made dynamic
-              to actually fetch reviews from the database. */}
-              {/* {[1,2,3].map((_) => {
-                return (
-                  <Card variant="outlined">
-                    <Review />
-                  </Card>
-                );
-              })} */}
-            </Stack> */
-
+            </Stack>
+              ADDITIONAL SECTION
           </Stack>
         </CardContent>
       </Card>
