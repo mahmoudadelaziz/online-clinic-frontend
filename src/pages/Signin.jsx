@@ -26,7 +26,7 @@ function SignIn() {
   const [user, setUser] = useState(formInitialState);
   const navigate = useNavigate()
 
-  const { authUser, SetAuthUser, isLoggedIn, SetIsLoggedIn } = useAuth(); 
+  const { authUser, SetAuthUser, isLoggedIn, SetIsLoggedIn, authToken, setAuthToken } = useAuth(); 
 
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -48,9 +48,12 @@ function SignIn() {
         return;
       }
       const response = await axios.post(`/user/patient/login`, user);
+      console.log(response?.data?.token)
+      setAuthToken(response?.data?.token)
       SetIsLoggedIn(true)
-      SetAuthUser(user.username)
+      SetAuthUser(user?.username)
       localStorage.setItem("IsLoggedIn", true);
+      localStorage.setItem("authToken", response?.data?.token);
       localStorage.setItem("User", user?.username);
       console.log("(🔎 Debugging) Successfully Logged in with: ", user);
       // window.location.replace('/');

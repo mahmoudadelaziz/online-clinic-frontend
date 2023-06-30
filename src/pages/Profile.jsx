@@ -16,25 +16,39 @@ import { Review } from "../components/Review";
 import { AppointmentBooking } from "../components/AppointmentBooking";
 import { useAuth } from "../AuthContext";
 
-
 const MyAppointments = ["Appointment 1", "Appointment 2", "Appointment 3"];
 const MyReviews = ["Review 1", "Review 2", "Review 3"];
 
-const id = 6; // Placeholder value (To be made dynamic and user-dependent)
-
 export const Profile = () => {
   const [editState, setEditState] = useState(false);
-  const [doctorData, setDoctorData] = useState({});
+  const [patientData, setPatientData] = useState({});
 
-  const fetchDoctorData = async (id) => {
-    const info = await axios.get(`http://localhost:5000/user/doctor/id/${id}`); // use env var for backend port
-    const doctorInfo = info.data.doctor;
-    console.log(doctorInfo); // Debugging
-    setDoctorData(doctorInfo);
+  const {
+    authUser,
+    SetAuthUser,
+    isLoggedIn,
+    SetIsLoggedIn,
+    authToken,
+    setAuthToken,
+  } = useAuth();
+  
+  const config = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
+  };
+
+  // console.log("CONFIG:", config)
+
+  const fetchPatientData = async () => {
+    const response = await axios.get(
+      `http://localhost:5000/user/patient/profile`,
+      config
+    );
+    setPatientData(response?.data.patientProfile);
+    console.log("The data we got from that response (patientData):", patientData); // Debugging
   };
 
   useEffect(() => {
-    fetchDoctorData(id);
+    fetchPatientData();
   }, []);
 
   const handleEditData = () => {
@@ -51,9 +65,9 @@ export const Profile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Full Name"
-              InputLabelProps={{ shrink: true }} 
-              value={doctorData.name}
-              defaultValue={doctorData.name}
+              InputLabelProps={{ shrink: true }}
+              value={patientData.name}
+              defaultValue={patientData.name}
               InputProps={{
                 readOnly: !editState,
               }}
@@ -61,9 +75,9 @@ export const Profile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Username"
-              InputLabelProps={{ shrink: true }} 
-              value={doctorData.name}
-              defaultValue={doctorData.username}
+              InputLabelProps={{ shrink: true }}
+              value={patientData.username}
+              defaultValue={patientData.username}
               InputProps={{
                 readOnly: !editState,
               }}
@@ -72,7 +86,7 @@ export const Profile = () => {
               // id="outlined-read-only-input"
               label="Email"
               defaultValue=" "
-              value={doctorData.email}
+              value={patientData.email}
               InputProps={{
                 readOnly: !editState,
               }}
@@ -80,54 +94,13 @@ export const Profile = () => {
             <TextField
               // id="outlined-read-only-input"
               label="Phone Number"
-              InputLabelProps={{ shrink: true }} 
-              value={doctorData.phoneNumber}
-              InputProps={{
-                readOnly: !editState,
-              }}
-            />
-            <TextField
-              // id="outlined-read-only-input"
-              label="About"
-              InputLabelProps={{ shrink: true }} 
-              defaultValue="Tell our visitors more about youreslf."
-              value={doctorData.about}
-              multiline
-              InputProps={{
-                readOnly: !editState,
-              }}
-            />
-            <TextField
-              // id="outlined-read-only-input"
-              label="Specialization"
-              InputLabelProps={{ shrink: true }} 
-              defaultValue=" "
-              value={doctorData.specialization}
-              InputProps={{
-                readOnly: !editState,
-              }}
-            />
-            <TextField
-              // id="outlined-read-only-input"
-              label="Price"
-              InputLabelProps={{ shrink: true }} 
-              defaultValue=" "
-              value={doctorData.price}
-              InputProps={{
-                readOnly: !editState,
-              }}
-            />
-            <TextField
-              // id="outlined-read-only-input"
-              label="Location ID"
-              InputLabelProps={{ shrink: true }} 
-              defaultValue=" "
-              value={doctorData.locationId}
+              InputLabelProps={{ shrink: true }}
+              value={patientData.phoneNumber}
               InputProps={{
                 readOnly: !editState,
               }}
             />{" "}
-            <Typography>Account Created in {doctorData.createdAt}</Typography>
+            <Typography>Account Created in {patientData.createdAt}</Typography>
             {/* HISTORY STUFF */}
             <Typography variant="h5">Your Appointments</Typography>
             <Stack spacing={0.5}>
@@ -143,9 +116,9 @@ export const Profile = () => {
                 );
               })}
 
-            {/* </Stack> */}
+              {/* </Stack> */}
             </Stack>
-              ADDITIONAL SECTION
+            ADDITIONAL SECTION
           </Stack>
         </CardContent>
       </Card>
