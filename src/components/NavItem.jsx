@@ -8,6 +8,7 @@ import {
 import { Login, Home, PeopleAlt, PersonAddAlt1 } from "@mui/icons-material";
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
 
 const NavItem = ({ route, icon, text, setDrawerOpen, onClick }) => {
   const iconsMap = {
@@ -15,6 +16,7 @@ const NavItem = ({ route, icon, text, setDrawerOpen, onClick }) => {
     logout: <LogoutIcon />,
     signup: <PersonAddAlt1 />,
     home: <Home />,
+    profile: <PersonIcon />,
     doctors: <PeopleAlt />,
     doctorsignup: <MedicalInformationIcon />
   };
