@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import { SignIn, SignUp, Doctors, DoctorPage, DoctorSignUp, DoctorSignIn, Profile } from "./pages";
 import { AuthProvider, useAuth } from "./AuthContext";
+import { Logout } from "@mui/icons-material";
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
+          {/* <Route path="/logout" element={<Logout />} /> */}
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/doctors/:id" element={<DoctorPage />} />
           <Route path="/profile" element={<Profile />} />

@@ -1,14 +1,31 @@
 import { Drawer, List } from "@mui/material";
 import { NavItem } from "./NavItem";
 import { useAuth } from "../AuthContext";
+import { redirect } from "react-router-dom";
 
 const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
   const { authUser, SetAuthUser, isLoggedIn, SetIsLoggedIn } = useAuth();
+
+  const handleLogout = () => {
+    // Perform the logout functionality
+    console.log("Got to start")
+    SetAuthUser(null);
+    SetIsLoggedIn(false);
+    localStorage.clear();
+    console.log("Got to end")
+  };
+
   const NavItems = isLoggedIn
     ? [
         { title: "Home", icon: "home", route: "/" },
         { title: "Doctors", icon: "doctors", route: "/doctors" },
         { title: "Profile", icon: "profile", route: "/profile" },
+        {
+          title: "Log out",
+          icon: "logout",
+          onClick: handleLogout,
+          route: "/" // Because logging out gets you to homepage
+        },
       ]
     : [
         { title: "Home", icon: "home", route: "/" },
@@ -26,6 +43,7 @@ const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
           route: "/doctor/login",
         },
       ];
+
   return (
     <Drawer
       anchor="left"
@@ -40,6 +58,7 @@ const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
             icon={item.icon}
             text={item.title}
             route={item.route}
+            onClick={item.onClick}
             setDrawerOpen={setDrawerOpen}
           />
         ))}
@@ -47,4 +66,5 @@ const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
     </Drawer>
   );
 };
+
 export { NavDrawer };
