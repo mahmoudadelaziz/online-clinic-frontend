@@ -1,10 +1,9 @@
 import { Drawer, List } from "@mui/material";
 import { NavItem } from "./NavItem";
 import { useAuth } from "../AuthContext";
-import { redirect } from "react-router-dom";
 
 const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
-  const { authUser, SetAuthUser, isLoggedIn, SetIsLoggedIn } = useAuth();
+  const { SetAuthUser, isLoggedIn, SetIsLoggedIn } = useAuth();
 
   const handleLogout = () => {
     // Perform the logout functionality
