@@ -31,7 +31,7 @@ export const Profile = () => {
     authToken,
     setAuthToken,
   } = useAuth();
-  
+
   const config = {
     headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
   };
@@ -44,17 +44,15 @@ export const Profile = () => {
       config
     );
     setPatientData(response?.data.patientProfile);
-    console.log("The data we got from that response (patientData):", patientData); // Debugging
+    console.log(
+      "The data we got from that response (patientData):",
+      patientData
+    ); // Debugging
   };
 
   useEffect(() => {
     fetchPatientData();
   }, []);
-
-  const handleEditData = () => {
-    setEditState(!editState);
-    console.log("Edit profile page"); // Debugging
-  };
 
   return (
     <div align="center">
@@ -62,51 +60,21 @@ export const Profile = () => {
         <CardContent>
           <Stack spacing={1.5} sx={{ width: "90%" }}>
             <Typography variant="h3">Your Profile</Typography>
-            <TextField
-              // id="outlined-read-only-input"
-              label="Full Name"
-              InputLabelProps={{ shrink: true }}
-              value={patientData.name}
-              defaultValue={patientData.name}
-              InputProps={{
-                readOnly: !editState,
-              }}
-            />
-            <TextField
-              // id="outlined-read-only-input"
-              label="Username"
-              InputLabelProps={{ shrink: true }}
-              value={patientData.username}
-              defaultValue={patientData.username}
-              InputProps={{
-                readOnly: !editState,
-              }}
-            />
-            <TextField
-              // id="outlined-read-only-input"
-              label="Email"
-              defaultValue=" "
-              value={patientData.email}
-              InputProps={{
-                readOnly: !editState,
-              }}
-            />
-            <TextField
-              // id="outlined-read-only-input"
-              label="Phone Number"
-              InputLabelProps={{ shrink: true }}
-              value={patientData.phoneNumber}
-              InputProps={{
-                readOnly: !editState,
-              }}
-            />{" "}
+            <Typography>{patientData.name}</Typography>
+            <Typography>{patientData.username}</Typography>
+            <Typography />
+            {patientData.email}
+            <Typography />
+            <Typography />
+            {patientData.phoneNumber}
+            <Typography />
             <Typography>Account Created in {patientData.createdAt}</Typography>
             {/* HISTORY STUFF */}
             <Typography variant="h5">Your Appointments</Typography>
             <Stack spacing={0.5}>
               {MyAppointments.map((Appointment) => {
                 return (
-                  <Grid container>
+                  <Grid container key={Appointment}>
                     <Grid item xs>
                       <Card variant="outlined">
                         <PatientAppointments />
