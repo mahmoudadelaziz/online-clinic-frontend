@@ -6,7 +6,11 @@ export const Profile = () => {
     SetAuthUser,
     isLoggedIn,
     SetIsLoggedIn,} = useAuth()
+    console.log(authUser, isLoggedIn)
   return (
-    <h1 style={{textAlign: "center"}}>WELCOME TO YOUR PROFILE, {authUser}!</h1>  
+    <div>
+      <h1>{authUser}</h1>
+      
+    </div>
   );
 };

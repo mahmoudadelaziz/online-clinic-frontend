@@ -49,7 +49,7 @@ function SignIn() {
       }
       const response = await axios.post(`/user/patient/login`, user);
       SetIsLoggedIn(true)
-      SetAuthUser(user)
+      SetAuthUser(user.username)
       localStorage.setItem("IsLoggedIn", true);
       localStorage.setItem("User", user?.username);
       console.log("(🔎 Debugging) Successfully Logged in with: ", user);
