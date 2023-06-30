@@ -2,8 +2,7 @@ import { Layout } from "./components";
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import { SignIn, SignUp, Doctors, DoctorPage, DoctorSignUp, DoctorSignIn, Profile } from "./pages";
-import { AuthProvider, useAuth } from "./AuthContext";
-import { Logout } from "@mui/icons-material";
+import { useAuth } from "./AuthContext";
 
 const App = () => {
 
