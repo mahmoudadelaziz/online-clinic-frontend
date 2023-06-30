@@ -7,11 +7,10 @@ const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
 
   const handleLogout = () => {
     // Perform the logout functionality
-    console.log("Got to start")
+    console.log("Logging out...")
     SetAuthUser(null);
     SetIsLoggedIn(false);
     localStorage.clear();
-    console.log("Got to end")
   };
 
   const NavItems = isLoggedIn
