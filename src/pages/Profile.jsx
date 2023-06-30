@@ -36,7 +36,9 @@ export const Profile = () => {
     headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
   };
 
-  // console.log("CONFIG:", config)
+  let patientCreateDateISOString = patientData.createdAt
+  let patientCreateAccountDate = new Date(patientCreateDateISOString)
+  let formattedReviewDate = patientCreateAccountDate.toUTCString()
 
   const fetchPatientData = async () => {
     const response = await axios.get(
@@ -68,7 +70,7 @@ export const Profile = () => {
             <Typography />
             {patientData.phoneNumber}
             <Typography />
-            <Typography>Account Created in {patientData.createdAt}</Typography>
+            <Typography>Account Created in {formattedReviewDate}</Typography>
             {/* HISTORY STUFF */}
             <Typography variant="h5">Your Appointments</Typography>
             <Stack spacing={0.5}>
@@ -84,9 +86,8 @@ export const Profile = () => {
                 );
               })}
 
-              {/* </Stack> */}
             </Stack>
-            ADDITIONAL SECTION
+            Your Reviews
           </Stack>
         </CardContent>
       </Card>
