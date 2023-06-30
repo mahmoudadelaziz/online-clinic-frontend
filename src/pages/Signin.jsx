@@ -11,7 +11,7 @@ import {
   Box,
 } from "@mui/material";
 import { useAuth } from "../AuthContext";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const formInitialState = {
   username: "",
@@ -24,6 +24,7 @@ const errorsInitialState = {
 function SignIn() {
   const [errors, setErrors] = useState(errorsInitialState);
   const [user, setUser] = useState(formInitialState);
+  const navigate = useNavigate()
 
   const { authUser, SetAuthUser, isLoggedIn, SetIsLoggedIn } = useAuth(); 
 
@@ -51,8 +52,9 @@ function SignIn() {
       SetAuthUser(user)
       localStorage.setItem("IsLoggedIn", true);
       localStorage.setItem("User", user?.username);
-      // Navigate("/");
       console.log("(🔎 Debugging) Successfully Logged in with: ", user);
+      // window.location.replace('/');
+      navigate('/', { replace: true });
 
     } catch (error) {
       console.log(error);
