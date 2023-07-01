@@ -42,7 +42,7 @@ export const DoctorPage = () => {
       try {
         const {
           data: { reviews },
-        } = await axios.get(`/review/${id}`);
+        } = await axios.get(`http://localhost:5000/review/doctor/${id}`);
         // console.log("(🔍 Debugging) The reviews fetched: ", reviews); // Debugging
         setReviews(reviews);
       } catch (error) {
