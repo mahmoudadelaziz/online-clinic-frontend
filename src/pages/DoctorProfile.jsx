@@ -38,41 +38,51 @@ export const DoctorProfile = () => {
   };
 
   useEffect(() => {
-    const fetchDoctorData = async () => {
-      const response = await axios.get(
-        `http://localhost:5000/user/doctor/profile`,
-        config
-      );
-      setDoctorData(response?.data?.doctorProfile);
-      setDoctorId(response?.data?.doctorProfile.id);
-      console.log("Doctor ID: ########## ", doctorId) // Debugging
-      localStorage.setItem("doctorId", response?.data?.doctorProfile.id);
+    const fetchDoctor = async () => {
+      try {
+        const {
+          data: { doctorProfile },
+        } = await axios.get(
+          `http://localhost:5000/user/doctor/profile`,
+          config
+        );
+        setDoctorData(doctorProfile);
+        setDoctorId(doctorProfile?.id);
+        console.log("(🔍 Debugging) The doctor fetched: ", doctorProfile);
+        console.log("(🔍 Debugging) doctorId: ", doctorProfile?.id);
+      } catch (error) {
+        console.log("(🔍 Debugging) FETCHING ERROR");
+        console.log(error);
+      }
     };
-
-    const fetchDoctorReviews = async () => {
-      const response = await axios.get(
-        `http://localhost:5000/review/doctor/${localStorage.getItem("doctorId")}`
-      );
-      setDoctorReviews(response?.data.reviews);
-      console.log(
-        "(🔍🔍🔍 Debugging) The reviews fetched: ",
-        response?.data?.reviews
-      ); // Debugging
-    };
-    fetchDoctorData();
-    fetchDoctorReviews();
+    fetchDoctor();
   }, []);
 
   useEffect(() => {
-    const fetchDoctorAppointments = async () => {
-      const response = await axios.get(
-        `http://localhost:5000/appointment/doctor`,
-        config
-      );
-      setDoctorAppointments(response?.data?.appointments);
+    const fetchReviews = async () => {
+      try {
+        const {
+          data: { reviews },
+        } = await axios.get(`http://localhost:5000/review/doctor/${doctorId}`);
+        // console.log("(🔍 Debugging) The reviews fetched: ", reviews); // Debugging
+        setDoctorReviews(reviews);
+      } catch (error) {
+        console.log(error);
+      }
     };
-    fetchDoctorAppointments();
-  }, []);
+    fetchReviews();
+  }, [doctorId]);
+
+  //   useEffect(() => {
+  //     const fetchDoctorAppointments = async () => {
+  //       const response = await axios.get(
+  //         `http://localhost:5000/appointment/doctor`,
+  //         config
+  //       );
+  //       setDoctorAppointments(response?.data?.appointments);
+  //     };
+  //     fetchDoctorAppointments();
+  //   }, []);
 
   console.log("(🔍 Debugging) doctorData received:", doctorData);
 
