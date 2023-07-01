@@ -12,6 +12,7 @@ import {
   FormControl,
   FormControlLabel,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const formInitialState = {
   name: "",
@@ -46,6 +47,7 @@ const errorsInitialState = {
 function DoctorSignUp() {
   const [doctor, setDoctor] = useState(formInitialState);
   const [errors, setErrors] = useState(errorsInitialState);
+  const navigate = useNavigate()
   
   const handleInputChange = (e) => {
     setDoctor({ ...doctor, [e.target.name]: e.target.value });
@@ -82,8 +84,7 @@ function DoctorSignUp() {
 
       await axios.post(`user/doctor/signup`, dataToSend);
       console.log("(🔎 Debugging) Success! Body sent to server: ", dataToSend);
-      // Redirect to doctor's profile (Temporary MUST BE CHANGED LATER ON!)
-      // window.location.href = "http://localhost:5173/doctor/profile";
+      navigate('doctor/login', { replace: true }); // redirect to login page
     } catch (error) {
       console.log(error);
       console.log("(🔎 DEBUGGING) ATTEMPTED message Body: ", dataToSend);
