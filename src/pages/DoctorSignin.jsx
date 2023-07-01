@@ -10,6 +10,7 @@ import {
   Link,
   Box,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const formInitialState = {
   username: "",
@@ -22,6 +23,7 @@ const errorsInitialState = {
 function DoctorSignIn() {
   const [errors, setErrors] = useState(errorsInitialState);
   const [user, setUser] = useState(formInitialState);
+  const navigate = useNavigate()
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
@@ -42,6 +44,8 @@ function DoctorSignIn() {
       }
       await axios.post(`/user/doctor/login`, user);
       console.log("(🔎 Debugging) Successfully Logged in as Droctor: ", user)
+      navigate('/', { replace: true }); // redirect to homepage
+
     } catch (error) {
       console.log(error);
       console.log("(🔎 Debugging) Attempted to login with the info: ", user)

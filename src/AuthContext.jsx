@@ -14,8 +14,10 @@ export function AuthProvider(props) {
   const [authUser, SetAuthUser] = useState(null);
   const [isLoggedIn, SetIsLoggedIn] = useState(false);
   const [authToken, setAuthToken] = useState("");
+  const [userType, setUserType] = useState("");
 
   const value = {
+    userType,
     authUser,
     SetAuthUser,
     isLoggedIn,
