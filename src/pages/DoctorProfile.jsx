@@ -45,11 +45,23 @@ export const DoctorProfile = () => {
     setDoctorId(response?.data?.doctorProfile.id);
   };
 
+  const fetchDoctorReviews = async () => {
+    const response = await axios.get(
+      `http://localhost:5000/review/doctor/${doctorId}`
+    );
+    setDoctorReviews(response?.data.reviews);
+    console.log(
+      "(🔍🔍🔍 Debugging) The reviews fetched: ",
+      response?.data?.reviews
+    ); // Debugging
+  };
+
   useEffect(() => {
     fetchDoctorData();
+    fetchDoctorReviews();
   }, []);
 
-  console.log("### doctorData received:", doctorData)
+  console.log("(🔍 Debugging) doctorData received:", doctorData);
 
   return (
     <div align="center">
@@ -75,7 +87,11 @@ export const DoctorProfile = () => {
                   <Grid container key={Appointment.at}>
                     <Grid item xs>
                       <Card variant="outlined">
-                        <PatientAppointments AppointmentDate={Appointment.at} DoctorId={Appointment.doctorId} PatientId={patientId} />
+                        <PatientAppointments
+                          AppointmentDate={Appointment.at}
+                          DoctorId={Appointment.doctorId}
+                          PatientId={patientId}
+                        />
                       </Card>
                     </Grid>
                   </Grid>
@@ -89,7 +105,11 @@ export const DoctorProfile = () => {
               divider={<Divider orientation="horizontal" flexItem />}
             >
               {doctorReviews.map((REVIEW) => (
-                <Stack sx={{border: 1, p: 1, borderRadius: 3}} item key={REVIEW.id}>
+                <Stack
+                  sx={{ border: 1, p: 1, borderRadius: 3 }}
+                  item
+                  key={REVIEW.id}
+                >
                   <Review REVIEW={REVIEW} />
                 </Stack>
               ))}
