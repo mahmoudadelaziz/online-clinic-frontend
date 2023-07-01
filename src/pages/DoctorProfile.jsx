@@ -43,11 +43,12 @@ export const DoctorProfile = () => {
     );
     setDoctorData(response?.data?.doctorProfile);
     setDoctorId(response?.data?.doctorProfile.id);
+    localStorage.setItem("doctorId", response?.data?.doctorProfile.id)
   };
 
-  const fetchDoctorReviews = async () => {
+  useEffect(()=>{const fetchDoctorReviews = async () => {
     const response = await axios.get(
-      `http://localhost:5000/review/doctor/${doctorId}`
+      `http://localhost:5000/review/doctor/${localStorage.getItem("doctorId")}`
     );
     setDoctorReviews(response?.data.reviews);
     console.log(
@@ -55,10 +56,11 @@ export const DoctorProfile = () => {
       response?.data?.reviews
     ); // Debugging
   };
-
+  fetchDoctorReviews()
+}, [])
+  
   useEffect(() => {
     fetchDoctorData();
-    fetchDoctorReviews();
   }, []);
 
   console.log("(🔍 Debugging) doctorData received:", doctorData);
