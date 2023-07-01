@@ -55,9 +55,22 @@ function DoctorSignIn() {
         setErrors(errors);
         return;
       }
-      await axios.post(`/user/doctor/login`, user);
+      const response = await axios.post(`/user/doctor/login`, user);
+      // CONTEXT AND LOCALSTORAGE LOGIC HERE
+      SetIsLoggedIn(true)
+      setUserType("Doctor")
+      SetAuthUser(user.username)
+      setAuthToken(response?.data?.token)
+      localStorage.setItem("IsLoggedIn", true);
+      localStorage.setItem("userType", "Doctor");
+      localStorage.setItem("User", user.username);
+      localStorage.setItem("authToken", response?.data?.token);
+      // Debugging logs
       console.log("(🔎 Debugging) Successfully Logged in as Droctor: ", user);
-      navigate("/", { replace: true }); // redirect to homepage
+      console.log("(🔎 Debugging) The Response received: ", response?.data?.token);
+      console.log("(🔎 Debugging) Now in the global context: ", user.username)
+
+      // navigate("/", { replace: true }); // redirect to homepage
     } catch (error) {
       console.log(error);
       console.log("(🔎 Debugging) Attempted to login with the info: ", user);
