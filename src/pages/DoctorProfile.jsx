@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { PatientAppointments } from "../components/PatientAppointments";
 import { Review } from "../components/Review";
 import { useAuth } from "../AuthContext";
+import { DoctorAppointments } from "../components/DoctorAppointments";
 
 export const DoctorProfile = () => {
   const [editState, setEditState] = useState(false);
@@ -63,6 +64,17 @@ export const DoctorProfile = () => {
     fetchDoctorData();
   }, []);
 
+  useEffect(() => {
+    const fetchDoctorAppointments = async () => {
+      const response = await axios.get(
+        `http://localhost:5000/appointment/doctor`,
+        config
+      );
+      setDoctorAppointments(response?.data?.appointments);
+    };
+      fetchDoctorAppointments();
+  }, []);
+
   console.log("(🔍 Debugging) doctorData received:", doctorData);
 
   return (
@@ -89,7 +101,7 @@ export const DoctorProfile = () => {
                   <Grid container key={Appointment.at}>
                     <Grid item xs>
                       <Card variant="outlined">
-                        <PatientAppointments
+                        <DoctorAppointments
                           AppointmentDate={Appointment.at}
                           DoctorId={Appointment.doctorId}
                           PatientId={patientId}
