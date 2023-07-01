@@ -5,7 +5,6 @@ import {
   Grid,
   Modal,
   TextField,
-  Rating,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -27,59 +26,42 @@ export const DoctorAppointments = ({
   let formattedAppointmentDate = appointmentDateToFormat.toUTCString();
 
   return (
-    <Grid container>
-      <Grid item xs={6} padding={3} textAlign="center">
+    <Grid container sx={{ mt: 2 }}>
+      <Grid item xs={4} textAlign="center">
         <Typography variant="subtitle1" color="gray">
-          In {formattedAppointmentDate}
-        </Typography>
-        <Typography variant="subtitle1" color="gray">
-          With (PatientID){" "}
+          {formattedAppointmentDate}
         </Typography>
       </Grid>
-      <Grid item xs={2} padding={3} textAlign="center">
-        {/* Filler item */}
+      <Grid item xs={4} textAlign="center">
+        <Typography variant="subtitle1" color="gray">
+          Patient ID: {PatientId}
+        </Typography>
       </Grid>
-
-      <Grid item xs={4} padding={3} textAlign="center">
-        <Stack>
-          <>
-            <Typography variant="body1" color="grey">
-              (Status)
-            </Typography>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                // WRITE APPOINTMENT RESCHEDUELING FUNCTION HERE
-                console.log("Appointment Rescheduled");
-              }}
-            >
-              Reschedule
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                // WRITE APPOINTMENT CANCELLATION FUNCTION HERE
-                console.log("Appointment Cancelled");
-              }}
-            >
-              Cancel
-            </Button>
-          </>
+      <Grid item xs={4} textAlign="center">
+        <Stack spacing={1}>
+          <Typography variant="body1" color="grey">
+            Status: Scheduled
+          </Typography>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              // WRITE APPOINTMENT RESCHEDUELING FUNCTION HERE
+              console.log("Appointment Rescheduled");
+            }}
+          >
+            Reschedule
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              // WRITE APPOINTMENT CANCELLATION FUNCTION HERE
+              console.log("Appointment Cancelled");
+            }}
+          >
+            Cancel
+          </Button>
         </Stack>
       </Grid>
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        sx={{
-          bgcolor: "background.paper",
-          boxShadow: 24,
-          p: 4,
-          width: "400px",
-          borderRadius: "4px",
-        }}
-      ></Grid>
     </Grid>
   );
 };
