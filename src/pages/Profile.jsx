@@ -13,15 +13,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { PatientAppointments } from "../components/PatientAppointments";
 import { Review } from "../components/Review";
-import { AppointmentBooking } from "../components/AppointmentBooking";
 import { useAuth } from "../AuthContext";
 
-const MyAppointments = ["Appointment 1", "Appointment 2", "Appointment 3"];
-const MyReviews = ["Review 1", "Review 2", "Review 3"];
 
 export const Profile = () => {
   const [editState, setEditState] = useState(false);
   const [patientData, setPatientData] = useState({});
+  const [patientId, setPatientId] = useState(0);
+  const [patientAppointments, setPatientAppointments] = useState([]);
+  const [patientReviews, setPatientReviews] = useState([]);
 
   const {
     authUser,
@@ -36,9 +36,9 @@ export const Profile = () => {
     headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
   };
 
-  let patientCreateDateISOString = patientData.createdAt
-  let patientCreateAccountDate = new Date(patientCreateDateISOString)
-  let formattedReviewDate = patientCreateAccountDate.toUTCString()
+  let patientCreateDateISOString = patientData.createdAt;
+  let patientCreateAccountDate = new Date(patientCreateDateISOString);
+  let formattedReviewDate = patientCreateAccountDate.toUTCString();
 
   const fetchPatientData = async () => {
     const response = await axios.get(
@@ -46,14 +46,34 @@ export const Profile = () => {
       config
     );
     setPatientData(response?.data.patientProfile);
-    console.log(
-      "The data we got from that response (patientData):",
-      patientData
-    ); // Debugging
+    setPatientId(response?.data.patientProfile.id);
   };
 
   useEffect(() => {
     fetchPatientData();
+  }, []);
+
+  useEffect(() => {
+    const fetchPatientAppointments = async () => {
+      const response = await axios.get(
+        `http://localhost:5000/appointment/patient`,
+        config
+      );
+      setPatientAppointments(response?.data?.appointments);
+    };
+      fetchPatientAppointments();
+  }, []);
+
+  useEffect(() => {
+    const fetchPatientReviews = async () => {
+      const response = await axios.get(
+        `http://localhost:5000/review/patient`,
+        config
+      );
+      setPatientReviews(response?.data?.reviews);
+      console.log("##Response to the reviews request:", response)
+    };
+      fetchPatientReviews();
   }, []);
 
   return (
@@ -63,6 +83,7 @@ export const Profile = () => {
           <Stack spacing={1.5} sx={{ width: "90%" }}>
             <Typography variant="h3">Your Profile</Typography>
             <Typography>{patientData.name}</Typography>
+            <Typography>ID: {patientId}</Typography>
             <Typography>{patientData.username}</Typography>
             <Typography />
             {patientData.email}
@@ -74,18 +95,17 @@ export const Profile = () => {
             {/* HISTORY STUFF */}
             <Typography variant="h5">Your Appointments</Typography>
             <Stack spacing={0.5}>
-              {MyAppointments.map((Appointment) => {
+              {patientAppointments.map((Appointment) => {
                 return (
-                  <Grid container key={Appointment}>
+                  <Grid container key={Appointment.at}>
                     <Grid item xs>
                       <Card variant="outlined">
-                        <PatientAppointments />
+                        <PatientAppointments AppointmentDate={Appointment.at} DoctorId={Appointment.doctorId} />
                       </Card>
                     </Grid>
                   </Grid>
                 );
               })}
-
             </Stack>
             Your Reviews
           </Stack>
