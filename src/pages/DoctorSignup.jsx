@@ -84,7 +84,7 @@ function DoctorSignUp() {
 
       await axios.post(`user/doctor/signup`, dataToSend);
       console.log("(🔎 Debugging) Success! Body sent to server: ", dataToSend);
-      navigate('doctor/login', { replace: true }); // redirect to login page
+      navigate('/doctor/login', { replace: true }); // redirect to login page
     } catch (error) {
       console.log(error);
       console.log("(🔎 DEBUGGING) ATTEMPTED message Body: ", dataToSend);
