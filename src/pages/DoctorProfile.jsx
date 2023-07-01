@@ -80,6 +80,7 @@ export const DoctorProfile = () => {
           config
         );
         setDoctorAppointments(response?.data?.appointments);
+        console.log("$##!@ YOUR APPOINTMENTS:", response?.data?.appointments)
       };
       fetchDoctorAppointments();
     }, []);
