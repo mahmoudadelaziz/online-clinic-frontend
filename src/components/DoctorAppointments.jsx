@@ -17,9 +17,6 @@ export const DoctorAppointments = ({
   PatientId,
 }) => {
   const [doctor, setDoctor] = useState({});
-  const [location, setLocation] = useState({});
-  const [showReviewButton, setShowReviewButton] = useState(false);
-  const [disableReviewButton, setDisableReviewButton] = useState(false);
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
@@ -111,8 +108,8 @@ export const DoctorAppointments = ({
       );
       console.log("SUCCESS! Review has been posted!");
       setShowReviewModal(false);
-      setDisableReviewButton(true) // Disable the review button because already posted.
-      localStorage.setItem("disableReviewButton", true)
+      setDisableReviewButton(true); // Disable the review button because already posted.
+      localStorage.setItem("disableReviewButton", true);
       console.log("(🔍 Debugging):", reviewText);
       console.log("(🔍 Debugging):", rating);
     } catch (error) {
@@ -128,48 +125,38 @@ export const DoctorAppointments = ({
           In {formattedAppointmentDate}
         </Typography>
         <Typography variant="subtitle1" color="gray">
-          With Dr. {doctor.name}, specialist in {doctor.specialization}
-        </Typography>
-        <Typography variant="subtitle1" color="gray">
-          Location: {location.id} {location.street}, {location.governorate}
+          With (PatientID){" "}
         </Typography>
       </Grid>
-
       <Grid item xs={2} padding={3} textAlign="center">
         {/* Filler item */}
       </Grid>
 
       <Grid item xs={4} padding={3} textAlign="center">
         <Stack>
-          {showReviewButton ? (
-            <Button variant="outlined" onClick={handleReviewModalOpen} disabled={localStorage.getItem("disableReviewButton")}>
-              Post a review
+          <>
+            <Typography variant="body1" color="grey">
+              (Status)
+            </Typography>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                // WRITE APPOINTMENT RESCHEDUELING FUNCTION HERE
+                console.log("Appointment Rescheduled");
+              }}
+            >
+              Reschedule
             </Button>
-          ) : (
-            <>
-              <Typography variant="body1" color="grey">
-                (Status)
-              </Typography>
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  // WRITE APPOINTMENT RESCHEDUELING FUNCTION HERE
-                  console.log("Appointment Rescheduled");
-                }}
-              >
-                Reschedule
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  // WRITE APPOINTMENT CANCELLATION FUNCTION HERE
-                  console.log("Appointment Cancelled");
-                }}
-              >
-                Cancel
-              </Button>
-            </>
-          )}
+            <Button
+              variant="outlined"
+              onClick={() => {
+                // WRITE APPOINTMENT CANCELLATION FUNCTION HERE
+                console.log("Appointment Cancelled");
+              }}
+            >
+              Cancel
+            </Button>
+          </>
         </Stack>
       </Grid>
 

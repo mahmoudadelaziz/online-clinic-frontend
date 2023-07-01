@@ -73,16 +73,16 @@ export const DoctorProfile = () => {
     fetchReviews();
   }, [doctorId]);
 
-  //   useEffect(() => {
-  //     const fetchDoctorAppointments = async () => {
-  //       const response = await axios.get(
-  //         `http://localhost:5000/appointment/doctor`,
-  //         config
-  //       );
-  //       setDoctorAppointments(response?.data?.appointments);
-  //     };
-  //     fetchDoctorAppointments();
-  //   }, []);
+    useEffect(() => {
+      const fetchDoctorAppointments = async () => {
+        const response = await axios.get(
+          `http://localhost:5000/appointment/doctor`,
+          config
+        );
+        setDoctorAppointments(response?.data?.appointments);
+      };
+      fetchDoctorAppointments();
+    }, []);
 
   console.log("(🔍 Debugging) doctorData received:", doctorData);
 
@@ -112,8 +112,8 @@ export const DoctorProfile = () => {
                       <Card variant="outlined">
                         <DoctorAppointments
                           AppointmentDate={Appointment.at}
-                          DoctorId={Appointment.doctorId}
-                          PatientId={patientId}
+                          DoctorId={doctorId}
+                          PatientId={Appointment.patientId}
                         />
                       </Card>
                     </Grid>
