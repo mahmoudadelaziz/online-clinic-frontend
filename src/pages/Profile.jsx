@@ -3,6 +3,7 @@ import {
   Avatar,
   Button,
   Card,
+  Divider,
   CardContent,
   Grid,
   Stack,
@@ -107,7 +108,18 @@ export const Profile = () => {
                 );
               })}
             </Stack>
-            Your Reviews
+            <Typography variant="h5">Your Reviews</Typography>
+            <Stack
+              padding={2}
+              spacing={3}
+              divider={<Divider orientation="horizontal" flexItem />}
+            >
+              {patientReviews.map((REVIEW) => (
+                <Stack sx={{border: 1, p: 1, borderRadius: 3}} item key={REVIEW.id}>
+                  <Review REVIEW={REVIEW} />
+                </Stack>
+              ))}
+            </Stack>
           </Stack>
         </CardContent>
       </Card>

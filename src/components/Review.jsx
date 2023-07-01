@@ -11,7 +11,11 @@ export const Review = ({ REVIEW }) => {
       <Grid item xs={10}>
         <Stack container direction={"row"} spacing={5}>
           <Stack direction="column" sx={{ textAlign: "left" }}>
-            <Stack item>{REVIEW.reviewWriter.name}</Stack>
+            <Stack item>
+              <Typography sx={{fontSize: 20}}>
+              {REVIEW.reviewWriter.name}
+              </Typography>
+              </Stack>
             {/*  */}
             <Stack item>
             <Typography variant="subtitle1" color="gray">
@@ -21,7 +25,7 @@ export const Review = ({ REVIEW }) => {
               <Rating value={REVIEW.rating} precision={0.1} />
             </Stack>
             <Stack item>
-              <Typography variant="body1" color="grey">
+              <Typography sx={{fontSize: 18, my: 2 }} variant="body1" color="black">
                 {REVIEW.review}
               </Typography>
             </Stack>
