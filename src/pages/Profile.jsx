@@ -39,7 +39,7 @@ export const Profile = () => {
 
   let patientCreateDateISOString = patientData.createdAt;
   let patientCreateAccountDate = new Date(patientCreateDateISOString);
-  let formattedReviewDate = patientCreateAccountDate.toUTCString();
+  let formattedCreatedAccountDate = patientCreateAccountDate.toUTCString();
 
   const fetchPatientData = async () => {
     const response = await axios.get(
@@ -92,7 +92,7 @@ export const Profile = () => {
             <Typography />
             {patientData.phoneNumber}
             <Typography />
-            <Typography>Account Created in {formattedReviewDate}</Typography>
+            <Typography>Account Created in {formattedCreatedAccountDate}</Typography>
             {/* HISTORY STUFF */}
             <Typography variant="h5">Your Appointments</Typography>
             <Stack spacing={0.5}>
