@@ -3,12 +3,13 @@ import { NavItem } from "./NavItem";
 import { useAuth } from "../AuthContext";
 
 const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
-  const { SetAuthUser, isLoggedIn, SetIsLoggedIn } = useAuth();
+  const { setUserType, SetAuthUser, isLoggedIn, SetIsLoggedIn } = useAuth();
 
   const handleLogout = () => {
-    // Perform the logout functionality
+    // Perform the logout functionality (Clear up the localStorage and the global context state vars)
     console.log("Logging out...")
     SetAuthUser(null);
+    setUserType("");
     SetIsLoggedIn(false);
     localStorage.clear();
   };
