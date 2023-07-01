@@ -11,6 +11,7 @@ import {
   Box,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext";
 
 const formInitialState = {
   username: "",
@@ -23,7 +24,19 @@ const errorsInitialState = {
 function DoctorSignIn() {
   const [errors, setErrors] = useState(errorsInitialState);
   const [user, setUser] = useState(formInitialState);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const {
+    userType,
+    setUserType,
+    authUser,
+    SetAuthUser,
+    isLoggedIn,
+    SetIsLoggedIn,
+    authToken,
+    setAuthToken,
+  } = useAuth();
+
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
@@ -43,12 +56,11 @@ function DoctorSignIn() {
         return;
       }
       await axios.post(`/user/doctor/login`, user);
-      console.log("(🔎 Debugging) Successfully Logged in as Droctor: ", user)
-      navigate('/', { replace: true }); // redirect to homepage
-
+      console.log("(🔎 Debugging) Successfully Logged in as Droctor: ", user);
+      navigate("/", { replace: true }); // redirect to homepage
     } catch (error) {
       console.log(error);
-      console.log("(🔎 Debugging) Attempted to login with the info: ", user)
+      console.log("(🔎 Debugging) Attempted to login with the info: ", user);
     }
   };
   const formInputs = [

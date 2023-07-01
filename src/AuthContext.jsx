@@ -18,6 +18,7 @@ export function AuthProvider(props) {
 
   const value = {
     userType,
+    setUserType,
     authUser,
     SetAuthUser,
     isLoggedIn,
