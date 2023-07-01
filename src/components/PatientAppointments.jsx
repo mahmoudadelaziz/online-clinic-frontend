@@ -11,10 +11,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../AuthContext";
 
-export const PatientAppointments = ({ AppointmentDate, DoctorId, PatientId }) => {
+export const PatientAppointments = ({
+  AppointmentDate,
+  DoctorId,
+  PatientId,
+}) => {
   const [doctor, setDoctor] = useState({});
   const [location, setLocation] = useState({});
   const [showReviewButton, setShowReviewButton] = useState(false);
+  const [disableReviewButton, setDisableReviewButton] = useState(false);
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
@@ -94,14 +99,20 @@ export const PatientAppointments = ({ AppointmentDate, DoctorId, PatientId }) =>
 
   const handleReviewSubmit = async () => {
     try {
-      await axios.post("http://localhost:5000/review", {
-        doctorId: DoctorId,
-        patientId: PatientId,
-        review: reviewText,
-        rating: rating,
-      }, config);
-      console.log("SUCCESS! Review has been posted!")
+      await axios.post(
+        "http://localhost:5000/review",
+        {
+          doctorId: DoctorId,
+          patientId: PatientId,
+          review: reviewText,
+          rating: rating,
+        },
+        config
+      );
+      console.log("SUCCESS! Review has been posted!");
       setShowReviewModal(false);
+      setDisableReviewButton(true) // Disable the review button because already posted.
+      localStorage.setItem("disableReviewButton", true)
       console.log("(🔍 Debugging):", reviewText);
       console.log("(🔍 Debugging):", rating);
     } catch (error) {
@@ -131,7 +142,7 @@ export const PatientAppointments = ({ AppointmentDate, DoctorId, PatientId }) =>
       <Grid item xs={4} padding={3} textAlign="center">
         <Stack>
           {showReviewButton ? (
-            <Button variant="outlined" onClick={handleReviewModalOpen}>
+            <Button variant="outlined" onClick={handleReviewModalOpen} disabled={localStorage.getItem("disableReviewButton")}>
               Post a review
             </Button>
           ) : (
