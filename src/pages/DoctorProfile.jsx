@@ -37,31 +37,30 @@ export const DoctorProfile = () => {
     headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
   };
 
-  const fetchDoctorData = async () => {
-    const response = await axios.get(
-      `http://localhost:5000/user/doctor/profile`,
-      config
-    );
-    setDoctorData(response?.data?.doctorProfile);
-    setDoctorId(response?.data?.doctorProfile.id);
-    localStorage.setItem("doctorId", response?.data?.doctorProfile.id)
-  };
-
-  useEffect(()=>{const fetchDoctorReviews = async () => {
-    const response = await axios.get(
-      `http://localhost:5000/review/doctor/${localStorage.getItem("doctorId")}`
-    );
-    setDoctorReviews(response?.data.reviews);
-    console.log(
-      "(🔍🔍🔍 Debugging) The reviews fetched: ",
-      response?.data?.reviews
-    ); // Debugging
-  };
-  fetchDoctorReviews()
-}, [])
-  
   useEffect(() => {
+    const fetchDoctorData = async () => {
+      const response = await axios.get(
+        `http://localhost:5000/user/doctor/profile`,
+        config
+      );
+      setDoctorData(response?.data?.doctorProfile);
+      setDoctorId(response?.data?.doctorProfile.id);
+      console.log("Doctor ID: ########## ", doctorId) // Debugging
+      localStorage.setItem("doctorId", response?.data?.doctorProfile.id);
+    };
+
+    const fetchDoctorReviews = async () => {
+      const response = await axios.get(
+        `http://localhost:5000/review/doctor/${localStorage.getItem("doctorId")}`
+      );
+      setDoctorReviews(response?.data.reviews);
+      console.log(
+        "(🔍🔍🔍 Debugging) The reviews fetched: ",
+        response?.data?.reviews
+      ); // Debugging
+    };
     fetchDoctorData();
+    fetchDoctorReviews();
   }, []);
 
   useEffect(() => {
@@ -72,7 +71,7 @@ export const DoctorProfile = () => {
       );
       setDoctorAppointments(response?.data?.appointments);
     };
-      fetchDoctorAppointments();
+    fetchDoctorAppointments();
   }, []);
 
   console.log("(🔍 Debugging) doctorData received:", doctorData);
