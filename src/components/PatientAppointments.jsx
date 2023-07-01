@@ -1,11 +1,29 @@
-import { Stack, Typography, Button, Grid } from "@mui/material";
+import {
+  Stack,
+  Typography,
+  Button,
+  Grid,
+  Modal,
+  TextField,
+  Rating,
+} from "@mui/material";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useAuth } from "../AuthContext";
 
-export const PatientAppointments = ({ AppointmentDate, DoctorId }) => {
+export const PatientAppointments = ({ AppointmentDate, DoctorId, PatientId }) => {
   const [doctor, setDoctor] = useState({});
   const [location, setLocation] = useState({});
   const [showReviewButton, setShowReviewButton] = useState(false);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [reviewText, setReviewText] = useState("");
+  const [rating, setRating] = useState(0);
+
+  const { authToken } = useAuth();
+
+  const config = {
+    headers: { Authorization: `Bearer ${authToken}` },
+  };
 
   let appointmentDateISOString = AppointmentDate;
   let appointmentDateToFormat = new Date(appointmentDateISOString);
@@ -62,6 +80,36 @@ export const PatientAppointments = ({ AppointmentDate, DoctorId }) => {
     }
   }, [appointmentDateISOString]);
 
+  const handleReviewModalOpen = () => {
+    setShowReviewModal(true);
+  };
+
+  const handleReviewModalClose = () => {
+    setShowReviewModal(false);
+  };
+
+  const handleReviewTextChange = (event) => {
+    setReviewText(event.target.value);
+  };
+
+  const handleReviewSubmit = async () => {
+    try {
+      await axios.post("http://localhost:5000/review", {
+        doctorId: DoctorId,
+        patientId: PatientId,
+        review: reviewText,
+        rating: rating,
+      }, config);
+      console.log("SUCCESS! Review has been posted!")
+      setShowReviewModal(false);
+      console.log("(🔍 Debugging):", reviewText);
+      console.log("(🔍 Debugging):", rating);
+    } catch (error) {
+      console.log("(🔍 Debugging) FETCHING ERROR");
+      console.log(error.message);
+    }
+  };
+
   return (
     <Grid container>
       <Grid item xs={6} padding={3} textAlign="center">
@@ -83,13 +131,7 @@ export const PatientAppointments = ({ AppointmentDate, DoctorId }) => {
       <Grid item xs={4} padding={3} textAlign="center">
         <Stack>
           {showReviewButton ? (
-            <Button
-              variant="outlined"
-              onClick={() => {
-                // WRITE POST A REVIEW FUNCTION HERE
-                console.log("Post a review");
-              }}
-            >
+            <Button variant="outlined" onClick={handleReviewModalOpen}>
               Post a review
             </Button>
           ) : (
@@ -119,6 +161,57 @@ export const PatientAppointments = ({ AppointmentDate, DoctorId }) => {
           )}
         </Stack>
       </Grid>
+
+      <Modal
+        open={showReviewModal}
+        onClose={handleReviewModalClose}
+        aria-labelledby="review-modal-title"
+        aria-describedby="review-modal-description"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+            width: "400px",
+            borderRadius: "4px",
+          }}
+        >
+          <Typography variant="h6" id="review-modal-title" gutterBottom>
+            Write a review
+          </Typography>
+          <Rating
+            name="rating"
+            value={rating}
+            precision={0.5}
+            onChange={(event, newValue) => {
+              setRating(newValue);
+            }}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            multiline
+            rows={4}
+            label="Your Review"
+            variant="outlined"
+            value={reviewText}
+            onChange={handleReviewTextChange}
+            sx={{ width: "100%", mb: 2 }}
+          />
+          <Button variant="contained" onClick={handleReviewSubmit}>
+            Submit
+          </Button>
+        </Grid>
+      </Modal>
     </Grid>
   );
 };

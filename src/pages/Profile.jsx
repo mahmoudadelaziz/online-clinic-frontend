@@ -100,7 +100,7 @@ export const Profile = () => {
                   <Grid container key={Appointment.at}>
                     <Grid item xs>
                       <Card variant="outlined">
-                        <PatientAppointments AppointmentDate={Appointment.at} DoctorId={Appointment.doctorId} />
+                        <PatientAppointments AppointmentDate={Appointment.at} DoctorId={Appointment.doctorId} PatientId={patientId} />
                       </Card>
                     </Grid>
                   </Grid>
