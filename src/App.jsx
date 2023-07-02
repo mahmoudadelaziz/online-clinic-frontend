@@ -24,7 +24,7 @@ const App = () => {
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/doctors/:id" element={<DoctorPage />} />
           {/* If the user signed in is a doctor, show the Doctor's profile. */}
-          {(userType === "Doctor")? (<Route path="/profile" element={<DoctorProfile />}/>)
+          {(localStorage.getItem("userType") === "Doctor")? (<Route path="/profile" element={<DoctorProfile />}/>)
           : (<Route path="/profile" element={<Profile />}/>)}
           <Route path="/doctor/signup" element={<DoctorSignUp />} />
           <Route path="/doctor/login" element={<DoctorSignIn />} />

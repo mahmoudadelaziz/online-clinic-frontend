@@ -19,7 +19,7 @@ const Layout = () => {
         {location.pathname === "/" && userType != "Doctor" ? (
           <Recommender />
         ) : null}
-        {userType === "Doctor" && (
+        {(userType === "Doctor" && location.pathname === "/") && (
           <Typography variant="h2" sx={{ textAlign: "center" }}>
             {" "}
             Welcome back, doctor!
