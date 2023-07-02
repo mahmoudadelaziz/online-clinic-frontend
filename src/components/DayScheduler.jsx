@@ -21,7 +21,7 @@ const DaySlots = ({
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [note, setNote] = useState("");
-  const [slotTime, setSlotTime] = useState()
+  const [slotTime, setSlotTime] = useState();
 
   const rows = [];
   const dayStart = new Date(
@@ -37,32 +37,19 @@ const DaySlots = ({
     workingHoursEnd
   ); // End of the work day (Assumed 5 pm)
 
-    // NOTE: all these variables in the for loop's () are in milliseconds
-    for (
-      let i = dayStart.getTime();
-      i < dayEnd.getTime();
-      i += slotDuration * 60 * 1000
-    ) {
-      const time = new Date(i).toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }); // Using the time format (HH:MM AM/PM )
-      const index = i / (slotDuration * 60 * 1000); // For the unique key in the list
-      rows.push({ time, index }); // Populating the array with time-index-pair objects
-    }
-
-    const handleSlotClick = (slotIndex) => {
-      if (selectedSlot === slotIndex) {
-        setSelectedSlot(null); // Unselect slot
-      } else {
-        setSelectedSlot(slotIndex); // Select slot
-        const selectedTime = rows[slotIndex]?.time; // Get the time value of the selected slot, with optional chaining to handle undefined rows[slotIndex]
-        console.log(`Selected slot: ${date.toLocaleDateString()} at ${selectedTime}`);
-        setModalOpen(true); // Open modal
-        setNote(""); // Clear note
-        setSlotTime(selectedTime); // Set the selected slot time
-      }
-    };
+  // NOTE: all these variables in the for loop's () are in milliseconds
+  for (
+    let i = dayStart.getTime();
+    i < dayEnd.getTime();
+    i += slotDuration * 60 * 1000
+  ) {
+    const time = new Date(i).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    }); // Using the time format (HH:MM AM/PM )
+    const index = i / (slotDuration * 60 * 1000); // For the unique key in the list
+    rows.push({ time, index }); // Populating the array with time-index-pair objects
+  }
 
   const handleCancelClick = () => {
     setSelectedSlot(null); // Unselect slot
@@ -71,19 +58,10 @@ const DaySlots = ({
   };
 
   const handleConfirmClick = () => {
-    if (selected !== null && selected >= 0 && selected < rows.length) {
-      console.log(`Selected slot: ${date.toLocaleDateString()} at ${rows[selected].time}`);
-    }
-    if (note !== "") {
-      console.log(`Note: ${note}`);
-    }
-    setSelected(null); // Unselect slot
+    console.log(`Note: ${note}, in ${date}, at ${slotTime}`);
     setModalOpen(false); // Close modal
     setNote(""); // Clear note
   };
-  // console.log("rows:", rows); // Debugging
-  // console.log("rows[0]:", rows[0]["time"]); // Debugging
-  // console.log("rows[0].time:", rows[0].time); // Debugging
 
   const options = {
     weekday: "short",
@@ -125,7 +103,12 @@ const DaySlots = ({
                       selectedSlot === slot.index ? "green" : undefined,
                     color: selectedSlot === slot.index ? "white" : undefined,
                   }}
-                  onClick={() => handleSlotClick(slot.index)}
+                  onClick={(e) => {
+                    console.log("YOU CLICKED:", e.target.textContent);
+                    setSlotTime(e.target.textContent);
+                    console.log("slotTime = ", slotTime);
+                    setModalOpen(true);
+                  }}
                 >
                   {slot.time}
                 </Button>
