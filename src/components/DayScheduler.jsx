@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
 import { useAuth } from "../AuthContext";
+import axios from "axios";
 
 // Note: We are assuming a work day from 9 AM to 5 PM
 const DaySlots = ({
@@ -27,7 +28,7 @@ const DaySlots = ({
   const { authToken } = useAuth();
 
   const config = {
-    headers: { Authorization: `Bearer ${authToken}` },
+    headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
   };
 
   const rows = [];
@@ -64,8 +65,7 @@ const DaySlots = ({
     setNote(""); // Clear note
   };
 
-  const handleConfirmClick = () => {
-    console.log(`Note: ${note}, in ${date}, at ${slotTime}`);
+  const handleConfirmClick = async () => {
     setModalOpen(false); // Close modal
     setNote(""); // Clear note
 
@@ -91,23 +91,24 @@ const DaySlots = ({
     combinedDate.setMinutes(minutes);
     combinedDate.setSeconds(0);
 
-    console.log("APPOINTMENT DATE: ", combinedDate)
-    console.log("Doctor's ID from the SLOTS:", localStorage.getItem("doctorId")) // Debugging
-
+    console.log("Doctor's ID being sent:", localStorage.getItem("doctorId")) // Debugging
+    console.log("Patient's ID being sent:", localStorage.getItem("patientId")) // Debugging
+    console.log("Type being sent:", note) // Debugging
+    console.log("at being sent:", combinedDate.toISOString()) // Debugging
     try {
-      axios.post(
+      const response = await axios.post(
         "http://localhost:5000/appointment",
         {
-          doctorId: localStorage.getItem("doctorId"), // to be passed down as a parameter
-          patientId: localStorage.getItem("patientId"), // from localStorage (TEMP)
-          type: note,
-          at: combinedDate, // to be extracted
+          "doctorId": parseInt(localStorage.getItem("doctorId")), // to be passed down as a parameter
+          "patientId": parseInt(localStorage.getItem("patientId")), // from localStorage (TEMP)
+          "type": note,
+          "at": combinedDate.toISOString()
         },
         config
       );
       console.log("SUCCESS! Appointment Booked!");
     } catch (error) {
-      console.log("Fetching error: ", error.message);
+      console.log("Fetching error: ", error);
     }
   };
 
