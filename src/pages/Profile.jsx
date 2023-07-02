@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Avatar,
   Button,
   Card,
   Divider,
@@ -16,8 +15,7 @@ import { PatientAppointments } from "../components/PatientAppointments";
 import { Review } from "../components/Review";
 import { useAuth } from "../AuthContext";
 
-
-export const Profile = () => {
+const Profile = () => {
   const [editState, setEditState] = useState(false);
   const [patientData, setPatientData] = useState({});
   const [patientId, setPatientId] = useState(0);
@@ -81,41 +79,58 @@ export const Profile = () => {
     <div align="center">
       <Card variant="outlined" sx={{ my: 5, mx: 20, p: 0.1, borderRadius: 10 }}>
         <CardContent>
-          <Stack spacing={1.5} sx={{ width: "90%" }}>
-            <Typography variant="h3">Your Profile</Typography>
-            <Typography>{patientData.name}</Typography>
-            <Typography>ID: {patientId}</Typography>
-            <Typography>{patientData.username}</Typography>
-            <Typography />
-            {patientData.email}
-            <Typography />
-            <Typography />
-            {patientData.phoneNumber}
-            <Typography />
-            <Typography>Account Created in {formattedCreatedAccountDate}</Typography>
-            {/* HISTORY STUFF */}
-            <Typography variant="h5">Your Appointments</Typography>
-            <Stack spacing={0.5}>
+          <Stack spacing={3} sx={{ width: "90%" }}>
+            <Typography variant="h3" align="center">
+              Your Profile
+            </Typography>
+            <Stack spacing={1}>
+              <Typography variant="h5" align="center">
+                {patientData.name}
+              </Typography>
+              <Typography variant="body1" align="center">
+                {patientData.username}
+              </Typography>
+              <Typography variant="body2" align="center">
+                {patientData.email}
+              </Typography>
+              <Typography variant="body2" align="center">
+                {patientData.phoneNumber}
+              </Typography>
+              <Typography variant="body2" align="center">
+                Account Created on {formattedCreatedAccountDate}
+              </Typography>
+            </Stack>
+            <Divider />
+            <Stack spacing={3}>
+              <Typography variant="h5" align="center">
+                Your Appointments
+              </Typography>
               {patientAppointments.map((Appointment) => {
                 return (
-                  <Grid container key={Appointment.at}>
-                    <Grid item xs>
-                      <Card variant="outlined">
-                        <PatientAppointments AppointmentDate={Appointment.at} DoctorId={Appointment.doctorId} PatientId={patientId} />
-                      </Card>
-                    </Grid>
-                  </Grid>
+                  <Card key={Appointment.at} variant="outlined">
+                    <PatientAppointments
+                      AppointmentDate={Appointment.at}
+                      DoctorId={Appointment.doctorId}
+                      PatientId={patientId}
+                    />
+                  </Card>
                 );
               })}
             </Stack>
-            <Typography variant="h5">Your Reviews</Typography>
-            <Stack
-              padding={2}
-              spacing={3}
-              divider={<Divider orientation="horizontal" flexItem />}
-            >
+            <Divider />
+            <Stack spacing={3}>
+              <Typography variant="h5" align="center">
+                Your Reviews
+              </Typography>
               {patientReviews.map((REVIEW) => (
-                <Stack sx={{border: 1, p: 1, borderRadius: 3}} item key={REVIEW.id}>
+                <Stack
+                  key={REVIEW.id}
+                  sx={{
+                    border: 1,
+                    p: 1,
+                    borderRadius: 3,
+                  }}
+                >
                   <Review REVIEW={REVIEW} />
                 </Stack>
               ))}
@@ -126,3 +141,5 @@ export const Profile = () => {
     </div>
   );
 };
+
+export { Profile };

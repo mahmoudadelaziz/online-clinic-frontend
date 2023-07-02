@@ -26,7 +26,7 @@ function SignIn() {
   const [user, setUser] = useState(formInitialState);
   const navigate = useNavigate()
 
-  const { authUser, SetAuthUser, isLoggedIn, SetIsLoggedIn, authToken, setAuthToken } = useAuth(); 
+  const { setUserType, authUser, SetAuthUser, isLoggedIn, SetIsLoggedIn, authToken, setAuthToken } = useAuth(); 
 
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -52,9 +52,11 @@ function SignIn() {
       setAuthToken(response?.data?.token)
       SetIsLoggedIn(true)
       SetAuthUser(user?.username)
+      setUserType("Patient")
       localStorage.setItem("IsLoggedIn", true);
       localStorage.setItem("authToken", response?.data?.token);
       localStorage.setItem("User", user?.username);
+      localStorage.setItem("userType", "Patient");
       console.log("(🔎 Debugging) Successfully Logged in with: ", user);
       // window.location.replace('/');
       navigate('/', { replace: true });
