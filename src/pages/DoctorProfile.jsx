@@ -17,7 +17,6 @@ import { useAuth } from "../AuthContext";
 import { DoctorAppointments } from "../components/DoctorAppointments";
 
 export const DoctorProfile = () => {
-  const [editState, setEditState] = useState(false);
   const [doctorData, setDoctorData] = useState({});
   const [doctorId, setDoctorId] = useState(0);
   const [doctorAppointments, setDoctorAppointments] = useState([]);
@@ -92,23 +91,26 @@ export const DoctorProfile = () => {
         <CardContent>
           <Stack spacing={1.5} sx={{ width: "90%" }}>
             <Typography variant="h3">Your Profile</Typography>
-            <Typography>{doctorData.name}</Typography>
-            <Typography>{doctorData.specialization}</Typography>
-            <Typography>ID: {doctorId}</Typography>
-            <Typography>{doctorData.username}</Typography>
+            <Typography>Name: {doctorData.name}</Typography>
+            <Typography>Specialty: {doctorData.specialization}</Typography>
+            <Typography>Account ID: {doctorId}</Typography>
+            <Typography>Username: {doctorData.username}</Typography>
             <Typography />
-            {doctorData.email}
+            E-mail: {doctorData.email}
             <Typography />
             <Typography />
-            {doctorData.phoneNumber}
+            Phone number: {doctorData.phoneNumber}
             <Typography />
             <Typography />
             Visit Fee: {doctorData.visitFee} EGP
             <Typography />
             <Typography />
-            Location: ID: {doctorData.locationId}
+            Working hours: from {doctorData.workingHoursStart} to {doctorData.workingHoursEnd}
             <Typography />
-            <Typography>Account Created in {doctorData.createdAt}</Typography>
+            <Typography />
+            Location ID: {doctorData.locationId}
+            <Typography />
+            <Typography>Account created in {doctorData.createdAt}</Typography>
             {/* HISTORY STUFF */}
             <Typography variant="h5">Your Appointments</Typography>
             <Stack spacing={0.5}>
