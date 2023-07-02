@@ -50,15 +50,6 @@ export const DoctorAppointments = ({
               <Button
                 variant="outlined"
                 onClick={() => {
-                  // WRITE APPOINTMENT RESCHEDUELING FUNCTION HERE
-                  console.log("Appointment Rescheduled");
-                }}
-              >
-                Reschedule
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={() => {
                   // WRITE APPOINTMENT CANCELLATION FUNCTION HERE
                   console.log("Appointment Cancelled");
                 }}
