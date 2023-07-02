@@ -61,6 +61,47 @@ const DaySlots = ({
     console.log(`Note: ${note}, in ${date}, at ${slotTime}`);
     setModalOpen(false); // Close modal
     setNote(""); // Clear note
+
+    // EXTRACT A DATETIME OBJECT
+    let dateText = date.toString()
+    let dateString = dateText.split(" GMT")[0];
+
+    // Create a new Date object with the date component from dateString
+    let combinedDate = new Date(dateString);
+
+    // Extract the hour and minute components from the time string
+    let [hours, minutes] = slotTime.split(":");
+    let [ampm] = minutes.split(" ");
+    if (ampm === "PM" && hours !== "12") {
+      hours = parseInt(hours, 10) + 12;
+    } else if (ampm === "AM" && hours === "12") {
+      hours = "00";
+    }
+    minutes = minutes.slice(0, 2);
+
+    // Set the time component of the combinedDate object using the hour and minute values
+    combinedDate.setHours(hours);
+    combinedDate.setMinutes(minutes);
+    combinedDate.setSeconds(0);
+
+    console.log("APPOINTMENT DATE: ", combinedDate)
+
+    try {
+      axios.post(
+        "http://localhost:5000/appointment",
+        {
+          doctorId: DoctorId, // to be passed down as a parameter
+          patientId: PatientId, // from localStorage
+          type: note,
+          at: combinedDate, // to be extracted
+        },
+        config
+      );
+      console.log("SUCCESS! Appointment Booked!");
+    } catch (error) {
+      console.log("(🔍 Debugging) FETCHING ERROR");
+      console.log(error.message);
+    }
   };
 
   const options = {
