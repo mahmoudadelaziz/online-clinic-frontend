@@ -12,6 +12,7 @@ import { useAuth } from "../AuthContext";
 
 export const DoctorAppointments = ({
   AppointmentDate,
+  AppointmentType,
   DoctorId,
   PatientId,
 }) => {
@@ -32,6 +33,9 @@ export const DoctorAppointments = ({
       <Grid item xs={4} textAlign="center">
         <Typography variant="subtitle1" color="gray">
           {formattedAppointmentDate}
+        </Typography>
+        <Typography variant="subtitle1" color="gray">
+          {AppointmentType}
         </Typography>
       </Grid>
       <Grid item xs={4} textAlign="center">

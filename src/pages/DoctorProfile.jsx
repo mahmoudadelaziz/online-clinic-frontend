@@ -121,6 +121,7 @@ export const DoctorProfile = () => {
                       <Card variant="outlined">
                         <DoctorAppointments
                           AppointmentDate={Appointment.at}
+                          AppointmentType={Appointment.type}
                           DoctorId={doctorId}
                           PatientId={Appointment.patientId}
                         />
