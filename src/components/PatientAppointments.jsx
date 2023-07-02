@@ -147,18 +147,6 @@ export const PatientAppointments = ({
             </Button>
           ) : (
             <>
-              <Typography variant="body1" color="grey">
-                (Status)
-              </Typography>
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  // WRITE APPOINTMENT RESCHEDUELING FUNCTION HERE
-                  console.log("Appointment Rescheduled");
-                }}
-              >
-                Reschedule
-              </Button>
               <Button
                 variant="outlined"
                 onClick={() => {
