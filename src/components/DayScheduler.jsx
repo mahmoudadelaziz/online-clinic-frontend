@@ -4,9 +4,11 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
+import { useAuth } from "../AuthContext";
 
 // Note: We are assuming a work day from 9 AM to 5 PM
 const DaySlots = ({
+  doctorId,
   slotDuration = 20,
   date,
   workingHoursStart = 9,
@@ -17,11 +19,16 @@ const DaySlots = ({
   slotDuration: The slot duration of the doctor (default = 30 minutes)
   date: A day's date
   */
-
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [note, setNote] = useState("");
   const [slotTime, setSlotTime] = useState();
+
+  const { authToken } = useAuth();
+
+  const config = {
+    headers: { Authorization: `Bearer ${authToken}` },
+  };
 
   const rows = [];
   const dayStart = new Date(
@@ -85,13 +92,14 @@ const DaySlots = ({
     combinedDate.setSeconds(0);
 
     console.log("APPOINTMENT DATE: ", combinedDate)
+    console.log("Doctor's ID from the SLOTS:", localStorage.getItem("doctorId")) // Debugging
 
     try {
       axios.post(
         "http://localhost:5000/appointment",
         {
-          doctorId: DoctorId, // to be passed down as a parameter
-          patientId: PatientId, // from localStorage
+          doctorId: localStorage.getItem("doctorId"), // to be passed down as a parameter
+          patientId: localStorage.getItem("patientId"), // from localStorage (TEMP)
           type: note,
           at: combinedDate, // to be extracted
         },
@@ -99,8 +107,7 @@ const DaySlots = ({
       );
       console.log("SUCCESS! Appointment Booked!");
     } catch (error) {
-      console.log("(🔍 Debugging) FETCHING ERROR");
-      console.log(error.message);
+      console.log("Fetching error: ", error.message);
     }
   };
 

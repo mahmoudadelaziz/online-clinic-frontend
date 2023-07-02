@@ -17,6 +17,7 @@ import { AppointmentBooking } from "../components/AppointmentBooking";
 
 export const DoctorPage = () => {
   const { id } = useParams();
+  localStorage.setItem("doctorId", id)
   const [doctor, setDoctor] = useState({});
   const [location, setLocation] = useState({});
   const [reviews, setReviews] = useState([]);
@@ -124,6 +125,7 @@ export const DoctorPage = () => {
                 Book an appointment
               </Typography>
               <AppointmentBooking
+                doctorId={id}
                 workingHoursStart={parseInt(doctor.workingHoursStart)}
                 workingHoursEnd={parseInt(doctor.workingHoursEnd)}
               />
