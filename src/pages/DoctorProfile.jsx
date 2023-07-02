@@ -93,7 +93,6 @@ export const DoctorProfile = () => {
             <Typography variant="h3">Your Profile</Typography>
             <Typography>Name: {doctorData.name}</Typography>
             <Typography>Specialty: {doctorData.specialization}</Typography>
-            <Typography>Account ID: {doctorId}</Typography>
             <Typography>Username: {doctorData.username}</Typography>
             <Typography />
             E-mail: {doctorData.email}
@@ -110,6 +109,7 @@ export const DoctorProfile = () => {
             <Typography />
             Location ID: {doctorData.locationId}
             <Typography />
+            <Typography>Account ID: {doctorId}</Typography>
             <Typography>Account created in {doctorData.createdAt}</Typography>
             {/* HISTORY STUFF */}
             <Typography variant="h5">Your Appointments</Typography>
