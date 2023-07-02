@@ -129,10 +129,9 @@ export const DoctorProfile = () => {
 
   const handleSaveClick = async () => {
     try {
-      await axios.patch(
-        `http://localhost:5000/user/doctor/profile`,
-        formData,
-        config
+      await axios.put(
+        `http://localhost:5000/user/doctor/${doctorId}`,
+        formData
       );
       setIsEditing(false);
       setDoctorData(formData);
