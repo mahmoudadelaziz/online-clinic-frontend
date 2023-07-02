@@ -21,6 +21,18 @@ export const DoctorProfile = () => {
   const [doctorId, setDoctorId] = useState(0);
   const [doctorAppointments, setDoctorAppointments] = useState([]);
   const [doctorReviews, setDoctorReviews] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    specialization: "",
+    username: "",
+    email: "",
+    phoneNumber: "",
+    visitFee: "",
+    workingHoursStart: "",
+    workingHoursEnd: "",
+    locationId: "",
+  });
 
   const {
     authUser,
@@ -46,6 +58,17 @@ export const DoctorProfile = () => {
         );
         setDoctorData(doctorProfile);
         setDoctorId(doctorProfile?.id);
+        setFormData({
+          name: doctorProfile?.name,
+          specialization: doctorProfile?.specialization,
+          username: doctorProfile?.username,
+          email: doctorProfile?.email,
+          phoneNumber: doctorProfile?.phoneNumber,
+          visitFee: doctorProfile?.visitFee,
+          workingHoursStart: doctorProfile?.workingHoursStart,
+          workingHoursEnd: doctorProfile?.workingHoursEnd,
+          locationId: doctorProfile?.locationId,
+        });
         console.log("(🔍 Debugging) The doctor fetched: ", doctorProfile);
         console.log("(🔍 Debugging) doctorId: ", doctorProfile?.id);
       } catch (error) {
@@ -71,19 +94,60 @@ export const DoctorProfile = () => {
     fetchReviews();
   }, [doctorId]);
 
-    useEffect(() => {
-      const fetchDoctorAppointments = async () => {
-        const response = await axios.get(
-          `http://localhost:5000/appointment/doctor`,
-          config
-        );
-        setDoctorAppointments(response?.data?.appointments);
-        console.log("$##!@ YOUR APPOINTMENTS:", response?.data?.appointments)
-      };
-      fetchDoctorAppointments();
-    }, []);
+  useEffect(() => {
+    const fetchDoctorAppointments = async () => {
+      const response = await axios.get(
+        `http://localhost:5000/appointment/doctor`,
+        config
+      );
+      setDoctorAppointments(response?.data?.appointments);
+      console.log("$##!@ YOUR APPOINTMENTS:", response?.data?.appointments)
+    };
+    fetchDoctorAppointments();
+  }, []);
 
   console.log("(🔍 Debugging) doctorData received:", doctorData);
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    setFormData({
+      name: doctorData?.name,
+      specialization: doctorData?.specialization,
+      username: doctorData?.username,
+      email: doctorData?.email,
+      phoneNumber: doctorData?.phoneNumber,
+      visitFee: doctorData?.visitFee,
+      workingHoursStart: doctorData?.workingHoursStart,
+      workingHoursEnd: doctorData?.workingHoursEnd,
+      locationId: doctorData?.locationId,
+    });
+  };
+
+  const handleSaveClick = async () => {
+    try {
+      await axios.patch(
+        `http://localhost:5000/user/doctor/profile`,
+        formData,
+        config
+      );
+      setIsEditing(false);
+      setDoctorData(formData);
+    } catch (error) {
+      console.log("(🔍 Debugging) SAVE ERROR");
+      console.log(error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <div align="center">
@@ -91,26 +155,115 @@ export const DoctorProfile = () => {
         <CardContent>
           <Stack spacing={1.5} sx={{ width: "90%" }}>
             <Typography variant="h3">Your Profile</Typography>
-            <Typography>Name: {doctorData.name}</Typography>
-            <Typography>Specialty: {doctorData.specialization}</Typography>
-            <Typography>Username: {doctorData.username}</Typography>
-            <Typography />
-            E-mail: {doctorData.email}
-            <Typography />
-            <Typography />
-            Phone number: {doctorData.phoneNumber}
-            <Typography />
-            <Typography />
-            Visit Fee: {doctorData.visitFee} EGP
-            <Typography />
-            <Typography />
-            Working hours: from {doctorData.workingHoursStart} to {doctorData.workingHoursEnd}
-            <Typography />
-            <Typography />
-            Location ID: {doctorData.locationId}
+            {!isEditing ? (
+              <>
+                <Typography>Name: {doctorData.name}</Typography>
+                <Typography>
+                  Specialty: {doctorData.specialization}
+                </Typography>
+                <Typography>Username: {doctorData.username}</Typography>
+                <Typography>Email: {doctorData.email}</Typography>
+                <Typography>
+                  Phone number: {doctorData.phoneNumber}
+                </Typography>
+                <Typography>
+                  Visit Fee: {doctorData.visitFee} EGP
+                </Typography>
+                <Typography>
+                  Working hours: from {doctorData.workingHoursStart} to{" "}
+                  {doctorData.workingHoursEnd}
+                </Typography>
+                <Typography>
+                  Location ID: {doctorData.locationId}
+                </Typography>
+              </>
+            ) : (
+              <>
+                <TextField
+                  label="Name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Specialization"
+                  name="specialization"
+                  value={formData.specialization}
+                  onChange={handleInputChange}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Phone number"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleInputChange}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Visit Fee"
+                  name="visitFee"
+                  value={formData.visitFee}
+                  onChange={handleInputChange}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Working hours start"
+                  name="workingHoursStart"
+                  value={formData.workingHoursStart}
+                  onChange={handleInputChange}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Working hours end"
+                  name="workingHoursEnd"
+                  value={formData.workingHoursEnd}
+                  onChange={handleInputChange}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Location ID"
+                  name="locationId"
+                  value={formData.locationId}
+                  onChange={handleInputChange}
+                  fullWidth
+                  margin="normal"
+                />
+              </>
+            )}
             <Typography />
             <Typography>Account ID: {doctorId}</Typography>
             <Typography>Account created in {doctorData.createdAt}</Typography>
+            {!isEditing ? (
+              <Button onClick={handleEditClick}>Edit</Button>
+            ) : (
+              <>
+                <Button onClick={handleSaveClick}>Save</Button>
+                <Button onClick={handleCancelClick}>Cancel</Button>
+              </>
+            )}
             {/* HISTORY STUFF */}
             <Typography variant="h5">Your Appointments</Typography>
             <Stack spacing={0.5}>
