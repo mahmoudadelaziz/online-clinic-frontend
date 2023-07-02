@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { PatientAppointments } from "../components/PatientAppointments";
 import { Review } from "../components/Review";
 import { useAuth } from "../AuthContext";
 import { DoctorAppointments } from "../components/DoctorAppointments";
@@ -94,6 +93,7 @@ export const DoctorProfile = () => {
           <Stack spacing={1.5} sx={{ width: "90%" }}>
             <Typography variant="h3">Your Profile</Typography>
             <Typography>{doctorData.name}</Typography>
+            <Typography>{doctorData.specialization}</Typography>
             <Typography>ID: {doctorId}</Typography>
             <Typography>{doctorData.username}</Typography>
             <Typography />
@@ -101,6 +101,12 @@ export const DoctorProfile = () => {
             <Typography />
             <Typography />
             {doctorData.phoneNumber}
+            <Typography />
+            <Typography />
+            Visit Fee: {doctorData.visitFee} EGP
+            <Typography />
+            <Typography />
+            Location: ID: {doctorData.locationId}
             <Typography />
             <Typography>Account Created in {doctorData.createdAt}</Typography>
             {/* HISTORY STUFF */}

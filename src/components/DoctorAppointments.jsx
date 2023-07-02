@@ -25,6 +25,8 @@ export const DoctorAppointments = ({
   let appointmentDateToFormat = new Date(appointmentDateISOString);
   let formattedAppointmentDate = appointmentDateToFormat.toUTCString();
 
+  const isFutureAppointment = appointmentDateToFormat > new Date();
+
   return (
     <Grid container sx={{ mt: 2 }}>
       <Grid item xs={4} textAlign="center">
@@ -39,27 +41,28 @@ export const DoctorAppointments = ({
       </Grid>
       <Grid item xs={4} textAlign="center">
         <Stack spacing={1}>
-          <Typography variant="body1" color="grey">
-            Status: Scheduled
-          </Typography>
-          <Button
-            variant="outlined"
-            onClick={() => {
-              // WRITE APPOINTMENT RESCHEDUELING FUNCTION HERE
-              console.log("Appointment Rescheduled");
-            }}
-          >
-            Reschedule
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={() => {
-              // WRITE APPOINTMENT CANCELLATION FUNCTION HERE
-              console.log("Appointment Cancelled");
-            }}
-          >
-            Cancel
-          </Button>
+          {isFutureAppointment && (
+            <>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  // WRITE APPOINTMENT RESCHEDUELING FUNCTION HERE
+                  console.log("Appointment Rescheduled");
+                }}
+              >
+                Reschedule
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  // WRITE APPOINTMENT CANCELLATION FUNCTION HERE
+                  console.log("Appointment Cancelled");
+                }}
+              >
+                Cancel
+              </Button>
+            </>
+          )}
         </Stack>
       </Grid>
     </Grid>
