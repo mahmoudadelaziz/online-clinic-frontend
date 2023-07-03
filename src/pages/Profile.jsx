@@ -190,37 +190,49 @@ const Profile = () => {
               <Typography variant="h5" align="center">
                 Your Appointments
               </Typography>
-              {patientAppointments.map((Appointment) => {
-                return (
-                  <Card key={Appointment.id} variant="outlined">
-                    <PatientAppointments
-                      AppointmentId={Appointment.id}
-                      AppointmentMessage={Appointment.type}
-                      AppointmentDate={Appointment.at} // DEBUGGING (LOOK HERE)
-                      DoctorId={Appointment.doctorId}
-                      PatientId={patientId}
-                    />
-                  </Card>
-                );
-              })}
+              {patientAppointments.length != 0 ? (
+                patientAppointments.map((Appointment) => {
+                  return (
+                    <Card key={Appointment.id} variant="outlined">
+                      <PatientAppointments
+                        AppointmentId={Appointment.id}
+                        AppointmentMessage={Appointment.type}
+                        AppointmentDate={Appointment.at} // DEBUGGING (LOOK HERE)
+                        DoctorId={Appointment.doctorId}
+                        PatientId={patientId}
+                      />
+                    </Card>
+                  );
+                })
+              ) : (
+                <Typography variant="h6" sx={{ color: "red" }}>
+                  You have no appointments!
+                </Typography>
+              )}
             </Stack>
             <Divider />
             <Stack spacing={3}>
               <Typography variant="h5" align="center">
                 Your Reviews
               </Typography>
-              {patientReviews.map((REVIEW) => (
-                <Stack
-                  key={REVIEW.id}
-                  sx={{
-                    border: 1,
-                    p: 1,
-                    borderRadius: 3,
-                  }}
-                >
-                  <Review REVIEW={REVIEW} />
-                </Stack>
-              ))}
+              {patientReviews.length != 0 ? (
+                patientReviews.map((REVIEW) => (
+                  <Stack
+                    key={REVIEW.id}
+                    sx={{
+                      border: 1,
+                      p: 1,
+                      borderRadius: 3,
+                    }}
+                  >
+                    <Review REVIEW={REVIEW} />
+                  </Stack>
+                ))
+              ) : (
+                <Typography variant="h6" sx={{ color: "red" }}>
+                  You have no reviews!
+                </Typography>
+              )}
             </Stack>
           </Stack>
         </CardContent>
