@@ -100,7 +100,7 @@ export const DoctorAppointments = ({
             <>
               <Button
                 variant="outlined"
-                onClick={() => {handleCancelModalOpen}}
+                onClick={handleCancelModalOpen}
               >
                 Cancel
               </Button>
