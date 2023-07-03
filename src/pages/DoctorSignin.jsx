@@ -70,7 +70,7 @@ function DoctorSignIn() {
       console.log("(🔎 Debugging) The Response received: ", response?.data?.token);
       console.log("(🔎 Debugging) Now in the global context: ", user.username)
 
-      navigate("/", { replace: true }); // redirect to homepage
+      navigate("/profile", { replace: true }); // redirect to homepage
     } catch (error) {
       console.log(error);
       console.log("(🔎 Debugging) Attempted to login with the info: ", user);
