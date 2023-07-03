@@ -46,9 +46,6 @@ export const PatientAppointments = ({
 
   let appointmentDateISOString = AppointmentDate;
   appointmentDateISOString.toLocaleString('en-US', { timeZone: 'Africa/Cairo' })
-  console.log("RECEIVED:", AppointmentDate)
-  // let appointmentDateToFormat = new Date(appointmentDateISOString);
-  // let formattedAppointmentDate = appointmentDateToFormat.toUTCString();
 
   useEffect(() => {
     const fetchDoctor = async () => {
@@ -57,7 +54,6 @@ export const PatientAppointments = ({
           data: { doctor },
         } = await axios.get(`http://localhost:5000/user/doctor/id/${DoctorId}`);
         setDoctor(doctor);
-        // console.log(doctor);
       } catch (error) {
         console.log("(🔍 Debugging) FETCHING ERROR");
         console.log(error.message);
@@ -129,10 +125,9 @@ export const PatientAppointments = ({
       setShowReviewModal(false);
       setDisableReviewButton(true) // Disable the review button because already posted.
       localStorage.setItem("disableReviewButton", true)
-      console.log("(🔍 Debugging):", reviewText);
-      console.log("(🔍 Debugging):", rating);
+      // console.log("(🔍 Debugging):", reviewText);
+      // console.log("(🔍 Debugging):", rating);
     } catch (error) {
-      console.log("(🔍 Debugging) FETCHING ERROR");
       console.log(error.message);
     }
   };
