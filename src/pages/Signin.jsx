@@ -64,6 +64,7 @@ function SignIn() {
     } catch (error) {
       console.log(error);
       console.log("(🔎 Debugging) MESSAGE SENT: ", user)
+      setErrors({ ...errors, username: "Invalid username or password" , password: "Invalid username or password" });
     }
   };
 
