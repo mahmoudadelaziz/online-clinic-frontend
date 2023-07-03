@@ -74,6 +74,7 @@ function DoctorSignIn() {
     } catch (error) {
       console.log(error);
       console.log("(🔎 Debugging) Attempted to login with the info: ", user);
+      setErrors({ ...errors, username: "Invalid username or password" , password: "Invalid username or password" });
     }
   };
   const formInputs = [
