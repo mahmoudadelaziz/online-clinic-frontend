@@ -69,7 +69,21 @@ export const DoctorAppointments = ({
 
   let appointmentDateISOString = AppointmentDate;
   let appointmentDateToFormat = new Date(appointmentDateISOString);
-  let formattedAppointmentDate = appointmentDateToFormat.toUTCString();
+  let formattedAppointmentDate = appointmentDateToFormat.toISOString(); // To be shifted +3 hours
+
+  function splitDateAndTime(isoString) {
+    // ## TEMPORARY SOLUTION TO THE DB SYNCHRONIZATION PROBLEM
+    const options = {
+      weekday: "short",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+    }; // For configuring the date formatting
+    const date = new Date(isoString);
+    const shiftedDate = new Date(date.getTime());
+    return shiftedDate.toLocaleDateString("en-US", options);
+  }
 
   const isFutureAppointment = appointmentDateToFormat > new Date();
 
@@ -77,7 +91,7 @@ export const DoctorAppointments = ({
     <Grid container sx={{ mt: 2 }}>
       <Grid item xs={4} textAlign="center">
         <Typography variant="subtitle1" color="gray">
-          {formattedAppointmentDate}
+          {splitDateAndTime(formattedAppointmentDate)}
         </Typography>
         <Typography variant="subtitle1" color="gray">
           {AppointmentType}

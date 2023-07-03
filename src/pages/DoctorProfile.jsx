@@ -92,7 +92,7 @@ export const DoctorProfile = () => {
         `http://localhost:5000/appointment/doctor/${doctorId}`
       );
       setDoctorAppointments(response?.data?.appointments);
-      // console.log("$##!@ YOUR APPOINTMENTS:", response?.data?.appointments);
+      console.log("$##!@ YOUR APPOINTMENTS:", response?.data?.appointments);
     };
     fetchDoctorAppointments();
   }, []);
