@@ -30,9 +30,18 @@ export const PatientAppointments = ({
     headers: { Authorization: `Bearer ${authToken}` },
   };
 
+  function splitDateAndTime(isoString) {
+    const date = new Date(isoString);
+    const dateString = date.toISOString().split("T")[0];
+    const timeString = date.toISOString().split("T")[1].slice(0, 8);
+    return { date: dateString, time: timeString };
+  }
+
   let appointmentDateISOString = AppointmentDate;
-  let appointmentDateToFormat = new Date(appointmentDateISOString);
-  let formattedAppointmentDate = appointmentDateToFormat.toUTCString();
+  appointmentDateISOString.toLocaleString('en-US', { timeZone: 'Africa/Cairo' })
+  console.log("RECEIVED:", AppointmentDate)
+  // let appointmentDateToFormat = new Date(appointmentDateISOString);
+  // let formattedAppointmentDate = appointmentDateToFormat.toUTCString();
 
   useEffect(() => {
     const fetchDoctor = async () => {
@@ -77,7 +86,7 @@ export const PatientAppointments = ({
 
   useEffect(() => {
     const now = new Date();
-    const appointmentDate = new Date(appointmentDateISOString);
+    let appointmentDate = new Date(appointmentDateISOString);
 
     if (now.getTime() > appointmentDate.getTime()) {
       // appointment date is in the past
@@ -125,7 +134,7 @@ export const PatientAppointments = ({
     <Grid container>
       <Grid item xs={6} padding={3} textAlign="center">
         <Typography variant="subtitle1" color="gray">
-          In {formattedAppointmentDate}
+          In {splitDateAndTime(appointmentDateISOString).date} at {splitDateAndTime(appointmentDateISOString).time}
         </Typography>
         <Typography variant="subtitle1" color="gray">
           With Dr. {doctor.name}, specialist in {doctor.specialization}

@@ -34,6 +34,7 @@ const Profile = () => {
   const config = {
     headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
   };
+  
 
   let patientCreateDateISOString = patientData.createdAt;
   let patientCreateAccountDate = new Date(patientCreateDateISOString);
@@ -88,6 +89,7 @@ const Profile = () => {
         config
       );
       setPatientAppointments(response?.data?.appointments);
+      console.log("DEBUGGING(LOOK HERE######):", response?.data?.appointments)
     };
     fetchPatientAppointments();
   }, []);
@@ -193,7 +195,7 @@ const Profile = () => {
                 return (
                   <Card key={Appointment.at} variant="outlined">
                     <PatientAppointments
-                      AppointmentDate={Appointment.at}
+                      AppointmentDate={Appointment.at} // DEBUGGING (LOOK HERE)
                       DoctorId={Appointment.doctorId}
                       PatientId={patientId}
                     />

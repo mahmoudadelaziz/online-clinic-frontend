@@ -75,10 +75,12 @@ const DaySlots = ({
 
     // Create a new Date object with the date component from dateString
     let combinedDate = new Date(dateString);
+    
 
     // Extract the hour and minute components from the time string
-    let [hours, minutes] = slotTime.split(":");
-    let [ampm] = minutes.split(" ");
+    let selTime = localStorage.getItem("selectedSlot")
+    let [hours, minutes] = selTime.split(":");
+    let ampm = minutes.split(" ")[1];
     if (ampm === "PM" && hours !== "12") {
       hours = parseInt(hours, 10) + 12;
     } else if (ampm === "AM" && hours === "12") {
@@ -90,11 +92,15 @@ const DaySlots = ({
     combinedDate.setHours(hours);
     combinedDate.setMinutes(minutes);
     combinedDate.setSeconds(0);
+    combinedDate.toLocaleString('en-US', { timeZone: 'Africa/Cairo' })
+    console.log("Combined Date (THE ONE BEING SENT )= ", combinedDate) // THE CORRECT ONE
+    console.log("Combined Date (ISO) = ", combinedDate.toISOString()) // GETS SHIFTED -3h
+    console.log("Combined Date (UTC) = ", combinedDate.toUTCString()) // GETS SHIFTED -3h
 
-    console.log("Doctor's ID being sent:", localStorage.getItem("doctorId")) // Debugging
-    console.log("Patient's ID being sent:", localStorage.getItem("patientId")) // Debugging
-    console.log("Type being sent:", note) // Debugging
-    console.log("at being sent:", combinedDate.toISOString()) // Debugging
+    // console.log("Doctor's ID being sent:", localStorage.getItem("doctorId")) // Debugging
+    // console.log("Patient's ID being sent:", localStorage.getItem("patientId")) // Debugging
+    // console.log("Type being sent:", note) // Debugging
+    // console.log("the dateTime being sent:", combinedDate) // Debugging
     try {
       const response = await axios.post(
         "http://localhost:5000/appointment",
@@ -102,7 +108,7 @@ const DaySlots = ({
           "doctorId": parseInt(localStorage.getItem("doctorId")), // to be passed down as a parameter
           "patientId": parseInt(localStorage.getItem("patientId")), // from localStorage (TEMP)
           "type": note,
-          "at": combinedDate.toISOString()
+          "at": combinedDate
         },
         config
       );
@@ -153,9 +159,10 @@ const DaySlots = ({
                     color: selectedSlot === slot.index ? "white" : undefined,
                   }}
                   onClick={(e) => {
-                    console.log("YOU CLICKED:", e.target.textContent);
+                    // console.log("YOU CLICKED:", e.target.textContent);
+                    localStorage.setItem("selectedSlot", e.target.textContent) // Attempted solution
                     setSlotTime(e.target.textContent);
-                    console.log("slotTime = ", slotTime);
+                    // console.log("slotTime = ", slotTime);
                     setModalOpen(true);
                   }}
                 >
