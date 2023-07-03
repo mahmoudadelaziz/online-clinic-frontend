@@ -266,7 +266,7 @@ export const DoctorProfile = () => {
             {/* HISTORY STUFF */}
             <Typography variant="h5">Your Appointments</Typography>
             <Stack spacing={0.5}>
-              {doctorAppointments.map((Appointment) => {
+              {(doctorAppointments.length != 0) ? doctorAppointments.map((Appointment) => {
                 return (
                   <Grid container key={Appointment.id}>
                     <Grid item xs>
@@ -282,7 +282,7 @@ export const DoctorProfile = () => {
                     </Grid>
                   </Grid>
                 );
-              })}
+              }): <Typography variant="h6" sx={{color: "red"}}> You have no Appointments!</Typography>}
             </Stack>
             <Typography variant="h5">Your Reviews</Typography>
             <Stack
