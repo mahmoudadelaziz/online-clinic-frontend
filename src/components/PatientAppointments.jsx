@@ -15,6 +15,7 @@ export const PatientAppointments = ({
   AppointmentDate,
   DoctorId,
   PatientId,
+  AppointmentMessage
 }) => {
   const [doctor, setDoctor] = useState({});
   const [location, setLocation] = useState({});
@@ -143,6 +144,9 @@ export const PatientAppointments = ({
         </Typography>
         <Typography variant="subtitle1" color="gray">
           Location: {location.id} {location.street}, {location.governorate}
+        </Typography>
+        <Typography variant="subtitle1" color="gray">
+          Message sent to the doctor: {AppointmentMessage}
         </Typography>
       </Grid>
 

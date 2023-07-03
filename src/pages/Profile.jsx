@@ -34,7 +34,6 @@ const Profile = () => {
   const config = {
     headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
   };
-  
 
   let patientCreateDateISOString = patientData.createdAt;
   let patientCreateAccountDate = new Date(patientCreateDateISOString);
@@ -75,7 +74,7 @@ const Profile = () => {
     );
     setPatientData(response?.data.patientProfile);
     setPatientId(response?.data.patientProfile.id);
-    localStorage.setItem("patientId", response?.data.patientProfile.id)
+    localStorage.setItem("patientId", response?.data.patientProfile.id);
   };
 
   useEffect(() => {
@@ -89,7 +88,7 @@ const Profile = () => {
         config
       );
       setPatientAppointments(response?.data?.appointments);
-      console.log("DEBUGGING(LOOK HERE######):", response?.data?.appointments)
+      console.log("DEBUGGING(LOOK HERE######):", response?.data?.appointments);
     };
     fetchPatientAppointments();
   }, []);
@@ -195,6 +194,7 @@ const Profile = () => {
                 return (
                   <Card key={Appointment.at} variant="outlined">
                     <PatientAppointments
+                      AppointmentMessage={Appointment.type}
                       AppointmentDate={Appointment.at} // DEBUGGING (LOOK HERE)
                       DoctorId={Appointment.doctorId}
                       PatientId={patientId}
