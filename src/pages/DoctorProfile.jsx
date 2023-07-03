@@ -268,7 +268,7 @@ export const DoctorProfile = () => {
             <Stack spacing={0.5}>
               {doctorAppointments.map((Appointment) => {
                 return (
-                  <Grid container key={Appointment.at}>
+                  <Grid container key={Appointment.id}>
                     <Grid item xs>
                       <Card variant="outlined">
                         <DoctorAppointments
