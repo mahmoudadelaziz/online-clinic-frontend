@@ -34,15 +34,6 @@ export const DoctorProfile = () => {
     locationId: "",
   });
 
-  const {
-    authUser,
-    SetAuthUser,
-    isLoggedIn,
-    SetIsLoggedIn,
-    authToken,
-    setAuthToken,
-  } = useAuth();
-
   const config = {
     headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
   };
@@ -69,11 +60,10 @@ export const DoctorProfile = () => {
           workingHoursEnd: doctorProfile?.workingHoursEnd,
           locationId: doctorProfile?.locationId,
         });
-        console.log("(🔍 Debugging) The doctor fetched: ", doctorProfile);
-        console.log("(🔍 Debugging) doctorId: ", doctorProfile?.id);
+        // console.log("(🔍 Debugging) The doctor fetched: ", doctorProfile);
+        // console.log("(🔍 Debugging) doctorId: ", doctorProfile?.id);
       } catch (error) {
-        console.log("(🔍 Debugging) FETCHING ERROR");
-        console.log(error);
+        console.log("(🔍 Debugging) GET request error:", error);
       }
     };
     fetchDoctor();
@@ -101,12 +91,12 @@ export const DoctorProfile = () => {
         config
       );
       setDoctorAppointments(response?.data?.appointments);
-      console.log("$##!@ YOUR APPOINTMENTS:", response?.data?.appointments)
+      // console.log("$##!@ YOUR APPOINTMENTS:", response?.data?.appointments);
     };
     fetchDoctorAppointments();
   }, []);
 
-  console.log("(🔍 Debugging) doctorData received:", doctorData);
+  // console.log("(🔍 Debugging) doctorData received:", doctorData);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -136,8 +126,7 @@ export const DoctorProfile = () => {
       setIsEditing(false);
       setDoctorData(formData);
     } catch (error) {
-      console.log("(🔍 Debugging) SAVE ERROR");
-      console.log(error);
+      console.log("(🔍 Debugging) PUT request error:", error);
     }
   };
 
@@ -157,24 +146,16 @@ export const DoctorProfile = () => {
             {!isEditing ? (
               <>
                 <Typography>Name: {doctorData.name}</Typography>
-                <Typography>
-                  Specialty: {doctorData.specialization}
-                </Typography>
+                <Typography>Specialty: {doctorData.specialization}</Typography>
                 <Typography>Username: {doctorData.username}</Typography>
                 <Typography>Email: {doctorData.email}</Typography>
-                <Typography>
-                  Phone number: {doctorData.phoneNumber}
-                </Typography>
-                <Typography>
-                  Visit Fee: {doctorData.visitFee} EGP
-                </Typography>
+                <Typography>Phone number: {doctorData.phoneNumber}</Typography>
+                <Typography>Visit Fee: {doctorData.visitFee} EGP</Typography>
                 <Typography>
                   Working hours: from {doctorData.workingHoursStart} to{" "}
                   {doctorData.workingHoursEnd}
                 </Typography>
-                <Typography>
-                  Location ID: {doctorData.locationId}
-                </Typography>
+                <Typography>Location ID: {doctorData.locationId}</Typography>
               </>
             ) : (
               <>
@@ -266,23 +247,30 @@ export const DoctorProfile = () => {
             {/* HISTORY STUFF */}
             <Typography variant="h5">Your Appointments</Typography>
             <Stack spacing={0.5}>
-              {(doctorAppointments.length != 0) ? doctorAppointments.map((Appointment) => {
-                return (
-                  <Grid container key={Appointment.id}>
-                    <Grid item xs>
-                      <Card variant="outlined">
-                        <DoctorAppointments
-                        AppointmentId={Appointment.id}
-                          AppointmentDate={Appointment.at}
-                          AppointmentType={Appointment.type}
-                          DoctorId={doctorId}
-                          PatientId={Appointment.patientId}
-                        />
-                      </Card>
+              {doctorAppointments.length != 0 ? (
+                doctorAppointments.map((Appointment) => {
+                  return (
+                    <Grid container key={Appointment.id}>
+                      <Grid item xs>
+                        <Card variant="outlined">
+                          <DoctorAppointments
+                            AppointmentId={Appointment.id}
+                            AppointmentDate={Appointment.at}
+                            AppointmentType={Appointment.type}
+                            DoctorId={doctorId}
+                            PatientId={Appointment.patientId}
+                          />
+                        </Card>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                );
-              }): <Typography variant="h6" sx={{color: "red"}}> You have no Appointments!</Typography>}
+                  );
+                })
+              ) : (
+                <Typography variant="h6" sx={{ color: "red" }}>
+                  {" "}
+                  You have no Appointments!
+                </Typography>
+              )}
             </Stack>
             <Typography variant="h5">Your Reviews</Typography>
             <Stack
