@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { Review } from "../components/Review";
 import { useAuth } from "../AuthContext";
 import { DoctorAppointments } from "../components/DoctorAppointments";
+import profile from "../assets/doctor.jpg";
 
 export const DoctorProfile = () => {
   const [doctorData, setDoctorData] = useState({});
@@ -143,6 +144,7 @@ export const DoctorProfile = () => {
         <CardContent>
           <Stack spacing={1.5} sx={{ width: "90%" }}>
             <Typography variant="h3">Your Profile</Typography>
+            <Avatar src={profile} sx={{ width: 200, height: 200 }} />
             {!isEditing ? (
               <>
                 <Typography>Name: {doctorData.name}</Typography>
