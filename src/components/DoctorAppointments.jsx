@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Stack,
   Typography,
@@ -6,7 +7,6 @@ import {
   Modal,
   TextField,
 } from "@mui/material";
-import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../AuthContext";
 
@@ -19,12 +19,39 @@ export const DoctorAppointments = ({
 }) => {
   const [patientInfo, setPatientInfo] = useState({})
   const [patientDOB, setPatientDOB] = useState("")
+  const [showCancelModal, setShowCancelModal] = useState(false);
+
+  const handleCancelModalOpen = () => {
+    setShowCancelModal(true);
+  };
+
+  const handleCancelModalClose = () => {
+    setShowCancelModal(false);
+  };
+
+  const handleAppointmentCancellation = async () => {
+    // The user clicked "yes" to confirm appointment cancellation
+    try {
+      await axios.delete("http://localhost:5000/appointment", {
+        ...config,
+        data: {
+          id: AppointmentId
+        },
+      })
+      setShowCancelModal(false); // Close the modal
+      alert("Appointment cancelled successfully!");
+    } catch (error) {
+      console.log("(🔍 Debugging) DELETING ERROR");
+      console.log(error.message);
+    }
+  };
+
   const { authToken } = useAuth();
 
   useEffect(() => {
     const fetchPatientInfo = async () => {
       const response = await axios.get(
-        `http://localhost:5000/user/patient/4`
+        `http://localhost:5000/user/patient/${PatientId}`
       );
       setPatientInfo(response?.data?.patient);
       console.log("$##!@ Patient Info:", response?.data?.patient)
@@ -73,19 +100,64 @@ export const DoctorAppointments = ({
             <>
               <Button
                 variant="outlined"
-                onClick={() => {
-                  // WRITE APPOINTMENT CANCELLATION FUNCTION HERE
-                  axios.delete("http://localhost:5000/appointment", {
-                    config,
-                    data: {
-                      id: AppointmentId
-                    }
-                  })
-                  console.log("Appointment Cancelled");
-                }}
+                onClick={() => {handleCancelModalOpen}}
               >
                 Cancel
               </Button>
+              <Modal
+                open={showCancelModal}
+                onClose={handleCancelModalClose}
+                aria-labelledby="cancel-modal-title"
+                aria-describedby="cancel-modal-description"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Grid
+                  container
+                  direction="column"
+                  alignItems="center"
+                  justifyContent="center"
+                  sx={{
+                    bgcolor: "background.paper",
+                    boxShadow: 24,
+                    p: 4,
+                    borderRadius: "4px",
+                    width: "400px",
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    id="review-modal-title"
+                    gutterBottom
+                    sx={{ mb: 2 }}
+                  >
+                    Are you sure you want to cancel this appointment?
+                  </Typography>
+
+                  <Grid container spacing={2} justifyContent="center">
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={handleAppointmentCancellation}
+                      >
+                        Yes, cancel appointment
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        onClick={handleCancelModalClose}
+                      >
+                        No, keep appointment
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Modal>
             </>
           )}
         </Stack>
