@@ -272,6 +272,7 @@ export const DoctorProfile = () => {
                     <Grid item xs>
                       <Card variant="outlined">
                         <DoctorAppointments
+                        AppointmentId={Appointment.id}
                           AppointmentDate={Appointment.at}
                           AppointmentType={Appointment.type}
                           DoctorId={doctorId}

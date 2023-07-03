@@ -11,6 +11,7 @@ import axios from "axios";
 import { useAuth } from "../AuthContext";
 
 export const DoctorAppointments = ({
+  AppointmentId,
   AppointmentDate,
   AppointmentType,
   DoctorId,
@@ -19,7 +20,7 @@ export const DoctorAppointments = ({
   const { authToken } = useAuth();
 
   const config = {
-    headers: { Authorization: `Bearer ${authToken}` },
+    headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
   };
 
   let appointmentDateISOString = AppointmentDate;
@@ -51,6 +52,12 @@ export const DoctorAppointments = ({
                 variant="outlined"
                 onClick={() => {
                   // WRITE APPOINTMENT CANCELLATION FUNCTION HERE
+                  axios.delete("http://localhost:5000/appointment", {
+                    config,
+                    data: {
+                      id: AppointmentId
+                    }
+                  })
                   console.log("Appointment Cancelled");
                 }}
               >
