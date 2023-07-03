@@ -12,10 +12,11 @@ import axios from "axios";
 import { useAuth } from "../AuthContext";
 
 export const PatientAppointments = ({
+  AppointmentId,
   AppointmentDate,
   DoctorId,
   PatientId,
-  AppointmentMessage
+  AppointmentMessage,
 }) => {
   const [doctor, setDoctor] = useState({});
   const [location, setLocation] = useState({});
@@ -38,7 +39,7 @@ export const PatientAppointments = ({
       day: "numeric",
       month: "long",
       year: "numeric",
-      hour: "2-digit"
+      hour: "2-digit",
     }; // For configuring the date formatting
     const date = new Date(isoString);
     const shiftedDate = new Date(date.getTime());
@@ -46,7 +47,9 @@ export const PatientAppointments = ({
   }
 
   let appointmentDateISOString = AppointmentDate;
-  appointmentDateISOString.toLocaleString('en-US', { timeZone: 'Africa/Cairo' })
+  appointmentDateISOString.toLocaleString("en-US", {
+    timeZone: "Africa/Cairo",
+  });
 
   useEffect(() => {
     const fetchDoctor = async () => {
@@ -124,8 +127,8 @@ export const PatientAppointments = ({
       );
       console.log("SUCCESS! Review has been posted!");
       setShowReviewModal(false);
-      setDisableReviewButton(true) // Disable the review button because already posted.
-      localStorage.setItem("disableReviewButton", true)
+      setDisableReviewButton(true); // Disable the review button because already posted.
+      localStorage.setItem("disableReviewButton", true);
       // console.log("(🔍 Debugging):", reviewText);
       // console.log("(🔍 Debugging):", rating);
     } catch (error) {
@@ -157,7 +160,11 @@ export const PatientAppointments = ({
       <Grid item xs={4} padding={3} textAlign="center">
         <Stack>
           {showReviewButton ? (
-            <Button variant="outlined" onClick={handleReviewModalOpen} disabled={localStorage.getItem("disableReviewButton")}>
+            <Button
+              variant="outlined"
+              onClick={handleReviewModalOpen}
+              disabled={localStorage.getItem("disableReviewButton")}
+            >
               Post a review
             </Button>
           ) : (
@@ -166,6 +173,12 @@ export const PatientAppointments = ({
                 variant="outlined"
                 onClick={() => {
                   // WRITE APPOINTMENT CANCELLATION FUNCTION HERE
+                  axios.delete("http://localhost:5000/appointment", {
+                    config,
+                    data: {
+                      id: AppointmentId,
+                    },
+                  });
                   console.log("Appointment Cancelled");
                 }}
               >

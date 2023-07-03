@@ -192,8 +192,9 @@ const Profile = () => {
               </Typography>
               {patientAppointments.map((Appointment) => {
                 return (
-                  <Card key={Appointment.at} variant="outlined">
+                  <Card key={Appointment.id} variant="outlined">
                     <PatientAppointments
+                      AppointmentId={Appointment.id}
                       AppointmentMessage={Appointment.type}
                       AppointmentDate={Appointment.at} // DEBUGGING (LOOK HERE)
                       DoctorId={Appointment.doctorId}
