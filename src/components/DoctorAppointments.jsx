@@ -17,7 +17,24 @@ export const DoctorAppointments = ({
   DoctorId,
   PatientId,
 }) => {
+  const [patientInfo, setPatientInfo] = useState({})
+  const [patientDOB, setPatientDOB] = useState("")
   const { authToken } = useAuth();
+
+  useEffect(() => {
+    const fetchPatientInfo = async () => {
+      const response = await axios.get(
+        `http://localhost:5000/user/patient/4`
+      );
+      setPatientInfo(response?.data?.patient);
+      console.log("$##!@ Patient Info:", response?.data?.patient)
+      const DOB = new Date(response?.data?.patient.dateOfBirth)
+      let result = String(DOB.getDate() + "/" + (DOB.getMonth()+1) + "/" + DOB.getFullYear())
+      setPatientDOB(DOB.getDate() + "/" + (DOB.getMonth()+1) + "/" + DOB.getFullYear())
+      console.log(patientDOB)
+    };
+    fetchPatientInfo();
+  }, []);
 
   const config = {
     headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
@@ -41,7 +58,13 @@ export const DoctorAppointments = ({
       </Grid>
       <Grid item xs={4} textAlign="center">
         <Typography variant="subtitle1" color="gray">
-          Patient ID: {PatientId}
+          Patient name: {patientInfo.name}
+        </Typography>
+        <Typography variant="subtitle1" color="gray">
+          Gender: {patientInfo.gender}
+        </Typography>
+        <Typography variant="subtitle1" color="gray">
+          Date of birth: {patientDOB}
         </Typography>
       </Grid>
       <Grid item xs={4} textAlign="center">
