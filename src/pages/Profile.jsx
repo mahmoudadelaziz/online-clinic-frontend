@@ -74,6 +74,7 @@ const Profile = () => {
     );
     setPatientData(response?.data.patientProfile);
     setPatientId(response?.data.patientProfile.id);
+    console.log(response?.data.patientProfile)
     localStorage.setItem("patientId", response?.data.patientProfile.id);
   };
 

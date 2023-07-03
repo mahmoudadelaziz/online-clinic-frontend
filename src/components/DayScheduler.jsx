@@ -93,14 +93,14 @@ const DaySlots = ({
     combinedDate.setMinutes(minutes);
     combinedDate.setSeconds(0);
     combinedDate.toLocaleString('en-US', { timeZone: 'Africa/Cairo' })
-    console.log("Combined Date (THE ONE BEING SENT )= ", combinedDate) // THE CORRECT ONE
-    console.log("Combined Date (ISO) = ", combinedDate.toISOString()) // GETS SHIFTED -3h
-    console.log("Combined Date (UTC) = ", combinedDate.toUTCString()) // GETS SHIFTED -3h
+    // console.log("Combined Date (THE ONE BEING SENT )= ", combinedDate) // THE CORRECT ONE
+    // console.log("Combined Date (ISO) = ", combinedDate.toISOString()) // GETS SHIFTED -3h
+    // console.log("Combined Date (UTC) = ", combinedDate.toUTCString()) // GETS SHIFTED -3h
 
-    // console.log("Doctor's ID being sent:", localStorage.getItem("doctorId")) // Debugging
-    // console.log("Patient's ID being sent:", localStorage.getItem("patientId")) // Debugging
-    // console.log("Type being sent:", note) // Debugging
-    // console.log("the dateTime being sent:", combinedDate) // Debugging
+    console.log("Doctor's ID being sent:", localStorage.getItem("doctorId")) // Debugging
+    console.log("Patient's ID being sent:", localStorage.getItem("patientId")) // Debugging
+    console.log("Type being sent:", note) // Debugging
+    console.log("the dateTime being sent:", combinedDate) // Debugging
     try {
       const response = await axios.post(
         "http://localhost:5000/appointment",
