@@ -144,131 +144,149 @@ export const DoctorProfile = () => {
       <Card variant="outlined" sx={{ my: 5, mx: 20, p: 0.1, borderRadius: 10 }}>
         <CardContent>
           <Stack spacing={1.5} sx={{ width: "90%" }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-  <Typography variant="h3" sx={{ mb: 4 }}>Your Profile</Typography>
-  <Avatar src={profile} sx={{ width: 200, height: 200, mb: 4 }} />
-  {!isEditing ? (
-    <Box sx={{ textAlign: 'center' }}>
-      <Typography variant="subtitle1">
-        Name: <strong>{doctorData.name}</strong>
-      </Typography>
-      <Typography variant="subtitle1">
-        Specialty: <strong>{doctorData.specialization}</strong>
-      </Typography>
-      <Typography variant="subtitle1">
-        Username: <strong>{doctorData.username}</strong>
-      </Typography>
-      <Typography variant="subtitle1">
-        Email: <strong>{doctorData.email}</strong>
-      </Typography>
-      <Typography variant="subtitle1">
-        Phone number: <strong>{doctorData.phoneNumber}</strong>
-      </Typography>
-      <Typography variant="subtitle1">
-        Visit Fee: <strong>{doctorData.visitFee} EGP</strong>
-      </Typography>
-      <Typography variant="subtitle1">
-        Working hours: <strong>from {doctorData.workingHoursStart} to {doctorData.workingHoursEnd}</strong>
-      </Typography>
-      <Typography variant="subtitle1">
-        Location ID: <strong>{doctorData.locationId}</strong>
-      </Typography>
-    </Box>
-  ) : (
-    <Box sx={{ width: '100%' }}>
-      <TextField
-        label="Name"
-        name="name"
-        value={formData.name}
-        onChange={handleInputChange}
-        fullWidth
-        margin="normal"
-        sx={{ mb: 2 }}
-      />
-      <TextField
-        label="Specialization"
-        name="specialization"
-        value={formData.specialization}
-        onChange={handleInputChange}
-        fullWidth
-        margin="normal"
-        sx={{ mb: 2 }}
-      />
-      <TextField
-        label="Username"
-        name="username"
-        value={formData.username}
-        onChange={handleInputChange}
-        fullWidth
-        margin="normal"
-        sx={{ mb: 2 }}
-      />
-      <TextField
-        label="Email"
-        name="email"
-        value={formData.email}
-        onChange={handleInputChange}
-        fullWidth
-        margin="normal"
-        sx={{ mb: 2 }}
-      />
-      <TextField
-        label="Phone number"
-        name="phoneNumber"
-        value={formData.phoneNumber}
-        onChange={handleInputChange}
-        fullWidth
-        margin="normal"
-        sx={{ mb: 2 }}
-      />
-      <TextField
-        label="Visit Fee"
-        name="visitFee"
-        value={formData.visitFee}
-        onChange={handleInputChange}
-        fullWidth
-        margin="normal"
-        sx={{ mb: 2 }}
-      />
-      <TextField
-        label="Working hours start"
-        name="workingHoursStart"
-        value={formData.workingHoursStart}
-        onChange={handleInputChange}
-        fullWidth
-        margin="normal"
-        sx={{ mb: 2 }}
-      />
-      <TextField
-        label="Working hours end"
-        name="workingHoursEnd"
-        value={formData.workingHoursEnd}
-        onChange={handleInputChange}
-        fullWidth
-        margin="normal"
-        sx={{ mb: 2 }}
-      />
-      <TextField
-        label="Location ID"
-        name="locationId"
-        value={formData.locationId}
-        onChange={handleInputChange}
-        fullWidth
-        margin="normal"
-        sx={{ mb: 2 }}
-      />
-    </Box>
-  )}
-</Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="h3" sx={{ mb: 4 }}>
+                Your Profile
+              </Typography>
+              <Avatar src={profile} sx={{ width: 200, height: 200, mb: 4 }} />
+              {!isEditing ? (
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography sx={{ fontSize: 20 }} variant="subtitle1">
+                    Name: <strong>{doctorData.name}</strong>
+                  </Typography>
+                  <Typography sx={{ fontSize: 20 }} variant="subtitle1">
+                    Specialty: <strong>{doctorData.specialization}</strong>
+                  </Typography>
+                  <Typography sx={{ fontSize: 20 }} variant="subtitle1">
+                    Username: <strong>{doctorData.username}</strong>
+                  </Typography>
+                  <Typography sx={{ fontSize: 20 }} variant="subtitle1">
+                    Email: <strong>{doctorData.email}</strong>
+                  </Typography>
+                  <Typography sx={{ fontSize: 20 }} variant="subtitle1">
+                    Phone number: <strong>{doctorData.phoneNumber}</strong>
+                  </Typography>
+                  <Typography sx={{ fontSize: 20 }} variant="subtitle1">
+                    Visit Fee: <strong>{doctorData.visitFee} EGP</strong>
+                  </Typography>
+                  <Typography sx={{ fontSize: 20 }} variant="subtitle1">
+                    Working hours:{" "}
+                    <strong>
+                      from {doctorData.workingHoursStart} to{" "}
+                      {doctorData.workingHoursEnd}
+                    </strong>
+                  </Typography>
+                  <Typography sx={{ fontSize: 20 }} variant="subtitle1">
+                    Location ID: <strong>{doctorData.locationId}</strong>
+                  </Typography>
+                </Box>
+              ) : (
+                <Box sx={{ width: "100%" }}>
+                  <TextField
+                    label="Name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    fullWidth
+                    margin="normal"
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    label="Specialization"
+                    name="specialization"
+                    value={formData.specialization}
+                    onChange={handleInputChange}
+                    fullWidth
+                    margin="normal"
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    label="Username"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleInputChange}
+                    fullWidth
+                    margin="normal"
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    label="Email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    fullWidth
+                    margin="normal"
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    label="Phone number"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleInputChange}
+                    fullWidth
+                    margin="normal"
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    label="Visit Fee"
+                    name="visitFee"
+                    value={formData.visitFee}
+                    onChange={handleInputChange}
+                    fullWidth
+                    margin="normal"
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    label="Working hours start"
+                    name="workingHoursStart"
+                    value={formData.workingHoursStart}
+                    onChange={handleInputChange}
+                    fullWidth
+                    margin="normal"
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    label="Working hours end"
+                    name="workingHoursEnd"
+                    value={formData.workingHoursEnd}
+                    onChange={handleInputChange}
+                    fullWidth
+                    margin="normal"
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    label="Location ID"
+                    name="locationId"
+                    value={formData.locationId}
+                    onChange={handleInputChange}
+                    fullWidth
+                    margin="normal"
+                    sx={{ mb: 2 }}
+                  />
+                </Box>
+              )}
+            </Box>
             <Typography />
             <Typography>Account ID: {doctorId}</Typography>
             <Typography>Account created in {doctorData.createdAt}</Typography>
             {!isEditing ? (
-              <Button variant="outlined" onClick={handleEditClick}>Edit</Button>
+              <Button variant="outlined" onClick={handleEditClick}>
+                Edit
+              </Button>
             ) : (
               <>
-                <Button variant="outlined" onClick={handleSaveClick}>Save</Button>
-                <Button variant="outlined" onClick={handleCancelClick}>Cancel</Button>
+                <Button variant="outlined" onClick={handleSaveClick}>
+                  Save
+                </Button>
+                <Button variant="outlined" onClick={handleCancelClick}>
+                  Cancel
+                </Button>
               </>
             )}
             {/* HISTORY STUFF */}
