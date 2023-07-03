@@ -23,6 +23,7 @@ export const PatientAppointments = ({
   const [showReviewButton, setShowReviewButton] = useState(false);
   const [disableReviewButton, setDisableReviewButton] = useState(false);
   const [showReviewModal, setShowReviewModal] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
 
@@ -30,6 +31,31 @@ export const PatientAppointments = ({
 
   const config = {
     headers: { Authorization: `Bearer ${authToken}` },
+  };
+
+  const handleCancelModalOpen = () => {
+    setShowCancelModal(true);
+  };
+
+  const handleCancelModalClose = () => {
+    setShowCancelModal(false);
+  };
+
+  const handleAppointmentCancellation = async () => {
+    // The user clicked "yes" to confirm appointment cancellation
+    try {
+      axios.delete("http://localhost:5000/appointment", {
+        config,
+        data: {
+          id: AppointmentId
+        }
+      })
+      setShowCancelModal(false); // Close the modal
+      alert("Appointment cancelled successfully!");
+    } catch (error) {
+      console.log("(🔍 Debugging) DELETING ERROR");
+      console.log(error.message);
+    }
   };
 
   function splitDateAndTime(isoString) {
@@ -169,21 +195,63 @@ export const PatientAppointments = ({
             </Button>
           ) : (
             <>
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  // WRITE APPOINTMENT CANCELLATION FUNCTION HERE
-                  axios.delete("http://localhost:5000/appointment", {
-                    config,
-                    data: {
-                      id: AppointmentId,
-                    },
-                  });
-                  console.log("Appointment Cancelled");
-                }}
-              >
+              <Button variant="contained" onClick={handleCancelModalOpen}>
                 Cancel
               </Button>
+              <Modal
+                open={showCancelModal}
+                onClose={handleCancelModalClose}
+                aria-labelledby="cancel-modal-title"
+                aria-describedby="cancel-modal-description"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Grid
+                  container
+                  direction="column"
+                  alignItems="center"
+                  justifyContent="center"
+                  sx={{
+                    bgcolor: "background.paper",
+                    boxShadow: 24,
+                    p: 4,
+                    borderRadius: "4px",
+                    width: "400px",
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    id="review-modal-title"
+                    gutterBottom
+                    sx={{ mb: 2 }}
+                  >
+                    Are you sure you want to cancel this appointment?
+                  </Typography>
+
+                  <Grid container spacing={2} justifyContent="center">
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={handleAppointmentCancellation}
+                      >
+                        Yes, cancel appointment
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        onClick={handleCancelModalClose}
+                      >
+                        No, keep appointment
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Modal>
             </>
           )}
         </Stack>
