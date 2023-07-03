@@ -31,10 +31,17 @@ export const PatientAppointments = ({
   };
 
   function splitDateAndTime(isoString) {
+    // ## TEMPORARY SOLUTION TO THE DB SYNCHRONIZATION PROBLEM
+    const options = {
+      weekday: "short",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit"
+    }; // For configuring the date formatting
     const date = new Date(isoString);
-    const dateString = date.toISOString().split("T")[0];
-    const timeString = date.toISOString().split("T")[1].slice(0, 8);
-    return { date: dateString, time: timeString };
+    const shiftedDate = new Date(date.getTime());
+    return shiftedDate.toLocaleDateString("en-US", options);
   }
 
   let appointmentDateISOString = AppointmentDate;
@@ -134,7 +141,7 @@ export const PatientAppointments = ({
     <Grid container>
       <Grid item xs={6} padding={3} textAlign="center">
         <Typography variant="subtitle1" color="gray">
-          In {splitDateAndTime(appointmentDateISOString).date} at {splitDateAndTime(appointmentDateISOString).time}
+          In {splitDateAndTime(appointmentDateISOString)}
         </Typography>
         <Typography variant="subtitle1" color="gray">
           With Dr. {doctor.name}, specialist in {doctor.specialization}
