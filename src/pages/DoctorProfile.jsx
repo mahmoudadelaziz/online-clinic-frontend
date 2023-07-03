@@ -89,16 +89,13 @@ export const DoctorProfile = () => {
   useEffect(() => {
     const fetchDoctorAppointments = async () => {
       const response = await axios.get(
-        `http://localhost:5000/appointment/doctor`,
-        config
+        `http://localhost:5000/appointment/doctor/${doctorId}`
       );
       setDoctorAppointments(response?.data?.appointments);
       // console.log("$##!@ YOUR APPOINTMENTS:", response?.data?.appointments);
     };
     fetchDoctorAppointments();
   }, []);
-
-  // console.log("(🔍 Debugging) doctorData received:", doctorData);
 
   const handleEditClick = () => {
     setIsEditing(true);
