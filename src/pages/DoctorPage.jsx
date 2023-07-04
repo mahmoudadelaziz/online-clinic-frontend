@@ -17,10 +17,43 @@ import { AppointmentBooking } from "../components/AppointmentBooking";
 
 export const DoctorPage = () => {
   const { id } = useParams();
-  localStorage.setItem("doctorId", id)
+  localStorage.setItem("doctorId", id);
   const [doctor, setDoctor] = useState({});
   const [location, setLocation] = useState({});
   const [reviews, setReviews] = useState([]);
+
+  //   bookedSlots: from http://localhost:5000/appointment/doctor/${doctorId}
+  // const bookedSlots = [];
+  // appArr.forEach((obj) => {
+  //     bookedSlots.push(obj["at"]);
+  //   });
+
+  // function getAllBookedTimeSlots() {
+  //   let allBookedAppointments = [];
+  //   axios.get(`http://localhost:5000/appointment/doctor/${306}`).then((res) => {
+  //     res.data.appointments.forEach((appointment) => {
+  //       // console.log(appointment)
+  //       allBookedAppointments.push(appointment.at);
+  //     });
+  //     localStorage.setItem("allBookedAppointments", allBookedAppointments);
+  //   });
+  // }
+
+  useEffect(() => {
+    function getAllBookedTimeSlots() {
+      let allBookedAppointments = [];
+      axios
+        .get(`http://localhost:5000/appointment/doctor/${306}`)
+        .then((res) => {
+          res.data.appointments.forEach((appointment) => {
+            // console.log(appointment)
+            allBookedAppointments.push(appointment.at);
+          });
+          localStorage.setItem("allBookedAppointments", allBookedAppointments);
+        });
+    }
+    getAllBookedTimeSlots();
+  }, []);
 
   useEffect(() => {
     const fetchDoctor = async () => {
@@ -125,6 +158,7 @@ export const DoctorPage = () => {
                 Book an appointment
               </Typography>
               <AppointmentBooking
+                // ADD THE BOOKED SLOTS HERE
                 doctorId={id}
                 workingHoursStart={parseInt(doctor.workingHoursStart)}
                 workingHoursEnd={parseInt(doctor.workingHoursEnd)}

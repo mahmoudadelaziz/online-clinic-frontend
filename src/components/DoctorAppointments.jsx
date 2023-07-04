@@ -11,6 +11,7 @@ import axios from "axios";
 import { useAuth } from "../AuthContext";
 
 export const DoctorAppointments = ({
+  bookedSlots,
   AppointmentId,
   AppointmentDate,
   AppointmentType,

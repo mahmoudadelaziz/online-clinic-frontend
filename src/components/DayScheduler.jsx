@@ -9,6 +9,7 @@ import axios from "axios";
 
 // Note: We are assuming a work day from 9 AM to 5 PM
 const DaySlots = ({
+  bookedSlots, // Array of all the booked slots for this doctor
   doctorId,
   slotDuration = 20,
   date,
@@ -26,6 +27,37 @@ const DaySlots = ({
   const [slotTime, setSlotTime] = useState();
 
   const { authToken } = useAuth();
+
+  const allBookedAppointments = localStorage.getItem("allBookedAppointments")
+
+  function isDisabled(slotTime) {
+    let dateText = date.toString();
+    let dateString = dateText.split(" GMT")[0];
+    // Create a new Date object with the date component from dateString
+    let combinedDate = new Date(dateString);
+    let [hours, minutes] = slotTime.split(":");
+    let ampm = minutes.split(" ")[1];
+    if (ampm === "PM" && hours !== "12") {
+      hours = parseInt(hours, 10) + 12;
+    } else if (ampm === "AM" && hours === "12") {
+      hours = "00";
+    }
+    minutes = minutes.slice(0, 2);
+    combinedDate.setHours(hours);
+    combinedDate.setMinutes(minutes);
+    combinedDate.setSeconds(0);
+    combinedDate.toLocaleString("en-US", { timeZone: "Africa/Cairo" });
+    return allBookedAppointments.includes(combinedDate.toISOString()); // DATABASE TIMEZONE
+  }
+
+  // const isAvailable = bookedSlots.findIndex((slot) => slot == slotDateTimeISO)
+  // if (isAvailable === -1) {
+  //     console.log("This slot is available for booking.");
+  // ALL GOOD
+  //   } else {
+  //     console.log("This slot is already booked.");
+  // MARK THIS SLOT AS BOOKED
+  //   }
 
   const config = {
     headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
@@ -70,15 +102,14 @@ const DaySlots = ({
     setNote(""); // Clear note
 
     // EXTRACT A DATETIME OBJECT
-    let dateText = date.toString()
+    let dateText = date.toString();
     let dateString = dateText.split(" GMT")[0];
 
     // Create a new Date object with the date component from dateString
     let combinedDate = new Date(dateString);
-    
 
     // Extract the hour and minute components from the time string
-    let selTime = localStorage.getItem("selectedSlot")
+    let selTime = localStorage.getItem("selectedSlot");
     let [hours, minutes] = selTime.split(":");
     let ampm = minutes.split(" ")[1];
     if (ampm === "PM" && hours !== "12") {
@@ -92,20 +123,20 @@ const DaySlots = ({
     combinedDate.setHours(hours);
     combinedDate.setMinutes(minutes);
     combinedDate.setSeconds(0);
-    combinedDate.toLocaleString('en-US', { timeZone: 'Africa/Cairo' })
+    combinedDate.toLocaleString("en-US", { timeZone: "Africa/Cairo" });
 
-    console.log("Doctor's ID being sent:", localStorage.getItem("doctorId")) // Debugging
-    console.log("Patient's ID being sent:", localStorage.getItem("patientId")) // Debugging
-    console.log("Type being sent:", note) // Debugging
-    console.log("the dateTime being sent:", combinedDate.toISOString()) // Debugging
+    console.log("Doctor's ID being sent:", localStorage.getItem("doctorId")); // Debugging
+    console.log("Patient's ID being sent:", localStorage.getItem("patientId")); // Debugging
+    console.log("Type being sent:", note); // Debugging
+    console.log("the dateTime being sent:", combinedDate.toISOString()); // Debugging
     try {
       const response = await axios.post(
         "http://localhost:5000/appointment",
         {
-          "doctorId": parseInt(localStorage.getItem("doctorId")), // to be passed down as a parameter
-          "patientId": parseInt(localStorage.getItem("patientId")), // from localStorage (TEMP)
-          "type": note,
-          "at": combinedDate.toISOString()
+          doctorId: parseInt(localStorage.getItem("doctorId")), // to be passed down as a parameter
+          patientId: parseInt(localStorage.getItem("patientId")), // from localStorage (TEMP)
+          type: note,
+          at: combinedDate.toISOString(),
         },
         config
       );
@@ -157,11 +188,12 @@ const DaySlots = ({
                   }}
                   onClick={(e) => {
                     // console.log("###*(#$^@(*^# YOU CLICKED:", e.target.textContent);
-                    localStorage.setItem("selectedSlot", e.target.textContent) // Attempted solution
+                    localStorage.setItem("selectedSlot", e.target.textContent); // Attempted solution
                     setSlotTime(e.target.textContent);
                     // console.log("slotTime = ", slotTime);
                     setModalOpen(true);
                   }}
+                  disabled={isDisabled(slot.time)}
                 >
                   {slot.time}
                 </Button>
