@@ -114,7 +114,10 @@ export const DoctorPage = () => {
       <CardContent>
         <Grid container spacing={0} my={2} padding={8}>
           <Grid item xs={2}>
+
             <Avatar src={profile} sx={{ width: 200, height: 200 }} />
+
+
           </Grid>
           <Grid item xs={10}>
             <Typography variant="h3" color="primary">
@@ -122,6 +125,9 @@ export const DoctorPage = () => {
             </Typography>
             <Typography variant="body2" fontSize={20}>
               Specialist in {doctor.specialization}
+            </Typography>
+            <Typography variant="body2" fontSize={20}>
+              Visit Fee: {doctor.visitFee} EGP
             </Typography>
             <Typography variant="body2" fontSize={20}>
               {location.id} {location.street}, {location.governorate}
@@ -141,6 +147,7 @@ export const DoctorPage = () => {
               </Typography>
             )}
 
+
             <Stack my={2}>
               <Rating
                 value={reviews.reduce((acc, val) => {
@@ -151,8 +158,17 @@ export const DoctorPage = () => {
               <Typography vatiant="subtitle2">
                 Overall rating from {reviews.length} visitors
               </Typography>
+              <Typography sx={{my: 1}} variant="body2" fontSize={20}>
+              Contact information
+            </Typography>
+              <Typography variant="subtitle">
+              Clinic's phone number: {doctor.phoneNumber}
+            </Typography>
+              <Typography variant="subtitle">
+              E-mail: {doctor.email}
+            </Typography>
             </Stack>
-
+              
             <Stack sx={{ my: 5 }}>
               <Typography variant="h4" sx={{ my: 2 }}>
                 Book an appointment
