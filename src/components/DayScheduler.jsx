@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
 import { useAuth } from "../AuthContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // Note: We are assuming a work day from 9 AM to 5 PM
 const DaySlots = ({
@@ -26,9 +27,11 @@ const DaySlots = ({
   const [note, setNote] = useState("");
   const [slotTime, setSlotTime] = useState();
 
+  const navigate = useNavigate();
+
   const { authToken } = useAuth();
 
-  let allBookedAppointments = localStorage.getItem("allBookedAppointments")
+  let allBookedAppointments = localStorage.getItem("allBookedAppointments");
 
   function isDisabled(slotTime) {
     let dateText = date.toString();
@@ -47,9 +50,12 @@ const DaySlots = ({
     combinedDate.setMinutes(minutes);
     combinedDate.setSeconds(0);
     combinedDate.toLocaleString("en-US", { timeZone: "Africa/Cairo" });
-    let now = new Date() // now
-    if(allBookedAppointments != null)
-    return allBookedAppointments.includes(combinedDate.toISOString()) || ((now > date) && (date.getDate() != now.getDate())); // DATABASE TIMEZONE
+    let now = new Date(); // now
+    if (allBookedAppointments != null)
+      return (
+        allBookedAppointments.includes(combinedDate.toISOString()) ||
+        (now > date && date.getDate() != now.getDate())
+      ); // DATABASE TIMEZONE
   }
 
   // const isAvailable = bookedSlots.findIndex((slot) => slot == slotDateTimeISO)
@@ -189,6 +195,14 @@ const DaySlots = ({
                     color: selectedSlot === slot.index ? "white" : undefined,
                   }}
                   onClick={(e) => {
+                    if (localStorage.getItem("isLoggedIn") === null) {
+                      alert(
+                        "You must be signed in to be able to book appointments.\nYou will be redirected to the Sign-in page."
+                      );
+                      navigate("/signin", { replace: true });
+                      return
+                    }
+
                     // console.log("###*(#$^@(*^# YOU CLICKED:", e.target.textContent);
                     localStorage.setItem("selectedSlot", e.target.textContent); // Attempted solution
                     setSlotTime(e.target.textContent);
