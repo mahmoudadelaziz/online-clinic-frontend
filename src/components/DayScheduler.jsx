@@ -48,6 +48,7 @@ const DaySlots = ({
     combinedDate.setSeconds(0);
     combinedDate.toLocaleString("en-US", { timeZone: "Africa/Cairo" });
     let now = new Date() // now
+    if(allBookedAppointments != null)
     return allBookedAppointments.includes(combinedDate.toISOString()) || ((now > date) && (date.getDate() != now.getDate())); // DATABASE TIMEZONE
   }
 
