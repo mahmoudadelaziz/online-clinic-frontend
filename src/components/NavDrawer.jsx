@@ -32,12 +32,12 @@ const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
         { title: "Signup", icon: "signup", route: "/signup" },
         { title: "Doctors", icon: "doctors", route: "/doctors" },
         {
-          title: "Register your Practice",
+          title: "Register your Clinic",
           icon: "doctors",
           route: "/doctor/signup",
         },
         {
-          title: "Login to your Practice",
+          title: "Login to your Clinic",
           icon: "doctors",
           route: "/doctor/login",
         },
