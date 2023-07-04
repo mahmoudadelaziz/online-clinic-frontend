@@ -28,7 +28,7 @@ const DaySlots = ({
 
   const { authToken } = useAuth();
 
-  const allBookedAppointments = localStorage.getItem("allBookedAppointments")
+  let allBookedAppointments = localStorage.getItem("allBookedAppointments")
 
   function isDisabled(slotTime) {
     let dateText = date.toString();
