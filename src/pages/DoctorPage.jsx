@@ -43,7 +43,7 @@ export const DoctorPage = () => {
     function getAllBookedTimeSlots() {
       let allBookedAppointments = [];
       axios
-        .get(`http://localhost:5000/appointment/doctor/${306}`)
+        .get(`http://localhost:5000/appointment/doctor/${id}`)
         .then((res) => {
           res.data.appointments.forEach((appointment) => {
             // console.log(appointment)
