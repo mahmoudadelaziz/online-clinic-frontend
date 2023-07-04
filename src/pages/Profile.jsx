@@ -88,7 +88,7 @@ const Profile = () => {
         `http://localhost:5000/appointment/patient`,
         config
       );
-      setPatientAppointments(response?.data?.appointments);
+      setPatientAppointments(response?.data?.appointments.sort((a, b) => new Date(b.at) - new Date(a.at)));
       console.log("DEBUGGING(LOOK HERE######):", response?.data?.appointments);
     };
     fetchPatientAppointments();
