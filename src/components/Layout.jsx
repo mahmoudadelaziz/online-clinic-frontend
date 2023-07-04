@@ -9,9 +9,15 @@ import { Typography } from "@mui/material";
 const Layout = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  const tes = () => {
+    console.log('22 => ', location.pathname === "/")
+  }
+
   const { userType } = useAuth();
+  console.log('er')
+  console.log(location.pathname === "/")
   return (
-    <>
+    <div>
       <NavDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
       <div className="main-content">
         <Navbar setDrawerOpen={setDrawerOpen} />
@@ -26,7 +32,7 @@ const Layout = () => {
           </Typography>
         )}
       </div>
-    </>
+    </div>
   );
 };
 export { Layout };

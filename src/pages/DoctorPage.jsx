@@ -8,7 +8,7 @@ import {
   Grid,
   Stack,
   Typography,
-  Rating,
+  Rating, CircularProgress, Box
 } from "@mui/material";
 import { Review } from "../components/Review";
 import { useEffect, useState } from "react";
@@ -75,6 +75,17 @@ export const DoctorPage = () => {
       fetchLocation();
     }
   }, [doctor.locationId]);
+
+  // Make Spinner until getting data from backend
+  if (!doctor.id) {
+    return (
+      <div align="center">
+        <Box sx={{ m: 45 }}>
+          <CircularProgress />
+        </Box>
+      </div>
+    )
+  }
 
   return (
     <Card>

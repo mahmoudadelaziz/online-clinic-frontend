@@ -8,10 +8,11 @@ import {
   Typography,
   Checkbox,
   Link,
-  Box,
+  Box, Alert
 } from "@mui/material";
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
+import { AlertTitle } from "@mui/lab";
 
 const formInitialState = {
   username: "",
@@ -84,8 +85,26 @@ function SignIn() {
       type: "password",
     },
   ];
+  const signupComplete = localStorage.getItem('signup-complete');
+  let successAlert
+  if (signupComplete) {
+    successAlert = (
+      <Box sx={{ mb: 2 }}>
+        <Alert severity="success">
+          <AlertTitle>Success</AlertTitle>
+          <strong>This is a success Signup!</strong>
+        </Alert>
+      </Box>
+    )
+
+    setTimeout(() => {
+      localStorage.removeItem('signup-complete')
+      successAlert = null
+    }, 7000)
+  }
   return (
     <Container maxWidth="sm" sx={{ mt: 10 }}>
+      { successAlert }
       <form onSubmit={handleSubmit}>
         <Typography
           variant="h2"

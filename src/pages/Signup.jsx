@@ -70,6 +70,7 @@ function SignUp() {
       }
       await axios.post(`/user/patient/signup`, user);
       console.log("Success! The user object sent to server: ", user); //debugging
+      localStorage.setItem('signup-complete', true);
       navigate('/signin', { replace: true }); // redirect to login page
     } catch (error) {
       console.log(error);

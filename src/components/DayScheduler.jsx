@@ -46,6 +46,16 @@ const DaySlots = ({
   ); // End of the work day (Assumed 5 pm)
 
   // NOTE: all these variables in the for loop's () are in milliseconds
+  let todayDate = new Date();
+  let dateIsToday = false;
+  if (
+    todayDate.getFullYear() === date.getFullYear() &&
+    todayDate.getMonth() === date.getMonth() &&
+    todayDate.getDate() === date.getDate()
+  ) {
+    dateIsToday = true;
+  }
+
   for (
     let i = dayStart.getTime();
     i < dayEnd.getTime();
@@ -56,7 +66,13 @@ const DaySlots = ({
       minute: "2-digit",
     }); // Using the time format (HH:MM AM/PM )
     const index = i / (slotDuration * 60 * 1000); // For the unique key in the list
-    rows.push({ time, index }); // Populating the array with time-index-pair objects
+
+    // Disable Past Hours
+    let disabled = false;
+    if (i < todayDate.getTime()) {
+      disabled = true;
+    }
+    rows.push({ time, index, disabled }); // Populating the array with time-index-pair objects
   }
 
   const handleCancelClick = () => {
@@ -158,6 +174,7 @@ const DaySlots = ({
                       selectedSlot === slot.index ? "green" : undefined,
                     color: selectedSlot === slot.index ? "white" : undefined,
                   }}
+                  disabled={slot.disabled}
                   onClick={(e) => {
                     // console.log("YOU CLICKED:", e.target.textContent);
                     localStorage.setItem("selectedSlot", e.target.textContent) // Attempted solution

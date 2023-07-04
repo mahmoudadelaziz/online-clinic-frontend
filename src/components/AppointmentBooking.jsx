@@ -15,7 +15,13 @@ const AppointmentBooking = ({
 
   // Going back and forth between dates
   const handleDateChange = (delta) => {
+    const todayDate = new Date();
     const newDate = new Date(date);
+    if (todayDate.getDate() === newDate.getDate() &&
+      todayDate.getDay() === newDate.getDay() &&
+      todayDate.getFullYear() === newDate.getFullYear() && delta < 0) {
+      return
+    }
     newDate.setDate(date.getDate() + delta);
     setDate(newDate);
   };

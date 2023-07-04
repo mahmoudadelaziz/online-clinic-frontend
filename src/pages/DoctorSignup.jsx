@@ -82,9 +82,16 @@ function DoctorSignUp() {
         return;
       }
 
-      await axios.post(`user/doctor/signup`, dataToSend);
-      console.log("(🔎 Debugging) Success! Body sent to server: ", dataToSend);
-      navigate('/doctor/login', { replace: true }); // redirect to login page
+      await axios.post(`user/doctor/signup`, dataToSend)
+        .then(result => {
+          console.log("Result =>> ", result.data);
+          console.log("(🔎 Debugging) Success! Body sent to server: ", dataToSend);
+          localStorage.setItem('doctor-signup-complete', true);
+          navigate('/doctor/login', { replace: true }); // redirect to login page
+        })
+        .catch(error => {
+          console.log('Error Result =>> ', error.message);
+        });
     } catch (error) {
       console.log(error);
       console.log("(🔎 DEBUGGING) ATTEMPTED message Body: ", dataToSend);

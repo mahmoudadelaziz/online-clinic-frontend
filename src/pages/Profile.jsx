@@ -8,6 +8,7 @@ import {
   Stack,
   TextField,
   Typography,
+  CircularProgress, Box
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -106,140 +107,152 @@ const Profile = () => {
     fetchPatientReviews();
   }, []);
 
+  // Make Spinner until getting data from backend
+  if (!patientData.id) {
+    return (
+      <div align="center">
+        <Box sx={{ m: 45 }}>
+          <CircularProgress />
+        </Box>
+      </div>
+    )
+  }
+
   return (
     <div align="center">
       <Card variant="outlined" sx={{ my: 5, mx: 20, p: 0.1, borderRadius: 10 }}>
-        <CardContent>
-          <Stack spacing={3} sx={{ width: "90%" }}>
-            <Typography variant="h3" align="center">
-              Your Profile
-            </Typography>
-            {!editMode ? (
-              <Stack spacing={1}>
-                <Typography variant="h5" align="center">
-                  {patientData.name}
-                </Typography>
-                <Typography variant="body1" align="center">
-                  Username: {patientData.username}
-                </Typography>
-                <Typography variant="body1" align="center">
-                  Date of birth:{" "}
-                  {new Date(patientData.dateOfBirth).toLocaleDateString(
-                    "en-GB"
-                  )}
-                </Typography>
-                <Typography variant="body2" align="center">
-                  E-mail: {patientData.email}
-                </Typography>
-                <Typography variant="body2" align="center">
-                  Phone Number: {patientData.phoneNumber}
-                </Typography>
-                <Typography variant="body1" align="center">
-                  Account ID: {patientData.id}
-                </Typography>
-                <Typography variant="body2" align="center">
-                  Account Created on {formattedCreatedAccountDate}
-                </Typography>
-                <Button variant="contained" onClick={handleEdit}>
-                  Edit Profile
-                </Button>
-              </Stack>
-            ) : (
-              <Stack spacing={1}>
-                <TextField
-                  name="name"
-                  value={patientData.name}
-                  onChange={handleChange}
-                  label="Name"
-                  fullWidth
-                  disabled
-                />
-                <TextField
-                  name="username"
-                  value={patientData.username}
-                  onChange={handleChange}
-                  label="Username"
-                  fullWidth
-                  disabled
-                />
-                <TextField
-                  name="email"
-                  value={patientData.email}
-                  onChange={handleChange}
-                  label="Email"
-                  fullWidth
-                />
-                <TextField
-                  name="phoneNumber"
-                  value={patientData.phoneNumber}
-                  onChange={handleChange}
-                  label="Phone Number"
-                  fullWidth
-                />
-                <Stack direction="row" spacing={2}>
-                  <Button variant="contained" onClick={handleSave}>
-                    Save Changes
-                  </Button>
-                  <Button variant="outlined" onClick={handleCancel}>
-                    Cancel
+          <CardContent>
+            <Stack spacing={3} sx={{ width: "90%" }}>
+              <Typography variant="h3" align="center">
+                Your Profile
+              </Typography>
+              {!editMode ? (
+                <Stack spacing={1}>
+                  <Typography variant="h5" align="center">
+                    {patientData.name}
+                  </Typography>
+                  <Typography variant="body1" align="center">
+                    Username: {patientData.username}
+                  </Typography>
+                  <Typography variant="body1" align="center">
+                    Date of birth:{" "}
+                    {new Date(patientData.dateOfBirth).toLocaleDateString(
+                      "en-GB"
+                    )}
+                  </Typography>
+                  <Typography variant="body2" align="center">
+                    E-mail: {patientData.email}
+                  </Typography>
+                  <Typography variant="body2" align="center">
+                    Phone Number: {patientData.phoneNumber}
+                  </Typography>
+                  <Typography variant="body1" align="center">
+                    Account ID: {patientData.id}
+                  </Typography>
+                  <Typography variant="body2" align="center">
+                    Account Created on {formattedCreatedAccountDate}
+                  </Typography>
+                  <Button variant="contained" onClick={handleEdit}>
+                    Edit Profile
                   </Button>
                 </Stack>
-              </Stack>
-            )}
-            <Divider />
-            <Stack spacing={3}>
-              <Typography variant="h5" align="center">
-                Your Appointments
-              </Typography>
-              {patientAppointments.length != 0 ? (
-                patientAppointments.map((Appointment) => {
-                  return (
-                    <Card key={Appointment.id} variant="outlined">
-                      <PatientAppointments
-                        AppointmentId={Appointment.id}
-                        AppointmentMessage={Appointment.type}
-                        AppointmentDate={Appointment.at} // DEBUGGING (LOOK HERE)
-                        DoctorId={Appointment.doctorId}
-                        PatientId={patientId}
-                      />
-                    </Card>
-                  );
-                })
               ) : (
-                <Typography variant="h6" sx={{ color: "red" }}>
-                  You have no appointments!
-                </Typography>
-              )}
-            </Stack>
-            <Divider />
-            <Stack spacing={3}>
-              <Typography variant="h5" align="center">
-                Your Reviews
-              </Typography>
-              {patientReviews.length != 0 ? (
-                patientReviews.map((REVIEW) => (
-                  <Stack
-                    key={REVIEW.id}
-                    sx={{
-                      border: 1,
-                      p: 1,
-                      borderRadius: 3,
-                    }}
-                  >
-                    <Review REVIEW={REVIEW} />
+                <Stack spacing={1}>
+                  <TextField
+                    name="name"
+                    value={patientData.name}
+                    onChange={handleChange}
+                    label="Name"
+                    fullWidth
+                    disabled
+                  />
+                  <TextField
+                    name="username"
+                    value={patientData.username}
+                    onChange={handleChange}
+                    label="Username"
+                    fullWidth
+                    disabled
+                  />
+                  <TextField
+                    name="email"
+                    value={patientData.email}
+                    onChange={handleChange}
+                    label="Email"
+                    fullWidth
+                  />
+                  <TextField
+                    name="phoneNumber"
+                    value={patientData.phoneNumber}
+                    onChange={handleChange}
+                    label="Phone Number"
+                    fullWidth
+                  />
+                  <Stack direction="row" spacing={2}>
+                    <Button variant="contained" onClick={handleSave}>
+                      Save Changes
+                    </Button>
+                    <Button variant="outlined" onClick={handleCancel}>
+                      Cancel
+                    </Button>
                   </Stack>
-                ))
-              ) : (
-                <Typography variant="h6" sx={{ color: "red" }}>
-                  You have no reviews!
-                </Typography>
+                </Stack>
               )}
+              <Divider />
+              <Stack spacing={3}>
+                <Typography variant="h5" align="center">
+                  Your Appointments
+                </Typography>
+                {patientAppointments.length != 0 ? (
+                  patientAppointments.map((Appointment) => {
+                    return (
+                      <Card key={Appointment.id} variant="outlined">
+                        <PatientAppointments
+                          AppointmentId={Appointment.id}
+                          AppointmentMessage={Appointment.type}
+                          AppointmentDate={Appointment.at}  // DEBUGGING (LOOK HERE)
+                          DoctorId={Appointment.doctorId}
+                          PatientId={patientId}
+                        />
+                      </Card>
+                    );
+                  })
+                ) : (
+                  <Typography variant="h6" sx={{ color: "red" }}>
+                    You have no appointments!
+                  </Typography>
+                )}
+              </Stack>
+              <Divider />
+              <Stack spacing={3}>
+                <Typography variant="h5" align="center">
+                  Your Reviews
+                </Typography>
+                {patientReviews.length != 0 ? (
+                  patientReviews.map((REVIEW) => (
+                    <Stack
+                      key={REVIEW.id}
+                      sx={{
+                        border: 1,
+                        p: 1,
+                        borderRadius: 3,
+                      }}
+                    >
+                      <Review REVIEW={REVIEW} />
+                    </Stack>
+                  ))
+                ) : (
+                  <Typography variant="h6" sx={{ color: "red" }}>
+                    You have no reviews!
+                  </Typography>
+                )}
+              </Stack>
             </Stack>
-          </Stack>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
     </div>
   );
 };
 
 export { Profile };
+// !patientData.id
