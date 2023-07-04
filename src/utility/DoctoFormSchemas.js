@@ -97,7 +97,7 @@ const workingHoursEndSchema = Joi.required().error((errors) => {
   });
   return errors;
 });
-const locationIDSchema = Joi.string().error((errors) => {
+const locationIDSchema = Joi.number().error((errors) => {
   errors.forEach((error) => {
     error.message = "Invalid input";
   });

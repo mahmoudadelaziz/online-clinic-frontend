@@ -2,9 +2,12 @@ import axios from "../utility/axios";
 import React, { useState } from "react";
 import { doctorSignupSchema } from "../utility/DoctoFormSchemas";
 import { FormInputList } from "../components";
+import { locations } from "../OurLocations";
 import {
   Container,
   Link,
+  Select,
+  MenuItem,
   Typography,
   Button,
   Radio,
@@ -47,24 +50,30 @@ const errorsInitialState = {
 function DoctorSignUp() {
   const [doctor, setDoctor] = useState(formInitialState);
   const [errors, setErrors] = useState(errorsInitialState);
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     setDoctor({ ...doctor, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
   };
+
   const handleGenderChange = (e) => {
     setDoctor({ ...doctor, gender: e.target.value });
   };
+
+  const handleLocationChange = (e) => {
+    setDoctor({ ...doctor, locationId: e.target.value }); // Change the value, you want just the ID # URGENT
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const visitFeeFieldValue = parseInt(doctor["visitFee"], 10);
-    const locationIdFieldValue = parseInt(doctor["locationId"], 10);
+    // const locationIdFieldValue = parseInt(doctor["locationId"], 10);
 
     const dataToSend = {
       ...doctor,
       ["visitFee"]: visitFeeFieldValue,
-      ["locationId"]: locationIdFieldValue,
+      // ["locationId"]: locationIdFieldValue,
     };
 
     try {
@@ -77,14 +86,17 @@ function DoctorSignUp() {
           errors[error.context.key] = error.message;
         });
         setErrors(errors);
-        console.log("(🔎 DEBUGGING) HERE! ATTEMPTED message Body: ", dataToSend);
+        console.log(
+          "(🔎 DEBUGGING) HERE! ATTEMPTED message Body: ",
+          dataToSend
+        );
         console.log("(🔎 DEBUGGING) HERE! ERROR: ", errors);
         return;
       }
 
       await axios.post(`user/doctor/signup`, dataToSend);
       console.log("(🔎 Debugging) Success! Body sent to server: ", dataToSend);
-      navigate('/doctor/login', { replace: true }); // redirect to login page
+      navigate("/doctor/login", { replace: true }); // redirect to login page
     } catch (error) {
       console.log(error);
       console.log("(🔎 DEBUGGING) ATTEMPTED message Body: ", dataToSend);
@@ -161,13 +173,13 @@ function DoctorSignUp() {
       onChange: handleInputChange,
       type: "text",
     },
-    {
-      placeholder: "Location ID",
-      value: doctor.locationId,
-      name: "locationId",
-      onChange: handleInputChange,
-      type: "number",
-    },
+    // {
+    //   placeholder: "Location ID",
+    //   value: doctor.locationId,
+    //   name: "locationId",
+    //   onChange: handleInputChange,
+    //   type: "number",
+    // },
   ];
   return (
     <Container maxWidth="sm" sx={{ mt: 10 }}>
@@ -193,6 +205,31 @@ function DoctorSignUp() {
           errors={errors}
           changeHandler={handleInputChange}
         />
+        {/* LOCAITON SELECTION */}
+        <FormControl fullWidth sx={{ my: 2 }}>
+          <Typography variant="subtitle1" align="left" gutterBottom>
+            Location:
+          </Typography>
+          <Select
+            name="locationId"
+            value={doctor.locationId.toString()}
+            onChange={handleLocationChange}
+          >
+            {locations.map((loc) => {
+              return (
+                <MenuItem
+                  key={locations.indexOf(loc)}
+                  value={locations.indexOf(loc) + 1}
+                >
+                  {loc.street}, {loc.governorate}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+
+        {/* LOCAITON SELECTION */}
+
         <FormControl component="fieldset" sx={{ my: 2 }}>
           <Typography variant="subtitle1" color="primary" fontWeight="bold">
             Gender
