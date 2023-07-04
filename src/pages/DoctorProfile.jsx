@@ -22,6 +22,7 @@ export const DoctorProfile = () => {
   const [doctorData, setDoctorData] = useState({});
   const [doctorId, setDoctorId] = useState(0);
   const [doctorAppointments, setDoctorAppointments] = useState([]);
+  const [location, setLocation] = useState([]);
   const [doctorReviews, setDoctorReviews] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -91,12 +92,38 @@ export const DoctorProfile = () => {
       const response = await axios.get(
         `http://localhost:5000/appointment/doctor/${doctorId}`
       );
-      setDoctorAppointments(response?.data?.appointments.sort((a, b) => new Date(b.at) - new Date(a.at)));
+      setDoctorAppointments(
+        response?.data?.appointments.sort(
+          (a, b) => new Date(b.at) - new Date(a.at)
+        )
+      );
       console.log("$##!@ YOUR APPOINTMENTS:", response?.data?.appointments);
-      
     };
     fetchDoctorAppointments();
   }, [doctorId]); // edited
+
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        const {
+          data: { location },
+        } = await axios.get(
+          `http://localhost:5000/location/${doctorData?.locationId}`
+        );
+        setLocation(location);
+        console.log(location);
+      } catch (error) {
+        console.log(
+          "(🔍🔍🔍 Debugging) Doctor's locationId: ",
+          doctorData.locationId
+        );
+        console.log(error.message);
+      }
+    };
+    if (doctorData.locationId) {
+      fetchLocation();
+    }
+  }, [doctorData.locationId]);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -181,7 +208,10 @@ export const DoctorProfile = () => {
                     </strong>
                   </Typography>
                   <Typography sx={{ fontSize: 20 }} variant="subtitle1">
-                    Location ID: <strong>{doctorData.locationId}</strong>
+                    Location:{" "}
+                    <strong>
+                      {location.street}, {location.governorate}
+                    </strong>
                   </Typography>
                 </Box>
               ) : (
