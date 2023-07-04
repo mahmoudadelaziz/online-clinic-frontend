@@ -195,7 +195,7 @@ const DaySlots = ({
                     color: selectedSlot === slot.index ? "white" : undefined,
                   }}
                   onClick={(e) => {
-                    if (localStorage.getItem("isLoggedIn") === null) {
+                    if (localStorage.getItem("IsLoggedIn") === null) {
                       alert(
                         "You must be signed in to be able to book appointments.\nYou will be redirected to the Sign-in page."
                       );
