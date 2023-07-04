@@ -91,11 +91,12 @@ export const DoctorProfile = () => {
       const response = await axios.get(
         `http://localhost:5000/appointment/doctor/${doctorId}`
       );
-      setDoctorAppointments(response?.data?.appointments);
+      setDoctorAppointments(response?.data?.appointments.sort((a, b) => new Date(b.at) - new Date(a.at)));
       console.log("$##!@ YOUR APPOINTMENTS:", response?.data?.appointments);
+      
     };
     fetchDoctorAppointments();
-  }, []);
+  }, [doctorId]); // edited
 
   const handleEditClick = () => {
     setIsEditing(true);

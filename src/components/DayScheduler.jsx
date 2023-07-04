@@ -47,7 +47,8 @@ const DaySlots = ({
     combinedDate.setMinutes(minutes);
     combinedDate.setSeconds(0);
     combinedDate.toLocaleString("en-US", { timeZone: "Africa/Cairo" });
-    return allBookedAppointments.includes(combinedDate.toISOString()); // DATABASE TIMEZONE
+    let now = new Date() // now
+    return allBookedAppointments.includes(combinedDate.toISOString()) || ((now > date) && (date.getDate() != now.getDate())); // DATABASE TIMEZONE
   }
 
   // const isAvailable = bookedSlots.findIndex((slot) => slot == slotDateTimeISO)
