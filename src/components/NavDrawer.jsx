@@ -1,25 +1,48 @@
 import { Drawer, List } from "@mui/material";
 import { NavItem } from "./NavItem";
+import { useAuth } from "../AuthContext";
 
 const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
-  const NavItems =
-[
+  const { setUserType, SetAuthUser, isLoggedIn, SetIsLoggedIn } = useAuth();
+
+  const handleLogout = () => {
+    // Perform the logout functionality (Clear up the localStorage and the global context state vars)
+    console.log("Logging out...")
+    SetAuthUser(null);
+    setUserType("");
+    SetIsLoggedIn(false);
+    localStorage.clear();
+  };
+
+  const NavItems = isLoggedIn
+    ? [
+        { title: "Home", icon: "home", route: "/" },
+        { title: "Doctors", icon: "doctors", route: "/doctors" },
+        { title: "Profile", icon: "profile", route: "/profile" },
+        {
+          title: "Log out",
+          icon: "logout",
+          onClick: handleLogout,
+          route: "/" // Because logging out gets you to homepage
+        },
+      ]
+    : [
         { title: "Home", icon: "home", route: "/" },
         { title: "Login", icon: "login", route: "/signin" },
         { title: "Signup", icon: "signup", route: "/signup" },
         { title: "Doctors", icon: "doctors", route: "/doctors" },
         {
-          title: "Register your Practice",
+          title: "Register your Clinic",
           icon: "doctors",
           route: "/doctor/signup",
         },
         {
-          title: "Login to your Practice",
+          title: "Login to your Clinic",
           icon: "doctors",
           route: "/doctor/login",
         },
-        { title: "Doctor's Profile", icon: "profile", route: "/profile" },
-      ]
+      ];
+
   return (
     <Drawer
       anchor="left"
@@ -34,6 +57,7 @@ const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
             icon={item.icon}
             text={item.title}
             route={item.route}
+            onClick={item.onClick}
             setDrawerOpen={setDrawerOpen}
           />
         ))}
@@ -41,4 +65,5 @@ const NavDrawer = ({ drawerOpen, setDrawerOpen }) => {
     </Drawer>
   );
 };
+
 export { NavDrawer };

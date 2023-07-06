@@ -17,9 +17,43 @@ import { AppointmentBooking } from "../components/AppointmentBooking";
 
 export const DoctorPage = () => {
   const { id } = useParams();
+  localStorage.setItem("doctorId", id);
   const [doctor, setDoctor] = useState({});
   const [location, setLocation] = useState({});
   const [reviews, setReviews] = useState([]);
+
+  //   bookedSlots: from http://localhost:5000/appointment/doctor/${doctorId}
+  // const bookedSlots = [];
+  // appArr.forEach((obj) => {
+  //     bookedSlots.push(obj["at"]);
+  //   });
+
+  // function getAllBookedTimeSlots() {
+  //   let allBookedAppointments = [];
+  //   axios.get(`http://localhost:5000/appointment/doctor/${306}`).then((res) => {
+  //     res.data.appointments.forEach((appointment) => {
+  //       // console.log(appointment)
+  //       allBookedAppointments.push(appointment.at);
+  //     });
+  //     localStorage.setItem("allBookedAppointments", allBookedAppointments);
+  //   });
+  // }
+
+  useEffect(() => {
+    function getAllBookedTimeSlots() {
+      let allBookedAppointments = [];
+      axios
+        .get(`http://localhost:5000/appointment/doctor/${id}`)
+        .then((res) => {
+          res.data.appointments.forEach((appointment) => {
+            // console.log(appointment)
+            allBookedAppointments.push(appointment.at);
+          });
+          localStorage.setItem("allBookedAppointments", allBookedAppointments);
+        });
+    }
+    getAllBookedTimeSlots();
+  }, []);
 
   useEffect(() => {
     const fetchDoctor = async () => {
@@ -42,7 +76,7 @@ export const DoctorPage = () => {
       try {
         const {
           data: { reviews },
-        } = await axios.get(`/review/${id}`);
+        } = await axios.get(`http://localhost:5000/review/doctor/${id}`);
         // console.log("(🔍 Debugging) The reviews fetched: ", reviews); // Debugging
         setReviews(reviews);
       } catch (error) {
@@ -80,7 +114,10 @@ export const DoctorPage = () => {
       <CardContent>
         <Grid container spacing={0} my={2} padding={8}>
           <Grid item xs={2}>
+
             <Avatar src={profile} sx={{ width: 200, height: 200 }} />
+
+
           </Grid>
           <Grid item xs={10}>
             <Typography variant="h3" color="primary">
@@ -88,6 +125,9 @@ export const DoctorPage = () => {
             </Typography>
             <Typography variant="body2" fontSize={20}>
               Specialist in {doctor.specialization}
+            </Typography>
+            <Typography variant="body2" fontSize={20}>
+              Visit Fee: {doctor.visitFee} EGP
             </Typography>
             <Typography variant="body2" fontSize={20}>
               {location.id} {location.street}, {location.governorate}
@@ -107,6 +147,7 @@ export const DoctorPage = () => {
               </Typography>
             )}
 
+
             <Stack my={2}>
               <Rating
                 value={reviews.reduce((acc, val) => {
@@ -117,13 +158,24 @@ export const DoctorPage = () => {
               <Typography vatiant="subtitle2">
                 Overall rating from {reviews.length} visitors
               </Typography>
+              <Typography sx={{my: 1}} variant="body2" fontSize={20}>
+              Contact information
+            </Typography>
+              <Typography variant="subtitle">
+              Clinic's phone number: {doctor.phoneNumber}
+            </Typography>
+              <Typography variant="subtitle">
+              E-mail: {doctor.email}
+            </Typography>
             </Stack>
-
+              
             <Stack sx={{ my: 5 }}>
               <Typography variant="h4" sx={{ my: 2 }}>
                 Book an appointment
               </Typography>
               <AppointmentBooking
+                // ADD THE BOOKED SLOTS HERE
+                doctorId={id}
                 workingHoursStart={parseInt(doctor.workingHoursStart)}
                 workingHoursEnd={parseInt(doctor.workingHoursEnd)}
               />

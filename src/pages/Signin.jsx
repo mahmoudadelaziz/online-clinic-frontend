@@ -10,6 +10,8 @@ import {
   Link,
   Box,
 } from "@mui/material";
+import { useAuth } from "../AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const formInitialState = {
   username: "",
@@ -22,6 +24,9 @@ const errorsInitialState = {
 function SignIn() {
   const [errors, setErrors] = useState(errorsInitialState);
   const [user, setUser] = useState(formInitialState);
+  const navigate = useNavigate()
+
+  const { setUserType, authUser, SetAuthUser, isLoggedIn, SetIsLoggedIn, authToken, setAuthToken } = useAuth(); 
 
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -43,12 +48,23 @@ function SignIn() {
         return;
       }
       const response = await axios.post(`/user/patient/login`, user);
-      navigate("/");
+      console.log(response?.data?.token)
+      setAuthToken(response?.data?.token)
+      SetIsLoggedIn(true)
+      SetAuthUser(user?.username)
+      setUserType("Patient")
+      localStorage.setItem("IsLoggedIn", true);
+      localStorage.setItem("authToken", response?.data?.token);
+      localStorage.setItem("User", user?.username);
+      localStorage.setItem("userType", "Patient");
       console.log("(🔎 Debugging) Successfully Logged in with: ", user);
+      // window.location.replace('/');
+      navigate('/', { replace: true });
 
     } catch (error) {
       console.log(error);
       console.log("(🔎 Debugging) MESSAGE SENT: ", user)
+      setErrors({ ...errors, username: "Invalid username or password" , password: "Invalid username or password" });
     }
   };
 

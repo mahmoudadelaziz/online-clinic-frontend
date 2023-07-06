@@ -32,12 +32,12 @@ export const DoctorInfo = ({ doctor }) => {
               ({doctor.reviews.length} Reviews)
             </Typography>
           </Stack>
-          <Typography variant="body1" color="primary" sx={{ mt: 2 }}>
+          {/* <Typography variant="body1" color="primary" sx={{ mt: 2 }}>
             Next Available
           </Typography>
           <Typography variant="caption" color="grey">
             10:00 AM - 11:00 AM
-          </Typography>
+          </Typography> */}
           <Button variant="contained" color="primary" sx={{ mt: 2 }}>
             <Link to={`/doctors/${doctor.id}`}>Book Now</Link>
           </Button>
